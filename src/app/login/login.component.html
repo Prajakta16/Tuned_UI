@@ -1,0 +1,24 @@
+<form>
+  <div class="form-group">
+    <label for="loginUName">Username</label>
+    <input type="text" class="form-control" id="loginUName" name="username" required
+    [(ngModel)]="login.username" aria-describedby="emailHelp" #username="ngModel">
+    <div *ngIf="username.invalid && (username.dirty || username.touched)"
+      class="alert alert-light">
+      <div *ngIf="username.errors.required">
+        Username is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="loginPassword">Password</label>
+    <input type="password" class="form-control" name = "password" #password="ngModel"
+    [(ngModel)]="login.password" id="loginPassword" required>
+    <div *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="alert alert-light">
+        <div *ngIf="password.errors.required">
+          Password is required.
+        </div>
+      </div>
+  </div>
+</form>

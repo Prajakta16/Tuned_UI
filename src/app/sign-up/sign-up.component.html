@@ -1,0 +1,111 @@
+<form #signUpForm="ngForm" >
+    <div class="form-group">
+      <label for="signupFName">First Name</label>
+      <input type="text" class="form-control" id="signupFName" name="fname" #fname="ngModel"
+        [(ngModel)]="signup.fname" aria-describedby="emailHelp" required>
+        <div *ngIf="fname.invalid && (fname.dirty || fname.touched)"
+          class="alert alert-light">
+          <div *ngIf="fname.errors.required">
+            First Name is required.
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="signupLName">Last Name</label>
+        <input type="text" class="form-control" id="signupLName" name="lname" #lname="ngModel"
+         [(ngModel)]="signup.lname" aria-describedby="emailHelp" required>
+        <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
+          class="alert alert-light">
+          <div *ngIf="lname.errors.required">
+            Last Name is required.
+          </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="signupGender" class="col-form-label col-sm-2 pt-0">Gender</label>
+        <div class="col-sm-10" >
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="gender" id="signupGender1" 
+                [(ngModel)]="signup.gender" value="male" checked #gender="ngModel" required>
+              <label class="form-check-label" for="signupGender1">
+                Male
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="gender" id="signupGender2" 
+              [(ngModel)]="signup.gender" value="female"  #gender="ngModel" required>
+              <label class="form-check-label" for="signupGender2">
+                Female
+              </label>
+            </div>
+        </div>
+        <div class="col-sm-2 pt-0"></div>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+          class="alert alert-light col-sm-10">
+          <div *ngIf="gender.errors.required">
+            Gender is required.
+          </div>
+        </div>
+          
+    </div>
+    <div class="form-group row"  data-provide="datepicker">
+        <label for="signUpDOB" class="col-form-label col-sm-3 pt-0">Date of Birth</label>
+        <div class="col-sm-9 input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" placement="bottom-right"
+             name="dp" [(ngModel)]="signup.dob" ngbDatepicker #d="ngbDatepicker" required
+             #dob = "ngModel">
+             <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
+          class="alert alert-light col-sm-9 ">
+         
+            Date of Birth is required.
+          
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="signupAs">Sign Up As</label>
+        <select class="form-control" id="signupAs" [(ngModel)]="signup.userType" 
+        name="userType" #usertype="ngModel" required>
+            <option>Artist</option>
+            <option>Listener</option>
+        </select>
+        <div *ngIf="usertype.invalid && (usertype.dirty || usertype.touched)"
+          class="alert alert-light">
+          <div *ngIf="usertype.errors.required">
+            User Type is required.
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="signupUName">Username</label>
+        <input type="text" class="form-control" id="signupUName" name="username" required
+        [(ngModel)]="signup.username" aria-describedby="emailHelp" #username="ngModel">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)"
+          class="alert alert-light">
+          <div *ngIf="username.errors.required">
+            Username is required.
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="signupPassword">Password</label>
+      <input type="password" class="form-control" name = "password" #password="ngModel"
+      [(ngModel)]="signup.password" id="signupPassword" required>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-light">
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="signupPasswordConf">Confirm Password</label>
+        <input type="password" class="form-control" [(ngModel)]="signup.passwordConf" 
+         id="signupPasswordConf" name = "passwordConf">
+    </div>
+</form>
