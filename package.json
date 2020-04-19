@@ -31,7 +31,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "@types/gijgo": "^1.9.1",
-    "angular-bootstrap-datetimepicker": "^4.0.2",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
