@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SessionHomeComponent implements OnInit {
 
+  searchKey = "";
   constructor() { }
 
   ngOnInit(): void {

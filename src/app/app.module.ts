@@ -18,7 +18,7 @@ import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { CommentsComponent } from './comments/comments.component';
-
+import { HttpClientModule }    from '@angular/common/http';
 
 
 @NgModule({
@@ -43,7 +43,8 @@ import { CommentsComponent } from './comments/comments.component';
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

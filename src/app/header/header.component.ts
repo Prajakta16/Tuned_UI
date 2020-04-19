@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataServiceService } from '../data-service.service';
+import { Observable, of } from 'rxjs';
 
 interface FormElement {
-  dob: NgbDateStruct;
-  fname : String;
-  lname : String;
+  first_name : String;
+  last_name : String;
   username : String;
   password : String;
-  gender : String;
-  userType : String;
-  passwordConf : String;
+  phone : String;
+  address : String;
+  passwordConf? : String;
 }
 
 interface LoginForm {
@@ -28,16 +28,17 @@ export class HeaderComponent implements OnInit {
 
   @Input("loggedIn") loggedIn;
   @Input("showUsername") userName : String;
+  @Input("searchKey") searchKey;
+  
 
   signupform : FormElement = {
-    dob: {year: null, month:null, day:null},
-    fname : "",
-    lname : "",
+    first_name : "",
+    last_name : "",
     username : "",
     password : "",
-    gender : "",
-    userType : "",
-    passwordConf : ""
+    phone : "",
+    address : "",
+    //passwordConf : ""
   };
 
   login : LoginForm = {
@@ -47,14 +48,22 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dataservice : DataServiceService
   ) { }
 
   ngOnInit(): void {
+
+    this.getAllArtists();
   }
 
   register(){
+
+    debugger
     console.log(this.signupform);
+    this.dataservice.addNewUser(this.signupform);
+    
+    
   }
 
   logging(){
@@ -70,5 +79,12 @@ export class HeaderComponent implements OnInit {
 
   setValues(){
     
+  }
+
+  getAllArtists(){
+    let artists = this.dataservice.getAllArtists().subscribe(v=>{
+      debugger
+      console.log(v);
+    });
   }
 }

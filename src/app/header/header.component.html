@@ -7,7 +7,8 @@
         
         <div class="nav-item search-box" >
           <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="searchKey" [ngModel]="searchKey"
+             placeholder="Search" aria-label="Search">
             <select class="form-control" id="searchType" name="searchType" required>
               <option>Songs</option>
               <option>Artists</option>

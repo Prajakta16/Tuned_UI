@@ -1,5 +1,6 @@
-<app-header [loggedIn]="true" [showUsername]="'Aishwarya'"></app-header>
-<div style="margin:20px">
+<app-header [loggedIn]="true" [showUsername]="'Aishwarya'" [searchKey]="searchKey"></app-header>
+
+<div style="margin:20px" *ngIf="!searchKey">
     <div class="card-deck">
         <div class="card">
             <img src="../../assets/images/listener-home/casette.jpg" class="card-img-top" alt="...">
@@ -44,5 +45,10 @@
         
     </div>
       
+</div>
+
+{{searchKey}}
+<div style="margin:20px" *ngIf="searchKey" >
+
 </div>
 
