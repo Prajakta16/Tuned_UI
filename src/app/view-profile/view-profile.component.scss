@@ -177,3 +177,42 @@ body{
     border-color: #639aab;
     box-shadow: none;
 }
+
+
+//for modal
+
+.modal-footer {
+    justify-content: center;
+}
+.category-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    color: black
+}
+
+.category-body{
+    background: white;
+    color: black;
+}
+
+.table{
+    color: whitesmoke;
+}
+
+.table-hover tbody tr:hover {
+    color: whitesmoke;
+    background-color: #212529;
+}
+
+.card-img-top {
+    margin: 15px;
+}
+
+.songsByCategory{
+    width: 100%;
+}
