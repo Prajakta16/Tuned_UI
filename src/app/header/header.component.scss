@@ -7,6 +7,14 @@
 }
 
 .search-box{
-    margin-left: 18rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25rem;
     width: 25rem;
+}
+
+input[type=search]:focus {
+    width: 360px;
+    margin-left: -10rem;
+	
 }

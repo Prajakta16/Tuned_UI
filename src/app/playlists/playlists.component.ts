@@ -14,12 +14,340 @@ export class PlaylistsComponent implements OnInit {
       name : "Lorem",
       artist : "Aishwarya",
       music : "chauhan",
-      random : "ipsum"
+      random : "ipsum",
+      likesNum : 100,
+      commentsNum : 11,
+      comments : "comment1001"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum"
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
+      },
+      {
+        id : 1001,
+        name : "Lorem",
+        artist : "Aishwarya",
+        music : "chauhan",
+        random : "ipsum",
+        likesNum : 100
       }
     
   ]
 
+  playlistName = "p1";
+
   playlists = [
+    {name : "p1", id : 1},
+    {name : "p2", id : 2},
+    {name : "p3", id : 3},
+    {name : "p4", id : 4},
+    {name : "p1", id : 1},
+    {name : "p2", id : 2},
+    {name : "p3", id : 3},
+    {name : "p4", id : 4},
+    {name : "p1", id : 1},
+    {name : "p2", id : 2},
+    {name : "p3", id : 3},
+    {name : "p4", id : 4},
+    {name : "p1", id : 1},
+    {name : "p2", id : 2},
+    {name : "p3", id : 3},
+    {name : "p4", id : 4},
     {name : "p1", id : 1},
     {name : "p2", id : 2},
     {name : "p3", id : 3},
@@ -28,6 +356,20 @@ export class PlaylistsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  updateSong(id : Number){
+    this.songsData = [
+      {
+        id : 2222,
+        name : "Lorem",
+        artist : "P@P@",
+        music : "fewwgw",
+        random : "ipsum"
+      },
+    ]
+
   }
 
 }

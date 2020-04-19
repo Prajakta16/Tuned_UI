@@ -6,6 +6,7 @@ import {FavoritesComponent} from './favorites/favorites.component';
 import {PeopleComponent} from './people/people.component';
 import {PlaylistsComponent} from './playlists/playlists.component';
 import {ExploreComponent} from './explore/explore.component';
+import {ViewProfileComponent} from './view-profile/view-profile.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'favorites', component: FavoritesComponent },
   { path: 'people', component: PeopleComponent },
   { path: 'playlists', component: PlaylistsComponent },
-  { path: 'explore', component: ExploreComponent }
+  { path: 'explore', component: ExploreComponent },
+  { path : 'profile', component : ViewProfileComponent}
   
 ];
 

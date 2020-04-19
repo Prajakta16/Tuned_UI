@@ -1,0 +1,47 @@
+.side-bar-header{
+    font-size: 20px;
+}
+
+a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    cursor: pointer;
+  }
+a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar{
+    overflow: auto;
+    
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+ 
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #dee2e6;
+    border-radius: 1px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #979ba1; 
+  }
+
+  .main-content{
+    overflow: auto;
+   
+}
+
+.row{
+    height: 90vh;
+    flex-wrap: unset;
+}

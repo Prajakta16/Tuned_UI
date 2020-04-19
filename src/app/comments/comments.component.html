@@ -1,0 +1,29 @@
+<div class="">
+    <ul class="list-group">
+        <li class="list-group-item list-override" *ngFor = "let comment of comments;">
+            <div class="comment-content">
+                <div>
+                    {{comment.message}}
+                </div>
+                <div>
+                    {{comment.time}} days ago
+                </div>
+            </div>
+            <div class="user-name">
+                {{comment.user}} 
+            </div>
+        </li>
+      </ul>
+    <div>
+        <form>
+            <div class="form-group">
+              <label for="plName">Add Comment</label>
+              <textarea class="form-control" id="comName" name="comName" required
+              [(ngModel)]="newComment"  ></textarea>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

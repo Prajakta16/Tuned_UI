@@ -1,0 +1,32 @@
+.category-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header {
+    background-color: rgba(41, 46, 50, 0.91);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    color: white;
+}
+
+.category-body{
+    background: #020203de;
+    color: white;
+}
+
+.table{
+    color: whitesmoke;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: whitesmoke;
+}
+
+.card-img-top {
+    margin: 15px;
+}
+
+.songsByCategory{
+    width: 100%;
+}

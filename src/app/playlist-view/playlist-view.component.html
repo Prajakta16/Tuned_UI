@@ -1,22 +1,15 @@
 
 
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-      </div>
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-        <span data-feather="calendar"></span>
-        This week
-      </button>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap 
+  align-items-center pt-3  mb-2">
+    <h1 class="h2">{{heading}}</h1>
+    <div class="btn-toolbar mb-2 mb-md-12 button-cont">
+      <button type="button" class="btn btn-sm btn-outline-secondary button-area" data-toggle="modal" 
+        data-target="#newPlaylistModal">+ ADD</button>
     </div>
   </div>
-
-  <h2>Section title</h2>
   <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>#</th>
@@ -27,15 +20,91 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor = "let song of data;">
+        <tr *ngFor = "let song of data; index as i;" id="p{{i}}">
           <td>{{song.id}}</td>
           <td>{{song.name}}</td>
           <td>{{song.artist}}</td>
           <td>{{song.music}}</td>
-          <td>{{song.random}}</td>
+          <td>
+            <button type="button" class="btn btn-default" (click)="setFavoriteSong(song)">
+              <fa-icon [icon]="song.favorite"></fa-icon>
+            </button> 
+            <button type="button" class="btn btn-default" (click)="likeSong(song)">
+              <span class="badge badge-light">{{song.likesNum}}</span>
+              <fa-icon [icon]="song.like"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-default"
+            data-toggle="modal" data-target="#commentsModal">
+              <span class="badge badge-light">{{song.commentsNum}}</span>
+              <fa-icon [icon]="faComment"></fa-icon>
+            </button> 
+          </td>
+          
+          
         </tr>
+        
         
         
       </tbody>
     </table>
   </div>
+
+  <!-- For adding new playlist -->
+  <div class="modal fade " id="newPlaylistModal" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="newPlaylistModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newPlaylistModalLabel">Add New Playlist</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="plName">Playlist Name</label>
+              <input type="text" class="form-control" id="plName" name="plName" required
+              [(ngModel)]="playlistName" aria-describedby="emailHelp" #plName="ngModel">
+              <div *ngIf="plName.invalid && (plName.dirty || plName.touched)"
+                class="alert alert-light">
+                <div *ngIf="plName.errors.required">
+                  Playlist name is required.
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+          data-dismiss="modal">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- For Viewing / Adding comments  -->
+  <div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="commentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="commentsModalLabel">Comments</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-comments [comments]="comments"></app-comments>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+          data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

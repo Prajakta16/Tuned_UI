@@ -15,6 +15,11 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { PeopleComponent } from './people/people.component';
 import { ExploreComponent } from './explore/explore.component';
 import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { CommentsComponent } from './comments/comments.component';
+
+
 
 @NgModule({
   declarations: [
@@ -29,13 +34,16 @@ import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
     FavoritesComponent,
     PeopleComponent,
     ExploreComponent,
-    PlaylistViewComponent
+    PlaylistViewComponent,
+    ViewProfileComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

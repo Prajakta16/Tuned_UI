@@ -1,14 +1,30 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">TUNED</a>
+    <a class="navbar-brand" href="#" *ngIf="!loggedIn">TUNED</a>
+    <a class="navbar-brand" routerLink="/home" *ngIf="loggedIn">TUNED</a>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="navbar-nav mr-auto" >
-        <div class="nav-item search-box" *ngIf="loggedIn">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <div class="navbar-nav mr-auto row" >
+        
+        <div class="nav-item search-box" >
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <select class="form-control" id="searchType" name="searchType" required>
+              <option>Songs</option>
+              <option>Artists</option>
+              <option>Albums</option>
+          </select>
+          <div class="nav-item" style="margin-left: 0.5rem" >
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </div>
+          </form>
+          
         </div>
-        <div class="nav-item" style="margin-left: 0.5rem" *ngIf="loggedIn">
+        
+        <div>
+        </div>
+        <!-- <div class="nav-item" style="margin-left: 0.5rem" >
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </div>
+        </div> -->
       </div>
       
       
