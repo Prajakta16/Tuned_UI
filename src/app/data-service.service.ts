@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import {RequestOptions, Request, Headers } from '@angular/http';
 const hostName = "https://tuned-application.herokuapp.com"
 @Injectable({
   providedIn: 'root'
