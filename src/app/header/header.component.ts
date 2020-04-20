@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 interface FormElement {
   first_name : String;
@@ -15,15 +15,23 @@ interface FormElement {
 
 interface LoginForm {
   username : string,
-  password : string
+  password : string,
+  dtype : string
 }
+
+
+// interface availableUsers{
+//   artists : Observable<Array<any>>,
+//   listeners : Observable<Array<any>>,
+//   admin : string
+
+// }
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-
 export class HeaderComponent implements OnInit {
 
   @Input("loggedIn") loggedIn;
@@ -31,6 +39,11 @@ export class HeaderComponent implements OnInit {
   @Input("searchKey") searchKey;
   
 
+  availableUsers  = {
+    artists  : [],
+    admin : "admin",
+    listeners : []
+  }
   signupform : FormElement = {
     first_name : "",
     last_name : "",
@@ -43,25 +56,33 @@ export class HeaderComponent implements OnInit {
 
   login : LoginForm = {
     username : "",
-    password : ""
+    password : "",
+    dtype : ""
   }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dataservice : DataServiceService
-  ) { }
+  ) { 
+    
+   // this.fetchAllListeners();
+  }
 
   ngOnInit(): void {
 
-    this.getAllArtists();
+    
   }
+
+  
 
   register(){
 
     debugger
     console.log(this.signupform);
-    this.dataservice.addNewUser(this.signupform);
+    this.dataservice.addNewUser(this.signupform).subscribe(
+      v=>console.log(v)
+    );
     
     
   }
@@ -81,10 +102,5 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  getAllArtists(){
-    let artists = this.dataservice.getAllArtists().subscribe(v=>{
-      debugger
-      console.log(v);
-    });
-  }
+
 }

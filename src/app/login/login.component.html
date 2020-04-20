@@ -1,14 +1,26 @@
-<form>
+{{usersList | json}}
+<form *ngIf = "usersList.artists.length"> 
   <div class="form-group">
-    <label for="loginUName">Username</label>
-    <input type="text" class="form-control" id="loginUName" name="username" required
-    [(ngModel)]="login.username" aria-describedby="emailHelp" #username="ngModel">
-    <div *ngIf="username.invalid && (username.dirty || username.touched)"
-      class="alert alert-light">
-      <div *ngIf="username.errors.required">
-        Username is required.
-      </div>
-    </div>
+    <label for="loginAs">Login As</label>
+    <select class="form-control" id="loginAs" [(ngModel)]="login.dtype"
+     name="loginAs" #loginAs="ngModel"
+      required>
+      <option value="">Select</option>
+      <option value="admin">Admin</option>
+      <option value="artists">Artist</option>
+      <option value="listeners">Listener</option>
+    </select>
+  </div>
+  <div class="form-group" *ngIf = "login.dtype && login.dtype!='admin'">
+    <label for="loginUsername">Username</label>
+    <select class="form-control" id="loginUsername" [(ngModel)]="login.username"
+     name="loginUsername" #loginUsername="ngModel"
+      required>
+      <option value="">Select</option>
+      <option *ngFor="let option of usersList.artists">
+        {{option.username}}
+      </option>
+    </select>
   </div>
   <div class="form-group">
     <label for="loginPassword">Password</label>
