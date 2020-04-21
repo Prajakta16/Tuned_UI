@@ -186,6 +186,8 @@ export class HeaderComponent implements OnInit {
       this.router.navigate([`/artists/${this.search.searchValue}`]);
     }else if(this.search.searchType === "song"){
       this.router.navigate([`/songs/${this.search.searchValue}`]);
+    }else{
+      this.router.navigate([`/albumsearch/${this.search.searchValue}`]);
     }
     
   }

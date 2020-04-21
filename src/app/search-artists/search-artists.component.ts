@@ -14,7 +14,11 @@ interface Search {
 })
 export class SearchArtistsComponent implements OnInit {
 
-  
+  userName;
+  loggedIn = false;
+
+  resultCount = -1;
+  resultList = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -28,6 +32,16 @@ export class SearchArtistsComponent implements OnInit {
 
         }
         this.dataservice.search(search).subscribe((v : any) => {
+          this.userName = sessionStorage.getItem("username");
+          if(this.userName){
+            this.loggedIn = true;
+          }
+          if(v && v.length && v.length!=0){
+            this.resultCount = v.length;
+            this.resultList = v;
+          }else{
+            this.resultCount = 0;
+          }
           debugger
         });
       }})

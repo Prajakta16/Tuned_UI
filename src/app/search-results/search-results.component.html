@@ -1,1 +1,127 @@
-<p>search-results works!</p>
+
+<app-header [loggedIn]="loggedIn" [showUsername]="userName"></app-header>
+
+<div class="alert alert-warning alert-dismissible fade show success-msg" role="alert" *ngIf="resultCount!=-1 &&!loggedIn">
+    Please login to for trying out more features!!!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="spinner-border" role="status" *ngIf="resultCount === -1">
+    <span class="sr-only">Loading...</span>
+</div>
+<h3 *ngIf="resultCount > -1" class="search-result-header">{{resultCount}} results found</h3>
+
+ <div class="container">
+    <div class="row">
+        <div class="individual list">
+            <ul class="event-list">
+                <li  *ngFor = "let result of resultList; index as i">
+                    
+                    <img alt="Independence Day" 
+                    [attr.src]="result.image_url"
+                     />
+                    <div class="info">
+                        <h2 class="title">{{result.title}}</h2>
+                        <p class="desc">Released on {{result.release_year}}</p>
+                        <p  class="desc">Album type : {{result.album_type}}</p>
+                        <p  class="desc">Artists : {{result.artistNames}}</p>
+                        
+                        
+                        <div class="artist-view-btn">
+                            <button class="btn btn-outline-secondary" type="button" 
+                            data-toggle="modal" (click) = "setModalData(result)"
+                            data-target="#songsModal"
+                            *ngIf=" result.songs && result.songs.length">
+                                View {{ result.songs && result.songs.length }} songs
+                            </button>
+
+                            <button class="btn btn-outline-secondary disabled" type="button" *ngIf="!( result.songs && result.songs.length) ">
+                                No songs
+                            </button>
+                            
+                        </div>
+                    </div>
+                </li>
+                
+                
+
+
+
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" [attr.id]="'songsModal'" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="dataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dataModalLabel">{{ categories.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="songsByCategory">
+            
+            <div id="accordion">
+              <div class="card" *ngFor="let song of categories.songs; index as i">
+                <div class="card-header" [attr.id]="'category'+i">
+                  <div class="mb-0 category-header">
+                      {{song.title}} 
+                    
+                  </div>
+                </div>
+          
+                <div [attr.id]="'collapse'+i" class="collapse row category-body" [attr.aria-labelledby]="'category'+i" 
+                  data-parent="#accordion">
+                  
+                  <div class="col-md-6">
+                    Test datat
+                  </div>
+                  <div class="col-md-6">
+                    Test datat
+                  </div>
+                  
+             
+                </div>
+              </div>
+              <div class="card" *ngFor="let song of categories.songs; index as i">
+                <div class="card-header" [attr.id]="'category'+i">
+                  <div class="mb-0 category-header">
+                      {{song.title}} 
+                    
+                  </div>
+                </div>
+          
+                <div [attr.id]="'collapse'+i" class="collapse row category-body" [attr.aria-labelledby]="'category'+i" 
+                  data-parent="#accordion">
+                  
+                  <div class="col-md-6">
+                    Test datat
+                  </div>
+                  <div class="col-md-6">
+                    Test datat
+                  </div>
+                  
+             
+                </div>
+              </div>
+            </div>
+          
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="resetModal()"
+          data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+

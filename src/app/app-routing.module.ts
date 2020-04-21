@@ -10,7 +10,7 @@ import {ViewProfileComponent} from './view-profile/view-profile.component';
 import {AlbumsComponent} from './albums/albums.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { SearchArtistsComponent } from './search-artists/search-artists.component';
-
+import { SearchResultsComponent } from './search-results/search-results.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'home', component: SessionHomeComponent},
@@ -22,7 +22,8 @@ const routes: Routes = [
   { path : 'profile/:id/:type', component : ViewProfileComponent},
   { path : 'albums', component : AlbumsComponent},
   { path : 'songs/:search', component : SearchSongsComponent},
-  { path : 'artists/:search', component : SearchArtistsComponent}
+  { path : 'artists/:search', component : SearchArtistsComponent},
+  { path : 'albumsearch/:search', component : SearchResultsComponent}
   
 ];
 
