@@ -279,6 +279,23 @@ export class DataServiceService {
     );;
   }
 
+  getAllSongs(){
+    let url = `${hostName}/api/song/all`;
+    return this.http.get(url,{}).pipe(
+      map((response : any) => {
+      
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        debugger
+        return of(null);
+      })
+      
+    );;
+    
+  }
+
   getSongsLikedByUser(userId){
     let url = `${hostName}/api/song/liked/by/${userId}`;
     return this.http.get(url,{}).pipe(
@@ -518,6 +535,25 @@ export class DataServiceService {
     debugger
     let url =  `${hostName}/api/${search.searchType}/search/${search.searchValue}`
     return this.http.get(url).pipe(
+      map((response : any) => {
+     
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        debugger
+        return of(null);
+      })
+      
+    );
+  }
+
+  addNewSongToAlbum(albumId,song){
+  //  https://tuned-application.herokuapp.com/api/album/11/new/song/
+ 
+    let url =`${hostName}/api/album/${albumId}/new/song`;
+    delete song.albumId;
+    return this.http.post(url, JSON.stringify(song), this.httpOptions).pipe(
       map((response : any) => {
      
         return response;

@@ -24,7 +24,7 @@ export class FavoritesComponent implements OnInit {
   ) { 
 
     this.activatedRoute.paramMap.subscribe((params : any)=>{
-        this.userType = sessionStorage.getItem("userType")
+        
         this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
         this.userType = sessionStorage.getItem("userType");
         this.userName = sessionStorage.getItem("username");
