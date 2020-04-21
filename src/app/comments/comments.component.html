@@ -1,4 +1,5 @@
 <div *ngIf="comments">
+    <div class="alert alert-info" *ngIf= "!comments.length">There are no comments for this song.</div>
     <ul class="list-group">
         <li class="list-group-item list-override" *ngFor = "let comment of comments;">
             <div class="comment-content">
@@ -13,7 +14,11 @@
             </div>
         </li>
       </ul>
-    <div *ngIf = "!commented">
+      <!-- canComment {{canComment}} <br>
+      commented {{commented}} <br>
+      
+      {{!commented && canComment}} -->
+    <div *ngIf = "!commented && canComment">
         <form>
             <div class="form-group">
               <label for="plName">Add Comment</label>

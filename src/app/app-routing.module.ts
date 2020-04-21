@@ -8,6 +8,8 @@ import {PlaylistsComponent} from './playlists/playlists.component';
 import {ExploreComponent} from './explore/explore.component';
 import {ViewProfileComponent} from './view-profile/view-profile.component';
 import {AlbumsComponent} from './albums/albums.component';
+import { SearchSongsComponent } from './search-songs/search-songs.component';
+import { SearchArtistsComponent } from './search-artists/search-artists.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -18,7 +20,9 @@ const routes: Routes = [
   { path: 'albums/:id', component: PlaylistsComponent},
   { path: 'explore', component: AlbumsComponent },
   { path : 'profile/:id/:type', component : ViewProfileComponent},
-  { path : 'albums', component : AlbumsComponent}
+  { path : 'albums', component : AlbumsComponent},
+  { path : 'songs/:search', component : SearchSongsComponent},
+  { path : 'artists/:search', component : SearchArtistsComponent}
   
 ];
 

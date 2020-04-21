@@ -6,8 +6,8 @@
     <div class="btn-toolbar mb-4 mb-md-12 button-cont">
       <button type="button" class="btn btn-sm btn-outline-secondary button-area" data-toggle="modal" 
         data-target="#newPlaylistModal">ADD</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary button-area" data-toggle="modal" 
-        data-target="#newPlaylistModal">DELETE</button> <!--TOTDO MODAL-->
+      <button type="button" class="btn btn-sm btn-outline-secondary button-area"
+       (click)="deleteListFromUser()">DELETE</button> <!--TOTDO MODAL-->
     </div>
   </div>
   <div class="alert alert-info" *ngIf="listEmpty">You do not have any {{listType[userType]}}.</div>
@@ -20,6 +20,11 @@
           <th>Title</th>
           <th>Duration</th>
           <th>Popularity</th>
+          <th *ngIf="canDoActions"></th>
+          <th *ngIf="!canDoActions">Favorites</th>
+          <th *ngIf="!canDoActions">Likes</th>
+          <th *ngIf="!canDoActions">Dislikes</th>
+          <th *ngIf="!canDoActions">Comments</th>
           <th></th>
         </tr>
       </thead>
@@ -29,7 +34,7 @@
           <td>{{song.title}}</td>
           <td>{{song.duration}}</td>
           <td>{{song.popularity}}</td>
-          <td>
+          <td *ngIf="canDoActions">
             <button type="button" class="btn btn-default" (click)="setFavoriteSong(song)">
               <span *ngIf="song.favorite">
                 <fa-icon [icon]="faFavoriteTrue" ></fa-icon>
@@ -63,6 +68,28 @@
               <span class="badge badge-light">{{song.numOfComments}}</span>
               <fa-icon [icon]="faComment"></fa-icon>
             </button> 
+          </td>
+          <td *ngIf="!canDoActions">
+            {{song.numOfFavorites || 0}}
+          </td>
+          <td *ngIf="!canDoActions">
+            {{song.numOfLikes || 0}}
+              
+          </td>
+          <td *ngIf="!canDoActions">
+            {{song.numOfDislikes || 0}}
+          </td>
+          <td *ngIf="!canDoActions">
+            <span>{{song.numOfComments}}</span>
+            <button type="button" class="btn btn-default" (click)="showComments(song)"
+            data-toggle="modal" data-target="#commentsModal">
+              <fa-icon [icon]="faComment"></fa-icon>
+            </button> 
+          </td>
+          <td>
+            <button type="button" (click)="deleteSongFromList(song)" class="btn btn-default">
+              <fa-icon [icon]="faDelete"></fa-icon>
+            </button>
           </td>
           
           
@@ -121,8 +148,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <app-comments [comments]="comments" [userId]="userId"
-          [songId]="commentSongId"></app-comments>
+          <app-comments [comments]="comments" [userId]="userId" (updateComments)="updateComments($event)"
+          [songId]="commentSongId" [canComment]="canDoActions"></app-comments>
           
         </div>
         <div class="modal-footer">

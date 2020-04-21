@@ -132,6 +132,13 @@ export class HeaderComponent implements OnInit {
   }
 
   logging(){
+    if(this.login.dtype === "admin"){
+      this.login.username = "admin"
+    }
+    if(!(this.login.username && this.login.password && this.login.dtype)){
+      alert("Please provide login details")
+      return;
+    }
     console.log(this.login);
     let userId = -1;
     debugger
@@ -157,17 +164,10 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     sessionStorage.clear();
-    window.location.reload();
-    setTimeout(()=>{
-      this.router.navigate(['']);
-      
-      
-    },1000)
+    
+    this.router.navigate(['/']);
   }
 
-  setValues(){
-    
-  }
 
   fetchAllArtists(){
     this.dataservice.getAllUsers("artist").subscribe((v : Array<any>)=>{
@@ -182,9 +182,12 @@ export class HeaderComponent implements OnInit {
   }
 
   searchData(){
-    this.dataservice.search(this.search).subscribe((v : any) => {
-      debugger
-    });
+    if(this.search.searchType === "artist"){
+      this.router.navigate([`/artists/${this.search.searchValue}`]);
+    }else if(this.search.searchType === "song"){
+      this.router.navigate([`/songs/${this.search.searchValue}`]);
+    }
+    
   }
 
 }

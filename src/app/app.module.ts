@@ -21,6 +21,8 @@ import { CommentsComponent } from './comments/comments.component';
 import { HttpClientModule }    from '@angular/common/http';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { AlbumsComponent } from './albums/albums.component';
+import { SearchSongsComponent } from './search-songs/search-songs.component';
+import { SearchArtistsComponent } from './search-artists/search-artists.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { AlbumsComponent } from './albums/albums.component';
     ViewProfileComponent,
     CommentsComponent,
     SearchResultsComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    SearchSongsComponent,
+    SearchArtistsComponent
   ],
   imports: [
     BrowserModule,

@@ -153,10 +153,32 @@ export class DataServiceService {
     return this.http.get(url);
   }
 
+  addSongToList(songObject){
+    // https://tuned-application.herokuapp.com/api/playlist/21/song/4
+    // https://tuned-application.herokuapp.com/api/album/19/song/2
+    let url = `${hostName}/api/${songObject.listType}/${songObject.listId}/song/${songObject.songIdToBeAdded}`;
+    return this.http.post(url, {});
+  }
+
+  removeSongFromList(songObject){
+    //https://tuned-application.herokuapp.com/api/playlist/21/song/4/remove
+    //https://tuned-application.herokuapp.com/api/album/23/song/16/remove
+    let url = `${hostName}/api/${songObject.listType}/${songObject.listId}/song/${songObject.songId}/remove`;
+    return this.http.post(url, {});
+  }
+
+  removeList(removeObj){
+    //https://tuned-application.herokuapp.com/api/listener/48/playlist/20/remove
+   // https://tuned-application.herokuapp.com/api/artist/41/album/12/remove
+   debugger
+    let url = `${hostName}/api/${removeObj.userType}/${removeObj.userId}/${removeObj.listType}/${removeObj.listId}/remove`;
+    return this.http.post(url, {});
+  }
+
 
   search(search){
     debugger
     let url =  `${hostName}/api/${search.searchType}/search/${search.searchValue}`
-    return this.http.get(url);
+    return this.http.get(url, this.httpOptions);
   }
 }

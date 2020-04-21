@@ -35,13 +35,15 @@
                           <th *ngIf="!canDoActions">Likes</th>
                           <th *ngIf="!canDoActions">Dislikes</th>
                           <th *ngIf="!canDoActions">Comments</th>
+                          <th>Add to {{listType[userType]}}</th>
+                          <th *ngIf="isAdmin"></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor = "let song of category.songs; index as j;" id="p{{j}}">
                           <td>{{j + 1}}</td>
                           <td>{{song.title}}</td>
-                          <td>{{song.popularity ? song.popularity : 0}}</td>
+                          <td>{{song.popularity || 0}}</td>
                           <td>{{song.duration}}</td>
                           <td *ngIf="canDoActions">
                             <button type="button" class="btn btn-default" (click)="setFavoriteSong(song)">
@@ -53,7 +55,7 @@
                               </span>
                             </button> 
                             <button type="button" class="btn btn-default" (click)="likeSong(song)" *ngIf="song.dislike!=true">
-                              <span class="badge badge-light">{{song.numOfLikes}}</span>
+                              <span class="badge badge-light">{{song.numOfLikes || 0}}</span>
                               <span *ngIf="song.like">
                                 <fa-icon [icon]="faLikeTrue" ></fa-icon>
                               </span>
@@ -63,7 +65,7 @@
                               
                             </button>
                             <button type="button" class="btn btn-default" (click)="dislikeSong(song)" *ngIf="song.like!=true">
-                              <span class="badge badge-light">{{song.numOfDislikes}}</span>
+                              <span class="badge badge-light">{{song.numOfDislikes || 0}}</span>
                               <span *ngIf="song.dislike">
                                 <fa-icon [icon]="faDislikeTrue" ></fa-icon>
                               </span>
@@ -74,34 +76,38 @@
                             </button>
                             <button type="button" class="btn btn-default" (click)="showComments(song)"
                             data-toggle="modal" data-target="#commentsModal">
-                              <span class="badge badge-light">{{song.numOfComments}}</span>
+                              <span class="badge badge-light">{{song.numOfComments || 0}}</span>
                               <fa-icon [icon]="faComment"></fa-icon>
                             </button> 
                           </td>
                           <td *ngIf="!canDoActions">
-                            <span class="badge badge-light">{{song.numOfFavorites}}</span>
-                              <span>
-                                <fa-icon [icon]="faFavoriteFalse" ></fa-icon>
-                              </span>
+                            {{song.numOfFavorites || 0}}
                           </td>
                           <td *ngIf="!canDoActions">
-                            <span class="badge badge-light">{{song.numOfLikes}}</span>
-                              <span>
-                                <fa-icon [icon]="faLikeTrue" ></fa-icon>
-                              </span>
+                            {{song.numOfLikes || 0}}
+                              
                           </td>
                           <td *ngIf="!canDoActions">
-                            <span class="badge badge-light">{{song.numOfDislikes}}</span>
-                              <span>
-                                <fa-icon [icon]="faDislikeTrue" ></fa-icon>
-                              </span>
+                            {{song.numOfDislikes || 0}}
                           </td>
                           <td *ngIf="!canDoActions">
-                            <span class="badge badge-light">{{song.numOfComments}}</span>
+                            {{song.numOfComments || 0}}
                               <span>
                                 <fa-icon [icon]="faComment" ></fa-icon>
                               </span>
                           </td>
+                          <td>
+                            <button type="button" (click)="setSongId(song)" class="btn btn-default" 
+                            data-toggle="modal" data-target="#AddNewModal">
+                              <fa-icon [icon]="faAdd"></fa-icon>
+                            </button>
+                          </td>
+                          <td *ngIf="isAdmin">
+                            <button type="button" (click)="deleteSongFromList(category, song)" class="btn btn-default">
+                              <fa-icon [icon]="faDelete"></fa-icon>
+                            </button>
+                          </td>
+                          
                           
                           
                         </tr>
@@ -141,6 +147,74 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary"
           data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Add Song To playlist -->
+
+  <div class="modal fade" id="AddNewModal" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="AddNewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AddNewModalLabel">Add song to {{listType[userType]}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group" *ngIf="isAdmin">
+              <label for="selectListType">Select ListType</label>
+              <select class="form-control" id="selectListType" 
+              [(ngModel)]="toAddSongToList.listType"
+              
+               name="selectListType" #selectListType="ngModel"
+                required>
+                <option value="">Select</option>
+                <option value="playlist">Playlist</option>
+                <option value="album">Album</option>
+              </select>
+              {{toAddSongToList | json}}
+            </div>
+            <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist'">
+              <label for="selectPlaylist">Select Playlist</label>
+              <select class="form-control" id="selectPlaylist" 
+              [(ngModel)]="toAddSongToList.listId"
+              
+               name="selectPlaylist" #selectPlaylist="ngModel"
+                required>
+                <option value="">Select</option>
+                <option value="{{item.id}}" *ngFor="let item of listOfPlaylists">
+                  {{item.title}}
+                </option>
+              </select>
+              {{toAddSongToList | json}}
+            </div>
+
+            <div class="form-group" *ngIf="toAddSongToList.listType == 'album'">
+              <label for="selectAlbum">Select Album</label>
+              <select class="form-control" id="selectAlbum" 
+              [(ngModel)]="toAddSongToList.listId"
+              
+               name="selectAlbum" #selectAlbum="ngModel"
+                required>
+                <option value="">Select</option>
+                <option *ngFor="let item of listOfAlbums" value="{{item.id}}" >
+                  {{item.title}}
+                </option>
+              </select>
+              {{toAddSongToList | json}}
+            </div>
+          </form>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="addSongToList()"
+          data-dismiss="modal">Add</button>
         </div>
       </div>
     </div>

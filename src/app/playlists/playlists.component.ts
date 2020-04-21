@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
 import { DataServiceService } from '../data-service.service';
 import {  ActivatedRoute} from '@angular/router';
-import { each } from 'underscore';
+import { each, find, filter } from 'underscore';
 
 @Component({
   selector: 'app-playlists',
   templateUrl: './playlists.component.html',
-  styleUrls: ['./playlists.component.scss']
+  styleUrls: ['./playlists.component.scss'],
+  changeDetection : ChangeDetectionStrategy.Default
 })
-export class PlaylistsComponent implements OnInit {
+export class PlaylistsComponent implements OnInit, OnChanges {
 
   selectMsg = "";
+  canDoActions = false;
   userType;
   userId;
+  listId;
 
   songsData = []
 
@@ -30,7 +33,8 @@ export class PlaylistsComponent implements OnInit {
 
   constructor(
     private dataservice : DataServiceService,
-    private activatedRoute : ActivatedRoute
+    private activatedRoute : ActivatedRoute,
+    private detectChanges : ChangeDetectorRef
   ) {
 
     this.activatedRoute.paramMap.subscribe((params : any)=>{
@@ -39,6 +43,8 @@ export class PlaylistsComponent implements OnInit {
         this.userType = sessionStorage.getItem("userType");
         this.userName = sessionStorage.getItem("username");
         if(this.userType === "listener"){
+
+          this.canDoActions = true;
           this.selectMsg = "Select Playlist";
           this.getAllPlaylistsForListener(params.params.id);
           
@@ -55,6 +61,9 @@ export class PlaylistsComponent implements OnInit {
     })
 
    }
+  ngOnChanges(changes: SimpleChanges): void {
+    debugger
+  }
 
   ngOnInit(): void {
   }
@@ -90,6 +99,7 @@ export class PlaylistsComponent implements OnInit {
         debugger
         this.setList = item;
         this.listName = this.setList[0].title;
+        this.listId =  this.setList[0].id;
         this.songsData = this.setList[0].songs;
         this.noList = false;
       }
@@ -108,8 +118,8 @@ export class PlaylistsComponent implements OnInit {
   updateSong(item){
 
     debugger
-  
-    this.songsData = item.songs
+    this.listId = item.id;
+    this.songsData = item.songs || []
 
   }
 
@@ -129,11 +139,69 @@ export class PlaylistsComponent implements OnInit {
          this.setList = v["playlists"]
          each(this.setList, v => {
           v["id"] = v["playlist_id"];
+
         });
       }
+
       
+      if(this.setList.length===1){
+        this.songsData = this.setList[0].songs;
+        this.listId = this.setList[0].id;
+        this.listName = this.setList[0].title;
+      }
+      this.detectChanges.detectChanges();
       
     })
+  }
+
+  deleteSongFromList(event){
+
+    let songObject = {
+      listType : this.listType[this.userType].toLowerCase(),
+      listId : this.listId,
+      songId : event.songId
+    }
+    this.dataservice.removeSongFromList(songObject).subscribe((res : any) => {
+      if(res){
+        let item = find(this.setList, (item : any) => item.id === this.listId);
+        let songs = filter(item.songs, (song : any) => song.song_id != event.songId);
+        debugger
+        each(this.setList, (v : any ) => {
+          if(v.id === item.id ){
+            v.songs = songs;
+          }
+        } );
+    
+        this.songsData = songs;
+        alert("Song deleted");
+      }
+    });
+    
+    
+  }
+
+  deleteList(){
+    let deleteObj = {
+      userId : this.userId,
+      userType : this.userType,
+      listType : this.listType[this.userType].toLowerCase(),
+      listId : this.listId
+    }
+    this.dataservice.removeList(deleteObj).subscribe((res : any)=>{
+      if(res){
+        debugger
+        this.setList = this.listType[this.userType].toLowerCase() === "album" ? res.producedAlbums : res.playlists;
+        this.setHomePage();
+       
+      }
+      
+    })
+  }
+
+  setHomePage(){
+      this.songsData = this.setList[0].songs;
+      this.listId = this.setList[0].id;
+      this.listName = this.setList[0].title;
   }
 
   

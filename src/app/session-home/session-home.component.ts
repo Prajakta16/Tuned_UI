@@ -64,6 +64,7 @@ export class SessionHomeComponent implements OnInit {
       {
         title : "Albums",
         message : "View list of all the albums",
+        route : `/albums`,
       },
       {
         title : "Playlists",

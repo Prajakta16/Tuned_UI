@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { DataServiceService } from '../data-service.service';
 import { each } from 'underscore';
 
@@ -12,6 +12,9 @@ export class CommentsComponent implements OnInit, OnChanges {
   @Input("comments") comments;
   @Input("songId") songId;
   @Input("userId") userId;
+  @Input("canComment") canComment;
+
+  @Output("updateComments") update = new EventEmitter<any>();
 
   newComment;
   commented = false;
@@ -19,12 +22,14 @@ export class CommentsComponent implements OnInit, OnChanges {
   constructor(
     private dataservice : DataServiceService
   ) { 
-    debugger
+      debugger
   }
 
   ngOnChanges(changes : SimpleChanges){
     debugger
+    this.canComment = changes.canComment;
     each(this.comments , (comment : any)=>{
+      debugger
       if(comment.userId === this.userId){
         this.commented = true;
       }
@@ -48,7 +53,12 @@ export class CommentsComponent implements OnInit, OnChanges {
           userId : v.listener_id
         });
 
-        this.commented = true;
+        this.update.emit({
+          comments : this.comments,
+          songId : this.songId
+        })
+        
+        this.commented = false;
       }
     });
   }

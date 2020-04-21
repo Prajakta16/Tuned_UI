@@ -4,6 +4,7 @@ import { sortBy } from 'underscore';
 import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as solid from '@fortawesome/free-solid-svg-icons';
 import { each } from 'underscore';
+import { forkJoin } from 'rxjs';
 
 declare var $;
 
@@ -19,6 +20,14 @@ export class AlbumsComponent implements OnInit, OnChanges {
     artist : "album",
     listener : "playlist"
   }
+
+  toAddSongToList = {
+    songIdToBeAdded : "",
+    listType : "",
+    listId : ""
+  } ;
+
+
   faComment = regular.faComment;
   faLikeFalse = regular.faThumbsUp;
   faLikeTrue = solid.faThumbsUp;
@@ -26,6 +35,8 @@ export class AlbumsComponent implements OnInit, OnChanges {
   faDislikeTrue = solid.faThumbsDown;
   faFavoriteTrue = solid.faHeart;
   faFavoriteFalse = regular.faHeart;
+  faAdd = solid.faPlus;
+  faDelete = regular.faTrashAlt;
 
   userType;
   userId;
@@ -35,8 +46,12 @@ export class AlbumsComponent implements OnInit, OnChanges {
   comments = [];
   name: String;
 
+  listOfPlaylists = [];
+  listOfAlbums = [];
+
 
   canDoActions = false;
+  isAdmin = false;
   albums = null;
   constructor(
     private dataservice : DataServiceService,
@@ -48,14 +63,38 @@ export class AlbumsComponent implements OnInit, OnChanges {
     this.userId = parseInt( sessionStorage.getItem("userId"));
     this.userType = sessionStorage.getItem("userType");
     this.userName = sessionStorage.getItem("username");
+    let APIArray = [];
     if(this.userType === "listener"){
       this.canDoActions = true;
-      this.getAllAlbums();
+      this.isAdmin = false;
+      this.toAddSongToList.listType = "playlist";
+      let getAllPlaylistForListenerAPI = this.dataservice.getAllPlaylistsForListener(this.userId);
+      APIArray.push(getAllPlaylistForListenerAPI);
      }else if(this.userType === "admin"){
-       this.getAllAlbums();
+       this.isAdmin = true;
+       this.canDoActions = false;
+       let getAllAlbumsAPI = this.dataservice.getAllAlbums();
+       let getAllPlaylistAPI = this.dataservice.getAllPlaylists();
+       APIArray.push(getAllPlaylistAPI);
+       APIArray.push(getAllAlbumsAPI);
      }
+     forkJoin(APIArray).subscribe((results : any) => {
+       if(results){
+         this.listOfPlaylists = results[0] || [];
+         this.listOfAlbums = results[1] || [];
 
-     this.getAllAlbums();
+         each(this.listOfPlaylists, (item : any) => {
+           item.id = item.playlist_id;
+         })
+
+         each(this.listOfAlbums, (item : any) => {
+          item.id = item.album_id;
+        })
+       }
+      this.getAllAlbums();
+     })
+
+     
    }
 
    ngOnInit(): void {
@@ -69,7 +108,8 @@ export class AlbumsComponent implements OnInit, OnChanges {
   }
 
   openDetails(album){
-    if(album.arrow === "Open"){
+    debugger
+    if(album.arrow !== `Close`){
       album.arrow = "Close"
     }else{
       album.arrow = `View ${album.songs.length} songs`; 
@@ -182,6 +222,29 @@ export class AlbumsComponent implements OnInit, OnChanges {
   showComments(song){
     this.comments = song.comments;
     this.commentSongId = song.song_id;
+  }
+
+  deleteSongFromList(category , song){
+
+  }
+
+  
+  setSongId(song){
+    this.toAddSongToList.songIdToBeAdded = song.song_id;
+  }
+
+  addSongToList(){
+
+    this.dataservice.addSongToList(this.toAddSongToList).subscribe((res : any)=>{
+      if(res){
+        this.toAddSongToList.listId = "";
+        this.toAddSongToList.listType = this.userType === "listener" ? "playlist" : "";
+        this.toAddSongToList.songIdToBeAdded = "";
+        debugger
+        alert(`Song Added to ${res.title}`);
+      }
+    })
+
   }
 
 }

@@ -18,13 +18,18 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   @Input("listEmpty") listEmpty;
   @Input("userId") userId;
   
+  
 
   @Output("addNew") addNew = new EventEmitter<any>();
+  @Output("deleteSongFromList") delete = new EventEmitter<any>();
+  @Output("deleteList") deleteList = new EventEmitter<any>();
 
   listType = {
     artist : "album",
     listener : "playlist"
   }
+
+  canDoActions = false;
   
 
   faComment = regular.faComment;
@@ -34,6 +39,7 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   faDislikeTrue = solid.faThumbsDown;
   faFavoriteTrue = solid.faHeart;
   faFavoriteFalse = regular.faHeart;
+  faDelete = regular.faTrashAlt
 
 
   commentSongId;
@@ -44,9 +50,12 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
     private dataservice : DataServiceService
   ) {
     
+      
    }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.data);
+    this.canDoActions = this.userType === "listener";
+    debugger
     for(let i=0; i < this.data.length; i++ ){
       debugger
       let activities = this.data[i].activities;
@@ -143,8 +152,23 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   }
 
   showComments(song){
+    debugger
     this.comments = song.comments;
     this.commentSongId = song.song_id;
+  }
+
+  updateComments(event){
+    debugger
+  }
+
+  deleteSongFromList(song){
+    this.delete.emit({
+      songId : song.song_id 
+    });
+  }
+
+  deleteListFromUser(){
+    this.deleteList.emit();
   }
 
 }
