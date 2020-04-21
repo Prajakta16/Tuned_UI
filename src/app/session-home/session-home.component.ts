@@ -10,7 +10,7 @@ import { DataServiceService } from '../data-service.service';
 export class SessionHomeComponent implements OnInit {
 
 
-  username = "admin";
+  userName = "admin";
   userFirstName = "Admin";
   userDetails;
   searchKey;
@@ -32,7 +32,7 @@ export class SessionHomeComponent implements OnInit {
       debugger
       this.userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
       this.userFirstName = this.userDetails.first_name;
-      this.username = sessionStorage.getItem("username");
+      this.userName = sessionStorage.getItem("username");
       this.userType = sessionStorage.getItem("userType");
       debugger
       this.userId = sessionStorage.getItem("userId");
@@ -89,7 +89,7 @@ export class SessionHomeComponent implements OnInit {
         title : "Favorites",
         message : "Want to check out the songs you liked? You'll get it here.",
         image : "../../assets/images/listener-home/favorites.jpg",
-        route : "/favorites"
+        route : `/favorites/${this.userId}`
       },
       {
         title : "People",
@@ -118,8 +118,9 @@ export class SessionHomeComponent implements OnInit {
 
       },
       {
-        title : "Favorites",
-        message : "Want to check out the songs you liked? You'll get it here."
+        title : "Songs",
+        message : "Check out all the songs which you have created.",
+        image : "../../assets/images/artist-home/songs.jpg",
       },
       {
         title : "People",
@@ -128,8 +129,10 @@ export class SessionHomeComponent implements OnInit {
         route : `/people/${this.userId}`
       },
       {
-        title : "Songs",
-        message : "Check out all the songs which you have created."
+        title : "Create",
+        message : "Have a new song? Create it here and share with the world.",
+        image : "../../assets/images/artist-home/create.jpg",
+        route : `/newSong`
       }
     ]
 

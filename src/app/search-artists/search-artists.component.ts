@@ -47,6 +47,10 @@ export class SearchArtistsComponent implements OnInit {
       }})
   }
 
+  navigateToProfile(id){
+    this.router.navigate([`/profile/${id}/artist`]);
+  }
+
   ngOnInit(): void {
   }
 

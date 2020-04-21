@@ -23,6 +23,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { AlbumsComponent } from './albums/albums.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { SearchArtistsComponent } from './search-artists/search-artists.component';
+import { NewSongComponent } from './new-song/new-song.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SearchArtistsComponent } from './search-artists/search-artists.componen
     SearchResultsComponent,
     AlbumsComponent,
     SearchSongsComponent,
-    SearchArtistsComponent
+    SearchArtistsComponent,
+    NewSongComponent
   ],
   imports: [
     BrowserModule,

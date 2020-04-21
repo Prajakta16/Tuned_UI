@@ -17,6 +17,7 @@ export class ViewProfileComponent implements OnInit {
   currentUserDetails;
   profileUserType;
   currentUserFollows;
+  profileUserId;
 
   dataType = {
     artist : "album",
@@ -43,7 +44,8 @@ export class ViewProfileComponent implements OnInit {
     image : "" ,
     dataList : [],
     followers : [],
-    followings : []
+    followings : [],
+    imageStyle : false
   }
 
   editMode = false;
@@ -66,16 +68,22 @@ export class ViewProfileComponent implements OnInit {
         this.userName = sessionStorage.getItem("username");
         this.currentUserDetails = JSON.parse(sessionStorage.getItem("userDetails"));
         debugger
-        //this.profileUserType = params.params.type;
-        this.profileUserType = "artist";
+        this.profileUserType = params.params.type;
+        this.profileUserId = parseInt(params.params.id);
+        this.isSelf = parseInt(params.params.id) === this.userId;
         let getUserDetailsAPI = this.dataservice.getUserById(this.profileUserType,params.params.id)
         let followersAPI = this.dataservice.getFollowersByUserId(params.params.id);
         let followingsAPI = this.dataservice.getFollowingsByUserId(params.params.id);
 
         forkJoin([getUserDetailsAPI,followersAPI, followingsAPI]).subscribe((results : any)=>{
+          
           let userInfo = results[0];
           let followers = results[1];
           let followings = results[2];
+          if(!userInfo){
+            alert("Some error occured");
+            this.router.navigate(['/home']);
+          }
           if(userInfo){
             this.person.userId = userInfo.user_id;
             this.person.firstName = userInfo.first_name;
@@ -84,6 +92,8 @@ export class ViewProfileComponent implements OnInit {
             this.person.phone = userInfo.phone;
             this.person.address = userInfo.address;
             this.person.biography = userInfo.biography;
+            debugger
+            this.person.imageStyle = userInfo.image_url ? true : false;
             this.person.image = userInfo.image_url || "../../assets/images/NoImageAvailable.png";
             this.person.popularity = userInfo.popularity;
             this.person.dataList = this.dataType[this.profileUserType] === "album" ?
@@ -124,6 +134,7 @@ export class ViewProfileComponent implements OnInit {
   }
 
   navigateToProfile(id){
+    debugger
     this.router.navigate([`/profile/${id}/artist`]);
   }
 
@@ -133,6 +144,33 @@ export class ViewProfileComponent implements OnInit {
 
   saveProfileDetails(){
     this.editMode = false;
+    /*
+    
+    this.person.userId = userInfo.user_id;
+            this.person.firstName = userInfo.first_name;
+            this.person.lastName =  userInfo.last_name;
+            this.person.email = userInfo.email;
+            this.person.phone = userInfo.phone;
+            this.person.address = userInfo.address;
+            this.person.biography = userInfo.biography
+    */
+    let person = {
+      first_name : this.person.firstName,
+      last_name : this.person.lastName,
+      email : this.person.email,
+      phone : this.person.phone,
+      address : this.person.address,
+      biography : this.person.biography
+
+    }
+
+    debugger
+    this.dataservice.updateProfile(this.profileUserId, person).subscribe((v : any)=>{
+      if(v){
+        alert("Profile updated");
+      }
+    });
+    
   }
 
   setModalData(items){

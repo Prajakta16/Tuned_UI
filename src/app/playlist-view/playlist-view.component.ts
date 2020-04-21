@@ -60,6 +60,7 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
       debugger
       let activities = this.data[i].activities;
       this.data[i].numOfLikes = 0;
+      this.data[i].time = this.dataservice.convertMS(this.data[i].duration);
       this.data[i].numOfDislikes = 0;
       this.data[i].numOfFavorites = 0;
       let currentUserActivity : any = {};
@@ -170,5 +171,8 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   deleteListFromUser(){
     this.deleteList.emit();
   }
+
+  
+
 
 }

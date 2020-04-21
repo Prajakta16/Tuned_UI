@@ -28,7 +28,9 @@
                         
                         
                         <div class="artist-view-btn">
-                            <button class="btn btn-outline-secondary" type="button">
+                            <button class="btn btn-outline-secondary" 
+                                (click)="navigateToProfile(result.user_id)"
+                            type="button">
                                 View Profile
                             </button>
                             

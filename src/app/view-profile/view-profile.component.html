@@ -4,8 +4,10 @@
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
-          <img style="width: 250px; height: 300px;"
+          
+          <img 
             [attr.src]="person.image"
+            
             alt="" />
         </div>
       </div>
@@ -56,7 +58,7 @@
         </button>
       </div>
       <ng-template #followSection>
-        <div>
+        <div *ngIf="!isSelf">
           <button type="submit" class="btn btn-outline-secondary" 
            name="btnFollow" (click)="follow()" *ngIf="!currentUserFollows">
             Follow
@@ -117,7 +119,7 @@
               </div>
               <div class="col-md-6">
                 <p *ngIf="!editMode">{{person.phone}}</p>
-                <input type="text" class="form-control input-style" id="phone" name="phone"
+                <input type="number" class="form-control input-style" id="phone" name="phone"
                 *ngIf="editMode"  value="{{person.phone}}"
                 [(ngModel)]="person.phone">
               </div>
@@ -163,7 +165,7 @@
                       </div>
                       <div class="btn-group" role="group" aria-label="Basic example">
                           <button type="button" class="btn btn-sm btn-outline-secondary"
-                          (click)="navigateToProfile(follower)">
+                          (click)="navigateToProfile(follower.user_id)">
                               View Profile
                           </button>
                       </div>

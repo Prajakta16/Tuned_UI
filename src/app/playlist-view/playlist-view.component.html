@@ -32,7 +32,7 @@
         <tr *ngFor = "let song of data; index as i;" id="p{{i}}">
           <td>{{i + 1}}</td>
           <td>{{song.title}}</td>
-          <td>{{song.duration}}</td>
+          <td>{{song.time}}</td>
           <td>{{song.popularity}}</td>
           <td *ngIf="canDoActions">
             <button type="button" class="btn btn-default" (click)="setFavoriteSong(song)">

@@ -77,6 +77,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
 
         this.setList = item;
         this.listName = this.setList[0].title;
+        this.listId = this.setList[1].id;
         this.songsData = this.setList[0].songs;
         
         debugger
@@ -88,7 +89,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
     });
 
   }
-
+  
 
   getAllPlaylistsForListener(listenerId){
     this.dataservice.getAllPlaylistsForListener(listenerId).subscribe((item : any)=>{
@@ -188,10 +189,25 @@ export class PlaylistsComponent implements OnInit, OnChanges {
       listType : this.listType[this.userType].toLowerCase(),
       listId : this.listId
     }
-    this.dataservice.removeList(deleteObj).subscribe((res : any)=>{
-      if(res){
+    this.dataservice.removeList(deleteObj).subscribe((v : any)=>{
+      if(v){
         debugger
-        this.setList = this.listType[this.userType].toLowerCase() === "album" ? res.producedAlbums : res.playlists;
+        let dataType = this.listType[this.userType].toLowerCase() ;
+       
+        if(dataType === "album"){
+          debugger
+          this.setList = v["producedAlbums"]
+           each(this.setList, v => {
+            v["id"] = v["album_id"];
+          });
+        }else{
+          debugger
+           this.setList = v["playlists"]
+           each(this.setList, v => {
+            v["id"] = v["playlist_id"];
+  
+          });
+        }
         this.setHomePage();
        
       }

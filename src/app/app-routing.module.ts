@@ -11,10 +11,11 @@ import {AlbumsComponent} from './albums/albums.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { SearchArtistsComponent } from './search-artists/search-artists.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { NewSongComponent } from './new-song/new-song.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'home', component: SessionHomeComponent},
-  { path: 'favorites', component: FavoritesComponent },
+  { path: 'favorites/:id', component: FavoritesComponent },
   { path: 'people/:id', component: PeopleComponent },
   { path: 'playlists/:id', component: PlaylistsComponent },
   { path: 'albums/:id', component: PlaylistsComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path : 'albums', component : AlbumsComponent},
   { path : 'songs/:search', component : SearchSongsComponent},
   { path : 'artists/:search', component : SearchArtistsComponent},
-  { path : 'albumsearch/:search', component : SearchResultsComponent}
+  { path : 'albumsearch/:search', component : SearchResultsComponent},
+  { path : 'newSong', component : NewSongComponent}
   
 ];
 

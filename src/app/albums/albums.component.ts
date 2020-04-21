@@ -130,6 +130,7 @@ export class AlbumsComponent implements OnInit, OnChanges {
           this.albums[i].songs[j].numOfLikes = 0;
           this.albums[i].songs[j].numOfDislikes = 0;
           this.albums[i].songs[j].numOfFavorites = 0;
+          this.albums[i].songs[j].time = this.dataservice.convertMS(this.albums[i].songs[j].duration);
           let currentUserActivity : any = {};
           this.albums[i].songs[j].comments = [];
           if(activities){

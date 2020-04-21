@@ -1,6 +1,6 @@
-<app-header [loggedIn]="true" [showUsername]="userFirstName" [searchKey]="searchKey"></app-header>
+<app-header [loggedIn]="true" [showUsername]="userName" [searchKey]="searchKey"></app-header>
 
-<div style="margin:20px" *ngIf="!searchKey">
+<div style="margin:20px">
     <div class="card-deck">
         <div class="card" *ngFor = "let user of pageStructure[userType]">
             <img [attr.src]="user.image" class="card-img-top" alt="...">
@@ -44,11 +44,8 @@
         </div> -->
         
     </div>
-      
+
+        
 </div>
 
-{{searchKey}}
-<div style="margin:20px" *ngIf="searchKey" >
-
-</div>
 

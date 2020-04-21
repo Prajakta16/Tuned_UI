@@ -168,6 +168,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  viewProfile(){
+    let userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
+    let userType = sessionStorage.getItem("userType");
+    this.router.navigate([`/profile/${userId}/${userType}`]);
+  }
 
   fetchAllArtists(){
     this.dataservice.getAllUsers("artist").subscribe((v : Array<any>)=>{

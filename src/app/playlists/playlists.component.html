@@ -11,7 +11,8 @@
                 <span class="side-bar-header">{{selectMsg}}</span>
             </h6>
             <ul class="nav flex-column">  
-                <li class="nav-item" *ngFor = "let item of setList;">
+                <li [ngClass]="{'nav-item active' : item.id === listId,  'nav-item' : item.id !== listId}" 
+                *ngFor = "let item of setList;">
                     <a class="nav-link"  (click)="updateSong(item)">
                         <span data-feather="file"></span>
                         {{item.title}}

@@ -23,6 +23,28 @@ export class DataServiceService {
     private http: HttpClient
   ) { }
 
+  convertMS(ms) {
+    if(ms){
+      var d, h, m, s;
+      s = Math.floor(ms / 1000);
+      m = Math.floor(s / 60);
+      s = s % 60;
+      h = Math.floor(m / 60);
+      m = m % 60;
+      d = Math.floor(h / 24);
+      h = h % 24;
+      h += d * 24;
+      let min = m > 9 ? m : `0${m}`;
+      let sec = s > 9 ? s : `0${s}`;
+      return  min + ':' + sec;
+    }
+
+    else{
+      return "00:00";
+    }
+    
+}
+
   addNewUser(user){
     return this.http.post(`${hostName}/api/${user.dtype}/new`, user,  this.httpOptions).pipe(
       map((response : any) => {
@@ -388,6 +410,57 @@ export class DataServiceService {
     );;
   }
 
+  getAllLikedSongsForAListener(listenerId){
+    //https://tuned-application.herokuapp.com/api/song/liked/by/38
+    let url = `${hostName}/api/song/liked/by/${listenerId}`;
+    return this.http.get(url).pipe(
+      map((response : any) => {
+      
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        debugger
+        return of(null);
+      })
+      
+    );;
+  }
+
+  getAllDislikedSongsForAListener(listenerId){
+    //https://tuned-application.herokuapp.com/api/song/liked/by/38
+    let url = `${hostName}/api/song/disliked/by/${listenerId}`;
+    return this.http.get(url).pipe(
+      map((response : any) => {
+      
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        debugger
+        return of(null);
+      })
+      
+    );;
+  }
+
+  getAllFavoriteSongsForAListener(listenerId){
+    //https://tuned-application.herokuapp.com/api/song/liked/by/38
+    let url = `${hostName}/api/song/favourite/by/${listenerId}`;
+    return this.http.get(url).pipe(
+      map((response : any) => {
+      
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        debugger
+        return of(null);
+      })
+      
+    );;
+  }
+
   addSongToList(songObject){
  
     let url = `${hostName}/api/${songObject.listType}/${songObject.listId}/song/${songObject.songIdToBeAdded}`;
@@ -445,6 +518,23 @@ export class DataServiceService {
     debugger
     let url =  `${hostName}/api/${search.searchType}/search/${search.searchValue}`
     return this.http.get(url).pipe(
+      map((response : any) => {
+     
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        debugger
+        return of(null);
+      })
+      
+    );
+  }
+
+  updateProfile(userId, profile){
+    
+    let url =`${hostName}/api/user/${userId}/profile`;
+    return this.http.post(url, profile).pipe(
       map((response : any) => {
      
         return response;
