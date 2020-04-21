@@ -1,0 +1,147 @@
+<app-header [loggedIn]="true" [showUsername]="userName"></app-header>
+<div class="songsByCategory" *ngIf = "albums">
+  <div id="accordion">
+    <div class="card" *ngFor="let category of albums; index as i">
+      <div class="card-header" [attr.id]="'category'+i">
+        <div class="mb-0 category-header">
+          {{category.title}} 
+            <button class="btn btn-sm btn-outline-light"
+              data-toggle="collapse" [attr.data-target]="'#collapse'+i" 
+             aria-expanded="false" [attr.aria-controls]="'collapse'+i" (click)="openDetails(category)">
+               <!-- <fa-icon [icon]="category.arrow"></fa-icon> -->
+                {{category.arrow}}   
+             </button>
+          
+        </div>
+      </div>
+
+      <div [attr.id]="'collapse'+i" class="collapse row category-body" [attr.aria-labelledby]="'category'+i" 
+        data-parent="#accordion">
+        <div class="col-md-3">
+            <img class="card-img-top img-thumbnail" [attr.src]="category.image_url" alt="Card image cap">
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Title</th>
+                          <th>Popularity</th>
+                          <th>Duration</th>
+                          <th *ngIf="canDoActions"></th>
+                          <th *ngIf="!canDoActions">Favorites</th>
+                          <th *ngIf="!canDoActions">Likes</th>
+                          <th *ngIf="!canDoActions">Dislikes</th>
+                          <th *ngIf="!canDoActions">Comments</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor = "let song of category.songs; index as j;" id="p{{j}}">
+                          <td>{{j + 1}}</td>
+                          <td>{{song.title}}</td>
+                          <td>{{song.popularity ? song.popularity : 0}}</td>
+                          <td>{{song.duration}}</td>
+                          <td *ngIf="canDoActions">
+                            <button type="button" class="btn btn-default" (click)="setFavoriteSong(song)">
+                              <span *ngIf="song.favorite">
+                                <fa-icon [icon]="faFavoriteTrue" ></fa-icon>
+                              </span>
+                              <span *ngIf="!song.favorite">
+                                <fa-icon [icon]="faFavoriteFalse"></fa-icon>
+                              </span>
+                            </button> 
+                            <button type="button" class="btn btn-default" (click)="likeSong(song)" *ngIf="song.dislike!=true">
+                              <span class="badge badge-light">{{song.numOfLikes}}</span>
+                              <span *ngIf="song.like">
+                                <fa-icon [icon]="faLikeTrue" ></fa-icon>
+                              </span>
+                              <span *ngIf="!song.like">
+                                <fa-icon [icon]="faLikeFalse"></fa-icon>
+                              </span>
+                              
+                            </button>
+                            <button type="button" class="btn btn-default" (click)="dislikeSong(song)" *ngIf="song.like!=true">
+                              <span class="badge badge-light">{{song.numOfDislikes}}</span>
+                              <span *ngIf="song.dislike">
+                                <fa-icon [icon]="faDislikeTrue" ></fa-icon>
+                              </span>
+                              <span *ngIf="!song.dislike">
+                                <fa-icon [icon]="faDislikeFalse"></fa-icon>
+                              </span>
+                        
+                            </button>
+                            <button type="button" class="btn btn-default" (click)="showComments(song)"
+                            data-toggle="modal" data-target="#commentsModal">
+                              <span class="badge badge-light">{{song.numOfComments}}</span>
+                              <fa-icon [icon]="faComment"></fa-icon>
+                            </button> 
+                          </td>
+                          <td *ngIf="!canDoActions">
+                            <span class="badge badge-light">{{song.numOfFavorites}}</span>
+                              <span>
+                                <fa-icon [icon]="faFavoriteFalse" ></fa-icon>
+                              </span>
+                          </td>
+                          <td *ngIf="!canDoActions">
+                            <span class="badge badge-light">{{song.numOfLikes}}</span>
+                              <span>
+                                <fa-icon [icon]="faLikeTrue" ></fa-icon>
+                              </span>
+                          </td>
+                          <td *ngIf="!canDoActions">
+                            <span class="badge badge-light">{{song.numOfDislikes}}</span>
+                              <span>
+                                <fa-icon [icon]="faDislikeTrue" ></fa-icon>
+                              </span>
+                          </td>
+                          <td *ngIf="!canDoActions">
+                            <span class="badge badge-light">{{song.numOfComments}}</span>
+                              <span>
+                                <fa-icon [icon]="faComment" ></fa-icon>
+                              </span>
+                          </td>
+                          
+                          
+                        </tr>
+                        
+                        
+                        
+                      </tbody>
+                    </table>
+                  </div>
+              
+            </div>
+        </div>
+        
+   
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Comments -->
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="commentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="commentsModalLabel">Comments</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-comments [comments]="comments" [userId]="userId"
+          [songId]="commentSongId"></app-comments>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+          data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

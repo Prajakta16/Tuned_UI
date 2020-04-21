@@ -1,19 +1,19 @@
-<app-header [loggedIn]="true" [showUsername]="'Aishwarya'" [searchKey]="searchKey"></app-header>
+<app-header [loggedIn]="true" [showUsername]="userFirstName" [searchKey]="searchKey"></app-header>
 
 <div style="margin:20px" *ngIf="!searchKey">
     <div class="card-deck">
-        <div class="card">
-            <img src="../../assets/images/listener-home/casette.jpg" class="card-img-top" alt="...">
+        <div class="card" *ngFor = "let user of pageStructure[userType]">
+            <img [attr.src]="user.image" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Playlists</h5>
-              <p class="card-text">One station for the music library that you have created.</p>
-              <button type="button" class="btn btn-outline-warning">
-                <a routerLink="/playlists" routerLinkActive="active">Enter</a>
+              <h5 class="card-title">{{user.title}}</h5>
+              <p class="card-text">{{user.message}}</p>
+              <button type="button" class="btn btn-outline-warning" (click)="navigateTo(user.route)">
+                Enter
               </button>
             </div>
         </div>
-        <div class="card">
-            <img src="../../assets/images/listener-home/favorites.jpg" class="card-img-top" alt="...">
+        <!-- <div class="card">
+            <img src="pageStructure[userType].image" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Favorites</h5>
                 <p class="card-text">Want to check out the songs you liked? You'll get it here. </p>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="../../assets/images/listener-home/people.jpg" class="card-img-top" alt="...">
+            <img src="pageStructure[userType].image" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title">People</h5>
             <p class="card-text">See who follow you and who you follow.</p>
@@ -33,15 +33,15 @@
             </div>
         </div>
         <div class="card">
-            <img src="../../assets/images/listener-home/explore.jpg" class="card-img-top" alt="...">
+            <img src="pageStructure[userType].image" class="card-img-top" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Explore</h5>
+            <h5 class="card-title">{{ userType === 'listener' ? 'Explore' : 'Songs'}}</h5>
             <p class="card-text">A curated library of unlimited songs, just for you.</p>
             <button type="button" class="btn btn-outline-warning">
                 <a routerLink="/explore" routerLinkActive="active">Enter</a>
             </button>
             </div>
-        </div>
+        </div> -->
         
     </div>
       

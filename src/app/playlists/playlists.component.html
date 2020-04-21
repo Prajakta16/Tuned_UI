@@ -1,20 +1,20 @@
 <div>
-    <app-header [loggedIn]="true" [showUsername]="'Aishwarya'"></app-header>
+    <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 
 <div class="container-fluid" >
-    <div class="row" >
+    <div class="row">
       <nav class="col-md-2 d-none d-md-block bg-light sidebar" >
         <div class="sidebar-sticky">
             <h6 class="sidebar-heading d-flex justify-content-between 
                 align-items-center px-3 mt-4 mb-1 text-muted
                 ">
-                <span class="side-bar-header">Select Playlist</span>
+                <span class="side-bar-header">{{selectMsg}}</span>
             </h6>
-            <ul class="nav flex-column">
-                <li class="nav-item" *ngFor = "let playlist of playlists;">
-                    <a class="nav-link"  (click)="updateSong(playlist.id)">
+            <ul class="nav flex-column">  
+                <li class="nav-item" *ngFor = "let item of setList;">
+                    <a class="nav-link"  (click)="updateSong(item)">
                         <span data-feather="file"></span>
-                        {{playlist.name}}
+                        {{item.title}}
                     </a>
                 </li>
             </ul>
@@ -25,7 +25,9 @@
       </nav>
       <main role="main" class="col-md-9 ml-sm-auto
        col-lg-10 px-4 main-content">
-        <app-playlist-view [data]="songsData" [heading]="playlistName"></app-playlist-view>
+        <app-playlist-view [data]="songsData" [userType] = "userType"
+        (addNew) = "addItem($event)" [listEmpty]="setList.length==0" [userId]="userId"
+        [heading]="listName"></app-playlist-view>
       </main>
       
     </div>

@@ -1,95 +1,150 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as solid from '@fortawesome/free-solid-svg-icons';
+import { each } from 'underscore';
+import { DataServiceService } from '../data-service.service';
+
 declare var $;
 @Component({
   selector: 'app-playlist-view',
   templateUrl: './playlist-view.component.html',
   styleUrls: ['./playlist-view.component.scss']
 })
-export class PlaylistViewComponent implements OnInit {
+export class PlaylistViewComponent implements OnInit, OnChanges {
 
   @Input("data") data;
   @Input("heading") heading;
-
-  faComment = regular.faComment;
-  comments = [
-    {
-      message : "AMZINFNBJHG",
-      time : 3,
-      user : "Aishwaraya"
-    },
-    {
-      message : "AMZINFNBJHG",
-      time : 3,
-      user : "Aishwaraya"
-    },
-    {
-      message : "AMZINFNBJHG",
-      time : 3,
-      user : "Aishwaraya"
-    },
-    {
-      message : "AMZINFNBJHG",
-      time : 3,
-      user : "Aishwaraya"
-    },
-    {
-      message : "AMZINFNBJHG",
-      time : 3,
-      user : "Aishwaraya"
-    }
-  ];
+  @Input("userType") userType;
+  @Input("listEmpty") listEmpty;
+  @Input("userId") userId;
   
 
-  playlistName: String;
+  @Output("addNew") addNew = new EventEmitter<any>();
 
-  constructor() {
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
+  listType = {
+    artist : "album",
+    listener : "playlist"
+  }
+  
 
-    $(function () {
-      $('.collapse').collapse(
-        {
-          toggle: false
-        }
-      );
-     
-    })
+  faComment = regular.faComment;
+  faLikeFalse = regular.faThumbsUp;
+  faLikeTrue = solid.faThumbsUp;
+  faDislikeFalse = regular.faThumbsDown;
+  faDislikeTrue = solid.faThumbsDown;
+  faFavoriteTrue = solid.faHeart;
+  faFavoriteFalse = regular.faHeart;
 
+
+  commentSongId;
+  comments = [];
+  name: String;
+
+  constructor(
+    private dataservice : DataServiceService
+  ) {
     
+   }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.data);
+    for(let i=0; i < this.data.length; i++ ){
+      debugger
+      let activities = this.data[i].activities;
+      this.data[i].numOfLikes = 0;
+      this.data[i].numOfDislikes = 0;
+      this.data[i].numOfFavorites = 0;
+      let currentUserActivity : any = {};
+      this.data[i].comments = [];
+      each(activities, (act:any)=>{
+        if(parseInt(this.userId) == act.listener_id){
+          currentUserActivity = act;
+        }
+        if(act.likes){
+          this.data[i].numOfLikes++;
+        }
+        if(act.dislikes){
+          this.data[i].numOfDislikes++;
+        }
+        if(act.is_favourite){
+          this.data[i].numOfFavorites++;
+        }
+        if(act.comment){
+          let commentData =  {
+            message : act.comment,
+            user : act.username || 'Anonymous',
+            userId : act.listener_id
+          }
+          this.data[i].comments.push(commentData);
+        }
+        
+      });
+      debugger
+      this.data[i].numOfComments = this.data[i].comments.length;
+      this.data[i].favorite = currentUserActivity.is_favourite || false;
+      this.data[i].like = currentUserActivity.likes || false;
+      this.data[i].dislike = currentUserActivity.dislikes || false;
+      
+
+
+
+  }
+  }
+
+   addNewItemInList(){
+    this.addNew.emit({
+      name : this.name,
+      type : this.listType[this.userType]
+    });
+    this.name = "";
    }
 
   ngOnInit(): void {
-      for(let i=0; i < this.data.length; i++ ){
-        this.data[i].favorite = regular.faHeart;
-        this.data[i].like = regular.faThumbsUp;
-
-    }
+    
   }
 
 
 
   setFavoriteSong(song){
-    if(song.favorite == solid.faHeart){
-      song.favorite = regular.faHeart;
-    }else{
-      song.favorite = solid.faHeart;
-    }
+    
+
+    this.dataservice.updateSongFavorite(this.userId, song.song_id, { favourite : !song.favorite})
+    .subscribe((v : any)=>{
+      song.favorite = v.is_favourite || false;
+  
+    });
     
   }
 
   likeSong(song){
-    if(song.like == solid.faThumbsUp){
-      song.like = regular.faThumbsUp;
-      song.likesNum--;
-    }else{
-      song.like = solid.faThumbsUp;
-      song.likesNum++;
-    }
 
+    this.dataservice.updateSongLike(this.userId, song.song_id, { like : !song.like})
+    .subscribe((v : any)=>{
+      song.like = v.likes || false;
+      if(v.likes){
+        song.numOfLikes++;
+      }else{
+      song.numOfLikes--;
+      }
+    });
+  }
+
+  dislikeSong(song){
+    this.dataservice.updateSongDislike(this.userId, song.song_id, { dislike : !song.dislike})
+    .subscribe((v : any)=>{
+      song.dislike = v.dislikes || false;
+      debugger
+      if(v.dislikes){
+        song.numOfDislikes++;
+      }else{
+      song.numOfDislikes--;
+      }
+    });
     
+  }
+
+  showComments(song){
+    this.comments = song.comments;
+    this.commentSongId = song.song_id;
   }
 
 }

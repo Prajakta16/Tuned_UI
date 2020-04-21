@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataServiceService } from '../data-service.service';
+import { forkJoin } from 'rxjs';
+import { each, filter } from 'underscore';
 declare var $;
+
 @Component({
   selector: 'app-view-profile',
   templateUrl: './view-profile.component.html',
@@ -8,119 +12,110 @@ declare var $;
 })
 export class ViewProfileComponent implements OnInit {
 
+  userId;
+  userName;
+  currentUserDetails;
+  profileUserType;
+  currentUserFollows;
+
+  dataType = {
+    artist : "album",
+    listener : "playlist"
+  }
+
   isSelf = false;
-  categories = {
-    name : "",
-    songs: ""
+  categories : any = {
+    title : "",
+    songs : ""
   };
   person = {
-    name : "Aishwarya Chauhan",
-    type : "Artist",
-    email : "aishwarya@test.com",
-    phone : "98767558345",
-    help : "dewgweg",
+    userId : "",
+    firstName : "",
+    lastName : "",
+    type : "",
+    username : "",
+    email : "",
+    phone : "",
+    address : "",
+    popularity : 0,
     dataType : "albums",
-    albums : [
-      {
-        name : "A1",
-        id : 1,
-        songs : [
-          {
-            name : "Song1",
-            artist : "Artist1",
-            id : 1,
-            music : "test"
-          },
-          {
-            name : "Song1",
-            artist : "Artist1",
-            id : 2,
-            music : "test"
-          },
-          {
-            name : "Song1",
-            artist : "Artist1",
-            id : 3,
-            music : "test"
-          }
-        ]
-      }
-    ],
-    followers : [
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      }
-    ],
-    followings : [
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      },
-      {
-        name : "AIshwarya",
-        id : 1
-      }
-    ]
+    biography : "",
+    image : "" ,
+    dataList : [],
+    followers : [],
+    followings : []
   }
 
   editMode = false;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private dataservice : DataServiceService,
+
   ) { 
 
     $('collapse').collapse({
       toggle: false
+    });
+
+    this.activatedRoute.paramMap.subscribe((params : any)=>{
+      debugger
+      if(params && params.params && params.params.id && params.params.type){
+        this.userId = parseInt(sessionStorage.getItem("userId"));
+        this.userName = sessionStorage.getItem("username");
+        this.currentUserDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+        debugger
+        //this.profileUserType = params.params.type;
+        this.profileUserType = "artist";
+        let getUserDetailsAPI = this.dataservice.getUserById(this.profileUserType,params.params.id)
+        let followersAPI = this.dataservice.getFollowersByUserId(params.params.id);
+        let followingsAPI = this.dataservice.getFollowingsByUserId(params.params.id);
+
+        forkJoin([getUserDetailsAPI,followersAPI, followingsAPI]).subscribe((results : any)=>{
+          let userInfo = results[0];
+          let followers = results[1];
+          let followings = results[2];
+          if(userInfo){
+            this.person.userId = userInfo.user_id;
+            this.person.firstName = userInfo.first_name;
+            this.person.lastName =  userInfo.last_name;
+            this.person.email = userInfo.email;
+            this.person.phone = userInfo.phone;
+            this.person.address = userInfo.address;
+            this.person.biography = userInfo.biography;
+            this.person.image = userInfo.image_url || "../../assets/images/NoImageAvailable.png";
+            this.person.popularity = userInfo.popularity;
+            this.person.dataList = this.dataType[this.profileUserType] === "album" ?
+                                   userInfo.producedAlbums : userInfo.playlists;
+            this.person.dataType = this.dataType[this.profileUserType];
+            this.person.username = userInfo.username;
+            this.person.followers = [];
+            this.person.followings = [];
+            this.person.type = this.profileUserType;
+            this.isSelf = parseInt(this.userId) === parseInt(params.params.id);
+            if(followers){
+              this.person.followers = followers;
+              each(this.person.followers, (follower : any) => {
+                if(follower.user_id === this.userId){
+                  this.currentUserFollows = true;
+                  follower.follows = true
+                }
+              });
+            }
+            if(followings){
+              this.person.followings = followings;
+              each(this.person.followings, (following : any) => {
+                if(following.user_id === this.userId){
+                  following.follows = true
+                }
+              });
+            }
+
+          }
+          debugger
+        });
+      }
     });
 
   }
@@ -129,7 +124,7 @@ export class ViewProfileComponent implements OnInit {
   }
 
   navigateToProfile(id){
-    this.router.navigate(['/profile']);
+    this.router.navigate([`/profile/${id}/artist`]);
   }
 
   setEditMode(){
@@ -140,8 +135,9 @@ export class ViewProfileComponent implements OnInit {
     this.editMode = false;
   }
 
-  setModalData(index, type){
-    this.categories = this.person[type][index];
+  setModalData(items){
+    debugger
+    this.categories = items;
     for(let i = 0; i < this.categories.songs.length; i++){
       this.categories.songs[i]["arrow"] = "Open"; 
     }
@@ -153,6 +149,31 @@ export class ViewProfileComponent implements OnInit {
     }else{
       category.arrow = "Open"
     }
+  }
+
+  follow(){
+    this.dataservice.followUser(this.userId, this.person.userId).subscribe((v=>{
+      if(v){
+        debugger
+        this.currentUserFollows = true;
+        this.currentUserDetails.follows = true;
+        this.person.followers.push(this.currentUserDetails);
+      }
+    }));
+  }
+
+  unfollow(){
+    this.dataservice.unfollowUser(this.userId, this.person.userId).subscribe((v)=>{
+      if(v){
+        debugger
+        this.currentUserFollows = false;
+        this.currentUserDetails.follows = false;
+        this.person.followers = filter(this.person.followers, (foll : any) => {
+          return this.currentUserDetails.user_id != foll.user_id;
+        });
+    
+      }
+    });
   }
     
 

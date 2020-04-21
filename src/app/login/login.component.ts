@@ -1,56 +1,43 @@
-import { Component, OnInit, Input, ChangeDetectorRef, OnChanges  } from '@angular/core';
-import { DataServiceService } from '../data-service.service';
+import { Component, OnInit, Input, ChangeDetectorRef, OnChanges, ChangeDetectionStrategy,NgZone, AfterViewInit, AfterViewChecked  } from '@angular/core';
+declare var $;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+ // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit, OnChanges {
+export class LoginComponent implements OnInit, AfterViewChecked {
 
   @Input("loginForm") login;
-  //@Input("usersList") usersList;
+  @Input("usersList") usersList;
 
-  usersList  = {
-    artists  : [],
-    admin : "admin",
-    listeners : []
-  }
+  list;
 
   constructor(
-    private dataservice : DataServiceService,
-    private det : ChangeDetectorRef 
+
   ) { 
 
-    this.fetchAllArtists();
-    this.fetchAllListeners();
-
-    //this.det.detectChanges();
     
   }
 
+  updateSelector(value){
+    this.login.dtype = value
+    this.list = this.usersList[value];
+    this.login.username = "";
+    this.login.password = "";
+    $('.selectpicker').selectpicker();
 
-  ngOnChanges(){
-    this.det.detectChanges();
   }
+
+
+  ngAfterViewChecked () {
+    //noinspection TypeScriptUnresolvedFunction
+    $('.selectpicker').selectpicker();
+  } 
 
   ngOnInit(): void {
   }
 
-  fetchAllArtists(){
-    this.dataservice.getUsers("artist").subscribe(v=>{
-      debugger
-      this.usersList.artists.concat(v);
-      
-    });
-
-    //this.availableUsers.artists  = this.dataservice.getUsers("artist");
-  }
-
-  fetchAllListeners(){
-    this.dataservice.getUsers("listener").subscribe(v=>{
-     // this.availableUsers.listeners.concat(v);
-    });
-  }
 
 }

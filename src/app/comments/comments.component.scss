@@ -23,6 +23,7 @@
 .list-group-item:last-child {
     border-bottom-right-radius: unset;
     border-bottom-left-radius: unset;
+    border: unset;
     margin-bottom: 12px;
 }
 
@@ -35,3 +36,8 @@
 .list-group {
     margin-top: -10px;
 }    
+
+.is-current{
+    color: grey;
+    font-weight: 400;
+}

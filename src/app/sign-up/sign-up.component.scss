@@ -14,3 +14,20 @@ button.calendar, button.calendar:active {
     color: #b32a2a;
   }
 
+
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+ 
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #dee2e6;
+    border-radius: 1px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #979ba1; 
+  }

@@ -1,24 +1,27 @@
-<app-header [loggedIn]="true" [showUsername]="'Aishwarya'"></app-header>
+<app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 <div class="container emp-profile" >
   <form method="post">
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+          <img style="width: 250px; height: 300px;"
+            [attr.src]="person.image"
             alt="" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="profile-head">
-          <h5>
-            {{person.name}}
-          </h5>
+          <h4>
+            {{person.firstName}} {{person.lastName}}
+          </h4>
           <h6>
-            {{person.type}}
+            @{{person.username}}
           </h6>
-          <p class="proile-rating" *ngIf="person.type==='Artist'">
-            Popularity : <span>8/10</span>
+          <h5>
+            {{profileUserType | titlecase}}
+          </h5>
+          <p class="profile-rating" *ngIf="person.type==='artist'">
+            Popularity : <span>{{person.popularity || 0}}</span>
           </p>
           
 
@@ -37,10 +40,10 @@
             </li>
             <li class="nav-item" *ngIf="!isSelf">
               <a class="nav-link" id="album-tab" data-toggle="tab" 
-              href="#albums" role="tab" aria-controls="albums" *ngIf="person.type === 'Artist'"
+              href="#albums" role="tab" aria-controls="albums" *ngIf="person.type === 'artist'"
                 aria-selected="false">Albums</a>
               <a class="nav-link" id="playlists-tab" data-toggle="tab" 
-              href="#playlists" role="tab" aria-controls="playlists" *ngIf="person.type === 'Listener'"
+              href="#playlists" role="tab" aria-controls="playlists" *ngIf="person.type === 'listener'"
                 aria-selected="false">Playlists</a>
             </li>
           </ul>
@@ -55,8 +58,12 @@
       <ng-template #followSection>
         <div>
           <button type="submit" class="btn btn-outline-secondary" 
-           name="btnFollow">
+           name="btnFollow" (click)="follow()" *ngIf="!currentUserFollows">
             Follow
+          </button>
+          <button type="submit" class="btn btn-secondary" 
+           name="btnFollow" (click)="unfollow()" *ngIf="currentUserFollows">
+            Following
           </button>
         </div>
       </ng-template>
@@ -64,54 +71,43 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <div class="profile-work">
-          <p>WORK LINK</p>
-          <a href="">Website Link</a><br />
-          <a href="">Bootsnipp Profile</a><br />
-          <a href="">Bootply Profile</a>
-          <p>SKILLS</p>
-          <a href="">Web Designer</a><br />
-          <a href="">Web Developer</a><br />
-          <a href="">WordPress</a><br />
-          <a href="">WooCommerce</a><br />
-          <a href="">PHP, .Net</a><br />
-        </div>
+
       </div>
       <div class="col-md-8">
         <div class="tab-content profile-tab container-details" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
               <div class="col-md-6">
-                <label>Email</label>
+                <label>First Name</label>
               </div>
               <div class="col-md-6">
-                <p *ngIf="!editMode">{{person.email}}</p>
-                <input type="text" class="form-control input-style" id="email5"
-                name="field1"
-                *ngIf="editMode" value="{{person.email}}"
-                [(ngModel)]="person.email">
+                <p *ngIf="!editMode">{{person.firstName}}</p>
+                <input type="text" class="form-control input-style" id="firstName"
+                name="firstName"
+                *ngIf="editMode" value="{{person.firstName}}"
+                [(ngModel)]="person.firstName">
 
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label>HELP</label>
+                <label>Last Name</label>
               </div>
               <div class="col-md-6">
-                <p *ngIf="!editMode">{{person.help}}</p>
-                <input type="text" class="form-control input-style" id="phone4"
-                *ngIf="editMode"   value="{{person.help}}" name="field2"
-                [(ngModel)]="person.help">
+                <p *ngIf="!editMode">{{person.lastName}}</p>
+                <input type="text" class="form-control input-style" id="lastName"
+                *ngIf="editMode"   value="{{person.lastName}" name="lastName"
+                [(ngModel)]="person.lastName">
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label>Email</label>
+                <label>Username</label>
               </div>
               <div class="col-md-6">
-                <p *ngIf="!editMode">{{person.email}}</p>
-                <input type="text" class="form-control input-style" id="email3" name="field3" 
-                [(ngModel)] = "person.email" *ngIf="editMode"  value="{{person.email}}"
+                <p *ngIf="!editMode">{{person.username}}</p>
+                <input type="text" class="form-control input-style" id="username" name="username" 
+                [(ngModel)] = "person.username" readonly *ngIf="editMode"  value="{{person.username}}"
                 >
               </div>
             </div>
@@ -121,22 +117,34 @@
               </div>
               <div class="col-md-6">
                 <p *ngIf="!editMode">{{person.phone}}</p>
-                <input type="text" class="form-control input-style" id="email2" name="field4"
+                <input type="text" class="form-control input-style" id="phone" name="phone"
                 *ngIf="editMode"  value="{{person.phone}}"
-                [(ngModel)]="person.email">
+                [(ngModel)]="person.phone">
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label>Profession</label>
+                <label>Address</label>
               </div>
               <div class="col-md-6">
-                <p *ngIf="!editMode">{{person.phone}}</p>
-                <input type="text" class="form-control input-style" id="email1" name="field5"
+                <p *ngIf="!editMode">{{person.address}}</p>
+                <input type="text" class="form-control input-style" id="address" name="address"
+                *ngIf="editMode"  value="{{person.address}}"
+                [(ngModel)]="person.address">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Email</label>
+              </div>
+              <div class="col-md-6">
+                <p *ngIf="!editMode">{{person.email}}</p>
+                <input type="email" class="form-control input-style" id="email" name="email"
                 *ngIf="editMode"  value="{{person.email}}"
                 [(ngModel)]="person.email">
               </div>
             </div>
+            
             <div class="row savbtn" *ngIf="editMode">
               <button class="btn btn-outline-secondary" name="btn-save"
               (click)="saveProfileDetails()">Save</button>
@@ -146,20 +154,17 @@
           <!--- For followers--->
           <div class="tab-pane fade container-details" id="follower" role="tabpanel"
           aria-labelledby="follower-tab">
-            
+          <div class="alert alert-info" *ngIf="!person.followers.length">0 Followers</div>
             <ul class="list-group">
-              <li class="list-group-item list-override" *ngFor = "let follower of person.followers index as i">
+              <li class="list-group-item list-override" *ngFor = "let follower of person.followers; index as i">
                   <div class="list-item">
                       <div>
-                         {{follower.name}}
+                        {{follower.first_name}} {{follower.last_name}}
                       </div>
                       <div class="btn-group" role="group" aria-label="Basic example">
                           <button type="button" class="btn btn-sm btn-outline-secondary"
-                          (click)="navigateToProfile(follower.id)">
+                          (click)="navigateToProfile(follower)">
                               View Profile
-                          </button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">
-                              following
                           </button>
                       </div>
                   </div>
@@ -169,20 +174,18 @@
 
           <!--- For followings--->
           <div class="tab-pane fade container-details" id="following" role="tabpanel" aria-labelledby="following-tab">
-            
+            <div class="alert alert-info" *ngIf="!person.followings.length">0 Followings</div>
             <ul class="list-group">
-              <li class="list-group-item list-override" *ngFor = "let following of person.followings index as i">
+              
+              <li class="list-group-item list-override" *ngFor = "let following of person.followings; index as i">
                   <div class="list-item">
                       <div>
-                          {{following.name}}
+                          {{following.first_name}} {{following.last_name}}
                       </div>
                       <div class="btn-group" role="group" aria-label="Basic example">
                           <button type="button" class="btn btn-sm btn-outline-secondary"
-                          (click)="navigateToProfile(following.id)">
+                          (click)="navigateToProfile(following.user_id)">
                               View Profile
-                          </button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">
-                              following
                           </button>
                       </div>
                   </div>
@@ -193,15 +196,15 @@
           <!-- For Albums -->
           <div class="tab-pane fade container-details" id="albums" role="tabpanel"
           aria-labelledby="album-tab">
-            
+          <div class="alert alert-info" *ngIf="!person.dataList.length">0 {{dataType[profileUserType]}}</div>
             <ul class="list-group">
-              <li class="list-group-item list-override" *ngFor = "let album of person.albums index as i">
+              <li class="list-group-item list-override" *ngFor = "let data of person.dataList index as i">
                   <div class="list-item">
                       <div>
-                          {{album.name}}
+                          {{data.title}}
                       </div>
                       <button type="button" class="btn btn-sm btn-outline-secondary"
-                      data-toggle="modal" (click) = "setModalData(i, 'albums')"
+                      data-toggle="modal" (click) = "setModalData(person.dataList[i])"
                       [attr.data-target]="'#'+person.dataType+'Modal'">
                               View 
                       </button>
@@ -221,23 +224,24 @@
     <div class="modal-dialog modal-dialog-centered " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="dataModalLabel">{{ categories.name}}</h5>
+          <h5 class="modal-title" id="dataModalLabel">{{ categories.title}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="songsByCategory">
+            <div *ngIf = "!categories.songs.length">No songs found in the {{dataType[profileUserType]}}!</div>
             <div id="accordion">
-              <div class="card" *ngFor="let category of categories.songs; index as i">
+              <div class="card" *ngFor="let song of categories.songs; index as i">
                 <div class="card-header" [attr.id]="'category'+i">
                   <div class="mb-0 category-header">
-                      {{category.name}} 
+                      {{song.title}} 
                     <button class="btn btn-sm btn-outline-secondary"
                      data-toggle="collapse" [attr.data-target]="'#collapse'+i" 
-                    aria-expanded="false" [attr.aria-controls]="'collapse'+i" (click)="openDetails(category)">
+                    aria-expanded="false" [attr.aria-controls]="'collapse'+i" (click)="openDetails(song)">
                       <!-- <fa-icon [icon]="category.arrow"></fa-icon> -->
-                       {{category.arrow}}   
+                       {{song.arrow}}   
                     </button>
                   </div>
                 </div>

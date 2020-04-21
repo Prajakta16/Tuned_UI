@@ -19,6 +19,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { CommentsComponent } from './comments/comments.component';
 import { HttpClientModule }    from '@angular/common/http';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { AlbumsComponent } from './albums/albums.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { HttpClientModule }    from '@angular/common/http';
     ExploreComponent,
     PlaylistViewComponent,
     ViewProfileComponent,
-    CommentsComponent
+    CommentsComponent,
+    SearchResultsComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,

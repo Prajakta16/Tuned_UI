@@ -1,0 +1,26 @@
+.bootstrap-select>.dropdown-toggle.bs-placeholder{
+    color: whitesmoke;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+ 
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #dee2e6;
+    border-radius: 1px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #979ba1; 
+  }
+
+  .override{
+      background-color: whitesmoke;
+      color: black;
+      cursor: pointer;
+  }

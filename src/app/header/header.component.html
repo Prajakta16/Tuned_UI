@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="availableUsers.artists">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="availableUsers.artist && availableUsers.listener">
     <a class="navbar-brand" href="#" *ngIf="!loggedIn">TUNED</a>
     <a class="navbar-brand" routerLink="/home" *ngIf="loggedIn">TUNED</a>
   
@@ -7,15 +7,16 @@
         
         <div class="nav-item search-box" >
           <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" name="searchKey" [ngModel]="searchKey"
+            <input class="form-control mr-sm-2" type="search" name="searchKey" [(ngModel)]="search.searchValue"
              placeholder="Search" aria-label="Search">
-            <select class="form-control" id="searchType" name="searchType" required>
-              <option>Songs</option>
-              <option>Artists</option>
-              <option>Albums</option>
+            <select class="form-control" id="searchType" name="searchType" [(ngModel)]="search.searchType" required>
+              <option value="song" selected>Songs</option>
+              <option value="artist">Artists</option>
+              <option value ="album">Albums</option>
           </select>
           <div class="nav-item" style="margin-left: 0.5rem" >
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchData()"
+            type="submit">Search</button>
           </div>
           </form>
           
@@ -54,11 +55,15 @@
               </button>
             </div>
             <div class="modal-body">
-              <app-sign-up name ="signupform" [signUpForm] = "signupform"></app-sign-up>
+              <app-sign-up name ="signupform"
+              [signUpForm] = "signupform"></app-sign-up>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary"
-              (click)="register()" data-dismiss="modal">Confirm</button>
+              (click)="register()" [attr.data-dismiss]="dissmiss.signup.allow">Confirm</button>
+              <div *ngIf="dissmiss.signup.alert && checkSignup()" class="alert alert-danger" >
+                Please fill all the required fields
+              </div>
             </div>
           </div>
         </div>
@@ -76,7 +81,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <app-login  name="login" [loginForm]="login" ></app-login>
+              <app-login  name="login" [loginForm]="login" [usersList]="availableUsers" ></app-login>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary"
@@ -87,4 +92,14 @@
       </div>
       
     </div>
+
+    
   </nav>
+
+  <div class="alert alert-warning alert-dismissible fade show success-msg" role="alert" *ngIf="success">
+    <strong>You are now signed up!</strong> Please login to explore the world of music.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+

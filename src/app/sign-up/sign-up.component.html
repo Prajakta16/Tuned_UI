@@ -57,7 +57,7 @@
       required>
       <option value="">Select</option>
       <option value="artist">Artist</option>
-      <option value="artist">Listener</option>
+      <option value="listener">Listener</option>
     </select>
     <div *ngIf="usertype.invalid && (usertype.dirty || usertype.touched)" class="alert alert-light">
       <div *ngIf="usertype.errors.required">
@@ -84,13 +84,5 @@
         Password is required.
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="signupPasswordConf">Confirm Password</label>
-    <input type="password" class="form-control" [(ngModel)]="signup.passwordConf" id="signupPasswordConf"
-      name="passwordConf" #passwordConf="ngModel">
-      <div *ngIf=" (passwordConf.dirty || passwordConf.touched) && signup.passwordConf!=signup.password " class="alert alert-light">
-        Password do not match.
-      </div>
   </div>
 </form>

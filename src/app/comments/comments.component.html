@@ -1,25 +1,29 @@
-<div class="">
+<div *ngIf="comments">
     <ul class="list-group">
         <li class="list-group-item list-override" *ngFor = "let comment of comments;">
             <div class="comment-content">
                 <div>
                     {{comment.message}}
                 </div>
-                <div>
-                    {{comment.time}} days ago
-                </div>
             </div>
-            <div class="user-name">
+            <div class="user-name" [ngClass]="{
+                'is-current': comment.userId === userId
+              }">
                 {{comment.user}} 
             </div>
         </li>
       </ul>
-    <div>
+    <div *ngIf = "!commented">
         <form>
             <div class="form-group">
               <label for="plName">Add Comment</label>
               <textarea class="form-control" id="comName" name="comName" required
               [(ngModel)]="newComment"  ></textarea>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-outline-secondary" (click)="addNewComment()">
+                    Add
+                </button>
             </div>
         </form>
     </div>

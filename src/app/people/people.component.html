@@ -1,15 +1,15 @@
-<app-header [loggedIn]="true" [showUsername]="'Aishwarya'"></app-header>
+<app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 
 <div class = "people-container">
     <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                <span class="badge badge-secondary">100</span> Followers
+                <span class="badge badge-secondary">{{followerCount}}</span> Followers
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                <span class="badge badge-secondary">4</span> Following
+                <span class="badge badge-secondary">{{followingCount}}</span> Following
             </a>
         </li>
       </ul>
@@ -19,15 +19,20 @@
                 <li class="list-group-item" *ngFor = "let follower of followers; index as i">
                     <div class="list-item">
                         <div>
-                            {{i+1}}. {{follower.name}}
+                            {{i+1}}. {{follower.first_name}} {{follower.last_name}}
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary"
-                            (click)="navigateToProfile(follower.id)">
+                            (click)="navigateToProfile(follower.user_id)">
                                 View Profile
                             </button>
-                            <button type="button" class="btn btn-outline-secondary">
-                                following
+                            <button type="button" class="btn btn-secondary" 
+                            *ngIf="follower.follow" (click)="unfollow(follower)">
+                                Following
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" 
+                            *ngIf="!follower.follow" (click)="follow(follower)">
+                                Follow
                             </button>
                         </div>
                     </div>
@@ -40,15 +45,20 @@
                 <li class="list-group-item" *ngFor = "let following of followings; index as i">
                     <div class="list-item">
                         <div>
-                            {{i+1}}. {{following.name}}
+                            {{i+1}}. {{following.first_name}} {{following.last_name}}
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary"
-                            (click)="navigateToProfile(following.id)">
+                            (click)="navigateToProfile(following.user_id)">
                                 View Profile
                             </button>
-                            <button type="button" class="btn btn-outline-secondary">
-                                following
+                            <button type="button" class="btn btn-secondary" 
+                            *ngIf="following.follow" (click)="unfollow(following)">
+                                Following
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" 
+                            *ngIf="!following.follow" (click)="follow(following)">
+                                Follow
                             </button>
                         </div>
                     </div>
