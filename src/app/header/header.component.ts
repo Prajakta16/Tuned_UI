@@ -74,6 +74,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  userId;
+  userType;
+  
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -82,12 +86,19 @@ export class HeaderComponent implements OnInit {
     
     this.fetchAllArtists();
     this.fetchAllListeners();
+   
 
   }
 
   ngOnInit(): void {
 
-    
+    debugger
+    if(this.loggedIn){
+      this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
+      this.userType = sessionStorage.getItem("userType");
+      debugger
+      this.userName = sessionStorage.getItem("username");
+    }
   }
 
   

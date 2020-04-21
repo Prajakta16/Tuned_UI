@@ -1,4 +1,7 @@
 <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
+<div class="spinner-border" role="status" *ngIf="!albums">
+  <span class="sr-only">Loading...</span>
+</div>
 <div class="songsByCategory" *ngIf = "albums">
   <div id="accordion">
     <div class="card" *ngFor="let category of albums; index as i">

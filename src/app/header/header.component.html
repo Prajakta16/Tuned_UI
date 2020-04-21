@@ -47,7 +47,8 @@
         </div> -->
 
         <div class="btn-group" role="group" aria-label="Basic example" *ngIf="loggedIn">
-          <button class="btn btn-light " type="button" (click)="viewProfile()" >View Profile</button> 
+          <button class="btn btn-light " type="button" (click)="viewProfile()" 
+          *ngIf="userType!='admin'">View Profile</button> 
           <button class="btn btn-light " type="button" (click)="logout()" >Logout</button> 
         </div>
       

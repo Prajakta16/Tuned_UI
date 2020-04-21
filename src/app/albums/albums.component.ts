@@ -3,7 +3,7 @@ import { DataServiceService } from '../data-service.service';
 import { sortBy } from 'underscore'; 
 import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as solid from '@fortawesome/free-solid-svg-icons';
-import { each } from 'underscore';
+import { each, find } from 'underscore';
 import { forkJoin } from 'rxjs';
 
 declare var $;
@@ -118,6 +118,10 @@ export class AlbumsComponent implements OnInit, OnChanges {
 
   getAllAlbums(){
     this.dataservice.getAllAlbums().subscribe((item : any)=>{
+      if(!item){
+        this.albums = [];
+        return
+      }
       this.albums = item;
       for(let i = 0; i < this.albums.length; i++){
         this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`; 
@@ -238,11 +242,22 @@ export class AlbumsComponent implements OnInit, OnChanges {
 
     this.dataservice.addSongToList(this.toAddSongToList).subscribe((res : any)=>{
       if(res){
+        
+        alert(`Song Added to ${res.title}`);
+        if(this.toAddSongToList.listType === 'album'){
+          each(this.albums, (album : any)=>{
+            if( album.album_id == this.toAddSongToList){
+              album.songs = res.songs;
+            }
+          }
+          )
+          
+        }
+        
+
         this.toAddSongToList.listId = "";
         this.toAddSongToList.listType = this.userType === "listener" ? "playlist" : "";
         this.toAddSongToList.songIdToBeAdded = "";
-        debugger
-        alert(`Song Added to ${res.title}`);
       }
     })
 

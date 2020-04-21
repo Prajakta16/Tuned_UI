@@ -55,20 +55,26 @@ export class SessionHomeComponent implements OnInit {
         headings : [
           "Listeners",
           "Artists"
-        ]
+        ],
+        image : "../../assets/images/admin-home/people.jpg",
       },
       {
         title : "Songs",
         message : "View list of all the songs",
+        image : "../../assets/images/admin-home/songs.jpg",
+        route : "/songs"
       },
       {
         title : "Albums",
         message : "View list of all the albums",
+        image : "../../assets/images/admin-home/albums.jpg",
         route : `/albums`,
       },
       {
         title : "Playlists",
         message : "View list of all the playlists",
+        image : "../../assets/images/admin-home/playlists.jpg",
+        route : `/playlistAdmin`,
       }
 
        
