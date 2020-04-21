@@ -116,10 +116,11 @@ export class PlaylistsComponent implements OnInit, OnChanges {
   }
 
   updateSong(item){
-
+    
     debugger
     this.listId = item.id;
-    this.songsData = item.songs || []
+    this.songsData = item.songs || [];
+    this.listName = item.title;
 
   }
 

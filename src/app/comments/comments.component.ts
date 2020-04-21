@@ -22,11 +22,12 @@ export class CommentsComponent implements OnInit, OnChanges {
   constructor(
     private dataservice : DataServiceService
   ) { 
-      debugger
+      
   }
 
   ngOnChanges(changes : SimpleChanges){
     debugger
+    this.commented = false;
     this.canComment = changes.canComment;
     each(this.comments , (comment : any)=>{
       debugger
