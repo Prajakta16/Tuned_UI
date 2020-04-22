@@ -77,7 +77,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
 
         this.setList = item;
         this.listName = this.setList[0].title;
-        this.listId = this.setList[1].id;
+        this.listId = this.setList[0].id;
         this.songsData = this.setList[0].songs;
         
         debugger
