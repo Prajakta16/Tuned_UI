@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-
-const hostName = "https://tuned-application.herokuapp.com"
+//"http://localhost:8080";//
+const hostName =   "https://tuned-application.herokuapp.com"
 
 @Injectable({
   providedIn: 'root'
@@ -533,6 +533,7 @@ export class DataServiceService {
   }
 
   deleteUserById(user_id) {
+   
     let url = `${hostName}/api/user/delete/${user_id}`;
     return this.http.delete(url, {}).pipe(
       map((response : any) => {
