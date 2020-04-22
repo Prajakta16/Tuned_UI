@@ -18,8 +18,11 @@
             <ul class="event-list">
                 <li  *ngFor = "let result of resultList; index as i">
                     
-                    <img alt="Independence Day" 
+                    <img *ngIf="result.album.image_url" alt="Independence Day" 
                     [attr.src]="result.album.image_url"
+                     />
+                     <img *ngIf="!result.album.image_url" alt="Independence Day" 
+                    src="../../assets/images/NoImageAvailable.jpg"
                      />
                     <div class="info">
                         <h2 class="title">{{result.title}}</h2>

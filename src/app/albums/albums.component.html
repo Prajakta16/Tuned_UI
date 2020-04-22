@@ -27,7 +27,8 @@
       <div [attr.id]="'collapse'+i" class="collapse row category-body" [attr.aria-labelledby]="'category'+i" 
         data-parent="#accordion">
         <div class="col-md-3" *ngIf="!adminPlaylistView">
-            <img class="card-img-top img-thumbnail" [attr.src]="category.image_url" alt="Card image cap">
+            <img class="card-img-top img-thumbnail" *ngIf="category.image_url" [attr.src]="category.image_url" alt="Card image cap">
+            <img class="card-img-top img-thumbnail" *ngIf="!category.image_url" src="../../assets/images/NoImageAvailable.jpg" alt="Card image cap">
         </div>
         <div [ngClass]="{'col-md-12' : adminPlaylistView, 'col-md-9' : !adminPlaylistView}">
             <div class="card-body">

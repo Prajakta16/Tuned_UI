@@ -205,10 +205,8 @@ export class AlbumsComponent implements OnInit, OnChanges {
       for(let i = 0; i < this.albums.length; i++){
         this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`; 
         this.albums[i]["songNum"] = this.albums[i].songs.length;
-        for(let j=0; j < this.albums[j].songs.length; j++ ){
-          debugger
+        for(let j=0; j < this.albums[i].songs.length; j++ ){
           if(this.albums[i].songs[j]){
-
           let activities = this.albums[i].songs[j].activities;
           this.albums[i].songs[j].numOfLikes = 0;
           this.albums[i].songs[j].numOfDislikes = 0;
@@ -240,7 +238,6 @@ export class AlbumsComponent implements OnInit, OnChanges {
               }
               
             });
-            debugger
             this.albums[i].songs[j].numOfComments = this.albums[i].songs[j].comments.length;
             this.albums[i].songs[j].favorite = currentUserActivity.is_favourite || false;
             this.albums[i].songs[j].like = currentUserActivity.likes || false;
