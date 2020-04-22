@@ -50,4 +50,16 @@ export class AllPeopleComponent implements OnInit {
     this.router.navigate([`/profile/${id}/artist`]);
   }
 
+  deleteUser(id){
+    this.dataservice.deleteUserById(id).subscribe((v : any)=>{
+      alert("User deleted");
+      window.location.reload();
+      if(v){
+        alert("User deleted");
+      }else{
+        //alert("Some error occured");
+      }
+    })
+  }
+
 }

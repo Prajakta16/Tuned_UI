@@ -531,6 +531,23 @@ export class DataServiceService {
     );;
   }
 
+  deleteUserById(user_id) {
+    let url = `${hostName}/api/user/delete/${user_id}`;
+    return this.http.delete(url, {}).pipe(
+      map((response : any) => {
+   
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        console.log(error)
+        return of(null);
+      })
+      
+    );;
+  }
+  
+
   removeList(removeObj){
     
     let url = `${hostName}/api/${removeObj.userType}/${removeObj.userId}/${removeObj.listType}/${removeObj.listId}/remove`;

@@ -13,7 +13,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                <span class="badge badge-secondary">{{listeners.length || 0}}</span> listeners
+                <span class="badge badge-secondary">{{listeners.length || 0}}</span> Listeners
             </a>
         </li>
       </ul>
@@ -27,10 +27,14 @@
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary"
+                            (click)="deleteUser(artist.user_id)">
+                                Delete User
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary"
                             (click)="navigateToProfile(artist.user_id)">
                                 View Profile
                             </button>
-                            <!-- TODO DELETE -->
+                            
                         </div>
                     </div>
                 </li>
@@ -46,10 +50,14 @@
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-secondary"
+                            (click)="deleteUser(listener.user_id)">
+                                Delete User
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary"
                             (click)="navigateToProfile(listener.user_id)">
                                 View Profile
                             </button>
-                            <!-- TOTO DELETE -->
+                            
                         </div>
                     </div>
                 </li>
