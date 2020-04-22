@@ -259,20 +259,26 @@ export class SessionHomeComponent implements OnInit {
       debugger
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
         if(v){
-          console.log(v);
-          this.success = true;
-          this.signupform = {
-            first_name : "",
-            last_name : "",
-            username : "",
-            password : "",
-            phone : "",
-            address : "",
-            user_type : ""
-          };
+          if(v.success){
+            console.log(v);
+            this.success = true;
+            window.location.reload();
+            this.signupform = {
+              first_name : "",
+              last_name : "",
+              username : "",
+              password : "",
+              phone : "",
+              address : "",
+              user_type : ""
+            };
+          }else{
+            alert(v.error);
+          }
+ 
 
-        }else{
-          alert("Some Error Occured");
+        }else {
+          alert("Some error occured");
         }
           
         }

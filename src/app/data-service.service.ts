@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-//"http://localhost:8080";//
-const hostName =   "https://tuned-application.herokuapp.com"
+const hostName = "http://localhost:8080";//
+//const hostName =   "https://tuned-application.herokuapp.com"
 
 @Injectable({
   providedIn: 'root'

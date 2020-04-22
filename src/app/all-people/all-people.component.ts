@@ -18,6 +18,7 @@ export class AllPeopleComponent implements OnInit {
   userType;
   userName;
 
+  showusers = false;
   
   constructor(
     private router: Router,
@@ -34,7 +35,7 @@ export class AllPeopleComponent implements OnInit {
             this.artists = sortBy(v[0], "username");
             this.listeners = sortBy(v[1], " username");
 
-
+            this.showusers = true;
           }else{
             
             alert("Some error occured");
