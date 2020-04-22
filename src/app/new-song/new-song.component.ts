@@ -23,11 +23,13 @@ export class NewSongComponent implements OnInit {
     private dataservice : DataServiceService
   ) {
 
-    this.userId = parseInt(sessionStorage.getItem("userId"));
+        this.userId = parseInt(sessionStorage.getItem("userId"));
         this.userType = sessionStorage.getItem("userType");
         this.userName = sessionStorage.getItem("username");
+        let API = this.userType === "admin" ? this.dataservice.getAllAlbums() : 
+                      this.dataservice.getAllAlbumsForArtist(this.userId)
 
-        this.dataservice.getAllAlbumsForArtist(this.userId).subscribe((v:any)=>{
+        API.subscribe((v:any)=>{
           if(v){
             this.albumsList = sortBy(v, "title");
           }
