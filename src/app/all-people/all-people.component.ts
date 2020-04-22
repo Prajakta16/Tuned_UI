@@ -57,7 +57,7 @@ export class AllPeopleComponent implements OnInit {
       if(v){
         alert("User deleted");
       }else{
-        //alert("Some error occured");
+       
       }
     })
   }

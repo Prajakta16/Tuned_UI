@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
 
+interface FormElement {
+  first_name : String;
+  last_name : String;
+  username : String;
+  password : String;
+  phone : String;
+  address : String;
+  dtype : String;
+}
+
 @Component({
   selector: 'app-session-home',
   templateUrl: './session-home.component.html',
@@ -16,7 +26,30 @@ export class SessionHomeComponent implements OnInit {
   searchKey;
   userId ;
   userType = "admin";
+  isAdmin = false;
 
+  success = false;
+
+  dissmiss = {
+    signup : {
+      allow : "modal",
+      alert : false
+    },
+    login : {
+      allow : "modal",
+      alert : false
+    }
+  }
+
+  signupform : FormElement = {
+    first_name : "",
+    last_name : "",
+    username : "",
+    password : "",
+    phone : "",
+    address : "",
+    dtype : ""
+  };
 
   pageStructure = {
     admin  : [],
@@ -25,7 +58,8 @@ export class SessionHomeComponent implements OnInit {
   }
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dataservice : DataServiceService
   ) {
     let userid = sessionStorage.getItem("userId");
     if(userid!=="-1"){
@@ -33,12 +67,15 @@ export class SessionHomeComponent implements OnInit {
       this.userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
       this.userFirstName = this.userDetails.first_name;
       this.userName = sessionStorage.getItem("username");
+      
       this.userType = sessionStorage.getItem("userType");
       debugger
       this.userId = sessionStorage.getItem("userId");
       this.userType == "artist" ? this.loadArtistStructure() : this.loadListenerStructure();
     }else{
       this.loadAdminStructure();
+      
+      this.isAdmin = true;
     }
     
    }
@@ -144,5 +181,53 @@ export class SessionHomeComponent implements OnInit {
 
   navigateTo(url){
     this.router.navigate([url]);
+  }
+
+  checkSignup(){
+    if(
+      this.signupform.first_name!== "" || 
+      this.signupform.last_name!="" ||
+      this.signupform.password!="" ||
+      this.signupform.dtype!="" ||
+      this.signupform.username!=""
+    ){
+      debugger
+      this.dissmiss.signup.alert = false;
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  register(){
+
+    if(
+      this.signupform.first_name!== "" && 
+      this.signupform.last_name!="" &&
+      this.signupform.password!="" &&
+      this.signupform.dtype!="" && 
+      this.signupform.username!=""
+    ){
+      this.dataservice.addNewUser(this.signupform).subscribe(v=>{
+          console.log(v);
+          this.success = true;
+          this.signupform = {
+            first_name : "",
+            last_name : "",
+            username : "",
+            password : "",
+            phone : "",
+            address : "",
+            dtype : ""
+          };
+
+        }
+      );
+      this.dissmiss.signup.allow = "modal";
+    }else{
+      this.dissmiss.signup.alert = true;
+      this.dissmiss.signup.allow = "";
+      this.success = true;
+    }    
   }
 }

@@ -115,6 +115,15 @@ export class HeaderComponent implements OnInit {
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
           console.log(v);
           this.success = true;
+          this.signupform = {
+            first_name : "",
+            last_name : "",
+            username : "",
+            password : "",
+            phone : "",
+            address : "",
+            dtype : ""
+          };
 
         }
       );
