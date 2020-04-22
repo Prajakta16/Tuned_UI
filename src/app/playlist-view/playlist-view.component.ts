@@ -120,7 +120,10 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
 
     this.dataservice.updateSongFavorite(this.userId, song.song_id, { favourite : !song.favorite})
     .subscribe((v : any)=>{
-      song.favorite = v.is_favourite || false;
+      if(v){
+        song.favorite = v.is_favourite || false;
+      }
+      
   
     });
     
@@ -130,25 +133,32 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
 
     this.dataservice.updateSongLike(this.userId, song.song_id, { like : !song.like})
     .subscribe((v : any)=>{
-      song.like = v.likes || false;
-      if(v.likes){
-        song.numOfLikes++;
-      }else{
-      song.numOfLikes--;
+      if(v){
+        song.like = v.likes || false;
+        if(v.likes){
+          song.numOfLikes++;
+        }else{
+        song.numOfLikes--;
+        }
       }
+      
     });
   }
 
   dislikeSong(song){
     this.dataservice.updateSongDislike(this.userId, song.song_id, { dislike : !song.dislike})
     .subscribe((v : any)=>{
-      song.dislike = v.dislikes || false;
-      debugger
-      if(v.dislikes){
-        song.numOfDislikes++;
-      }else{
-      song.numOfDislikes--;
+
+      if(v){
+        song.dislike = v.dislikes || false;
+        debugger
+        if(v.dislikes){
+          song.numOfDislikes++;
+        }else{
+        song.numOfDislikes--;
+        }
       }
+      
     });
     
   }

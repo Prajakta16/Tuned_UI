@@ -52,6 +52,7 @@ export class AllPeopleComponent implements OnInit {
   deleteUser(id){
     this.dataservice.deleteUserById(id).subscribe((v : any)=>{
       alert("User deleted");
+      //TODO
       window.location.reload();
       if(v){
         alert("User deleted");

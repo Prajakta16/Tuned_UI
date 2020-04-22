@@ -41,6 +41,8 @@ export class FavoritesComponent implements OnInit {
               this.dislikes = sortBy(this.dislikes, "title");
               this.favorites = res[2] || [];
               this.favorites = sortBy(this.favorites, "title");
+            }else{
+              
             }
           })
 

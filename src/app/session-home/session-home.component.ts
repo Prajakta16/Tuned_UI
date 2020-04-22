@@ -257,6 +257,7 @@ export class SessionHomeComponent implements OnInit {
       this.signupform.username!=""
     ){
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
+        if(v){
           console.log(v);
           this.success = true;
           this.signupform = {
@@ -269,6 +270,10 @@ export class SessionHomeComponent implements OnInit {
             user_type : ""
           };
 
+        }else{
+          alert("Some Error Occured");
+        }
+          
         }
       );
       this.dissmiss.signup.allow = "modal";

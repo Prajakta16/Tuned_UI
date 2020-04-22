@@ -112,7 +112,8 @@ export class HeaderComponent implements OnInit {
       this.signupform.user_type!="" && 
       this.signupform.username!=""
     ){
-      this.dataservice.addNewUser(this.signupform).subscribe(v=>{
+      this.dataservice.addNewUser(this.signupform).subscribe((v:any)=>{
+        if(v){
           console.log(v);
           this.success = true;
           window.location.reload();
@@ -125,6 +126,11 @@ export class HeaderComponent implements OnInit {
             address : "",
             user_type : ""
           };
+
+        }else {
+          alert("Some error occured");
+        }
+          
 
         }
       );
