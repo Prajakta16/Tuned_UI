@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
+import { forkJoin } from 'rxjs';
 
 interface FormElement {
   first_name : String;
@@ -28,7 +29,18 @@ export class SessionHomeComponent implements OnInit {
   userType = "admin";
   isAdmin = false;
 
+  artists = []
+  listeners =  []
+
+  albumAddSuccess = false;
+  newItem = {
+    userId : "",
+    name : ""
+  }
+  
+
   success = false;
+  playlistAddSuccess= false;
 
   dissmiss = {
     signup : {
@@ -74,6 +86,13 @@ export class SessionHomeComponent implements OnInit {
       this.userType == "artist" ? this.loadArtistStructure() : this.loadListenerStructure();
     }else{
       this.loadAdminStructure();
+      forkJoin([this.dataservice.getAllUsers("artist"), 
+      this.dataservice.getAllUsers("listener")]).subscribe((v:any)=>{
+        if(v){
+          this.artists = v[0] || [];
+          this.listeners = v[1] || []
+        }
+      })
       
       this.isAdmin = true;
     }
@@ -82,6 +101,35 @@ export class SessionHomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  addAlbumItem(){
+
+    this.dataservice.addNewListItem("album",this.newItem.userId,{
+      title : this.newItem.name
+    }).subscribe((v:any)=>{
+      if(v){
+        this.albumAddSuccess = true;
+      }
+      this.newItem.name = "";
+      this.newItem.userId = "";
+    });
+  }
+
+  addNewPlaylist(){
+
+    this.dataservice.addNewListItem("playlist",this.newItem.userId,{
+      title : this.newItem.name
+    }).subscribe((v:any)=>{
+      if(v){
+
+        this.playlistAddSuccess = true;
+      }
+
+      this.newItem.name = "";
+      this.newItem.userId = "";
+
+    });
   }
 
   loadAdminStructure(){
