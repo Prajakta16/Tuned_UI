@@ -25,7 +25,7 @@
                         <h2 class="title">{{result.title}}</h2>
                         <p class="desc">{{result.album.title}}</p>
                         <p  class="desc">Popularity: {{result.popularity}}</p>
-                        <p class="desc">Song duration: {{result.duration}}</p>
+                        <p class="desc">Song duration: {{convertMS(result.duration)}}</p>
                         
                         <div class="album-info">
                             <p class="desc">Album resealed on: {{result.album.release_year}}</p>

@@ -45,6 +45,7 @@ export class SearchSongsComponent implements OnInit, OnChanges {
   listOfPlaylists = [];
   listOfAlbums = [];
 
+  convertMS = this.dataservice.convertMS;
   toAddSongToList = {
     songIdToBeAdded: "",
     listType: "",
@@ -54,6 +55,8 @@ export class SearchSongsComponent implements OnInit, OnChanges {
     private activatedRoute: ActivatedRoute,
     private dataservice: DataServiceService
   ) {
+
+    
 
     this.activatedRoute.paramMap.subscribe((params: any) => {
       if (params && params.params && params.params.search) {
