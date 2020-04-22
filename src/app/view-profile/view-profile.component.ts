@@ -19,6 +19,7 @@ export class ViewProfileComponent implements OnInit {
   currentUserFollows;
   profileUserId;
 
+  isAdmin = false;
   dataType = {
     artist : "album",
     listener : "playlist"
@@ -66,7 +67,12 @@ export class ViewProfileComponent implements OnInit {
       if(params && params.params && params.params.id && params.params.type){
         this.userId = parseInt(sessionStorage.getItem("userId"));
         this.userName = sessionStorage.getItem("username");
-        this.currentUserDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+        
+        if(this.userName === 'admin'){
+          this.isAdmin = true;
+        }else{
+          this.currentUserDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+        }
         debugger
         this.profileUserType = params.params.type;
         this.profileUserId = parseInt(params.params.id);
@@ -168,6 +174,8 @@ export class ViewProfileComponent implements OnInit {
     this.dataservice.updateProfile(this.profileUserId, person).subscribe((v : any)=>{
       if(v){
         alert("Profile updated");
+        // sessionStorage.setItem("userDetails", JSON.stringify(v));
+        // this.currentUserDetails = JSON.parse(sessionStorage.getItem("userDetails"));
       }
     });
     

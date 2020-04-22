@@ -25,6 +25,8 @@ import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { SearchArtistsComponent } from './search-artists/search-artists.component';
 import { NewSongComponent } from './new-song/new-song.component';
 import { SongsListComponent } from './songs-list/songs-list.component';
+import { AllPlaylistsComponent } from './all-playlists/all-playlists.component';
+import { AllPeopleComponent } from './all-people/all-people.component';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { SongsListComponent } from './songs-list/songs-list.component';
     SearchSongsComponent,
     SearchArtistsComponent,
     NewSongComponent,
-    SongsListComponent
+    SongsListComponent,
+    AllPlaylistsComponent,
+    AllPeopleComponent
   ],
   imports: [
     BrowserModule,

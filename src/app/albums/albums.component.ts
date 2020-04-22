@@ -5,6 +5,7 @@ import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as solid from '@fortawesome/free-solid-svg-icons';
 import { each, find } from 'underscore';
 import { forkJoin } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 declare var $;
 
@@ -27,6 +28,7 @@ export class AlbumsComponent implements OnInit, OnChanges {
     listId : ""
   } ;
 
+  adminPlaylistView = false;
 
   faComment = regular.faComment;
   faLikeFalse = regular.faThumbsUp;
@@ -55,7 +57,8 @@ export class AlbumsComponent implements OnInit, OnChanges {
   albums = null;
   constructor(
     private dataservice : DataServiceService,
-    private changesRef : ChangeDetectorRef
+    private changesRef : ChangeDetectorRef,
+    private activatedRoute : ActivatedRoute
   ) {
     $('collapse').collapse({
       toggle: false
@@ -64,35 +67,111 @@ export class AlbumsComponent implements OnInit, OnChanges {
     this.userType = sessionStorage.getItem("userType");
     this.userName = sessionStorage.getItem("username");
     let APIArray = [];
-    if(this.userType === "listener"){
-      this.canDoActions = true;
-      this.isAdmin = false;
-      this.toAddSongToList.listType = "playlist";
-      let getAllPlaylistForListenerAPI = this.dataservice.getAllPlaylistsForListener(this.userId);
-      APIArray.push(getAllPlaylistForListenerAPI);
-     }else if(this.userType === "admin"){
-       this.isAdmin = true;
-       this.canDoActions = false;
-       let getAllAlbumsAPI = this.dataservice.getAllAlbums();
-       let getAllPlaylistAPI = this.dataservice.getAllPlaylists();
-       APIArray.push(getAllPlaylistAPI);
-       APIArray.push(getAllAlbumsAPI);
-     }
-     forkJoin(APIArray).subscribe((results : any) => {
-       if(results){
-         this.listOfPlaylists = results[0] || [];
-         this.listOfAlbums = results[1] || [];
 
-         each(this.listOfPlaylists, (item : any) => {
-           item.id = item.playlist_id;
-         })
+    this.activatedRoute.paramMap.subscribe((params : any)=>{
+      debugger
+      if(params && params.params.view && params.params.view === "playlists"){
+        debugger
+        this.isAdmin = true;
+        this.canDoActions = false;
+        this.adminPlaylistView = true;
+        this.toAddSongToList.listType = "playlist";
+        let getAllPlaylistAPI = this.dataservice.getAllPlaylists();
+        getAllPlaylistAPI.subscribe((v:any)=>{
+          if(v){
+            this.albums = v;
+      for(let i = 0; i < this.albums.length; i++){
+        this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`; 
+        this.albums[i]["songNum"] = this.albums[i].songs.length;
+        for(let j=0; j < this.albums[j].songs.length; j++ ){
+          debugger
+          if(this.albums[i].songs[j]){
 
-         each(this.listOfAlbums, (item : any) => {
-          item.id = item.album_id;
+          let activities = this.albums[i].songs[j].activities;
+          this.albums[i].songs[j].numOfLikes = 0;
+          this.albums[i].songs[j].numOfDislikes = 0;
+          this.albums[i].songs[j].numOfFavorites = 0;
+          this.albums[i].songs[j].time = this.dataservice.convertMS(this.albums[i].songs[j].duration);
+          let currentUserActivity : any = {};
+          this.albums[i].songs[j].comments = [];
+          if(activities){
+            each(activities, (act:any)=>{
+              if(parseInt(this.userId) == act.listener_id){
+                currentUserActivity = act;
+              }
+              if(act.likes){
+                this.albums[i].songs[j].numOfLikes++;
+              }
+              if(act.dislikes){
+                this.albums[i].songs[j].numOfDislikes++;
+              }
+              if(act.is_favourite){
+                this.albums[i].songs[j].numOfFavorites++;
+              }
+              if(act.comment){
+                let commentData =  {
+                  message : act.comment,
+                  user : act.username || 'Anonymous',
+                  userId : act.listener_id
+                }
+                this.albums[i].songs[j].comments.push(commentData);
+              }
+              
+            });
+            debugger
+            this.albums[i].songs[j].numOfComments = this.albums[i].songs[j].comments.length;
+            this.albums[i].songs[j].favorite = currentUserActivity.is_favourite || false;
+            this.albums[i].songs[j].like = currentUserActivity.likes || false;
+            this.albums[i].songs[j].dislike = currentUserActivity.dislikes || false;
+          }
+
+          }
+          
+         
+          
+    
+    
+    
+        }}
+        
+          }else{
+            alert("Some error occured");
+          }
         })
-       }
-      this.getAllAlbums();
-     })
+      }else{
+
+        if(this.userType === "listener"){
+          this.canDoActions = true;
+          this.isAdmin = false;
+          this.toAddSongToList.listType = "playlist";
+          let getAllPlaylistForListenerAPI = this.dataservice.getAllPlaylistsForListener(this.userId);
+          APIArray.push(getAllPlaylistForListenerAPI);
+         }else if(this.userType === "admin"){
+           this.isAdmin = true;
+           this.canDoActions = false;
+           let getAllAlbumsAPI = this.dataservice.getAllAlbums();
+           let getAllPlaylistAPI = this.dataservice.getAllPlaylists();
+           APIArray.push(getAllPlaylistAPI);
+           APIArray.push(getAllAlbumsAPI);
+         }
+         forkJoin(APIArray).subscribe((results : any) => {
+           if(results){
+             this.listOfPlaylists = results[0] || [];
+             this.listOfAlbums = results[1] || [];
+    
+             each(this.listOfPlaylists, (item : any) => {
+               item.id = item.playlist_id;
+             })
+    
+             each(this.listOfAlbums, (item : any) => {
+              item.id = item.album_id;
+            })
+           }
+          this.getAllAlbums();
+         });
+      }
+    })
+    
 
      
    }
@@ -230,6 +309,24 @@ export class AlbumsComponent implements OnInit, OnChanges {
   }
 
   deleteSongFromList(category , song){
+
+    let listType = category.playlist_id ? "playlist" : "album";
+    let songId = song.song_id;
+    let songObject = {
+      listType,
+      listId : category.playlist_id ? category.playlist_id : category.album_id,
+      songId
+
+    }
+    this.dataservice.removeSongFromList(songObject).subscribe((v : any) => {
+      debugger
+      if(v){
+        
+        alert("Song removed");
+        window.location.reload();
+      }
+    })
+    
 
   }
 

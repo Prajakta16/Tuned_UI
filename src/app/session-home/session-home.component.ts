@@ -57,6 +57,7 @@ export class SessionHomeComponent implements OnInit {
           "Artists"
         ],
         image : "../../assets/images/admin-home/people.jpg",
+        route : "/people/list/all"
       },
       {
         title : "Songs",
@@ -68,13 +69,13 @@ export class SessionHomeComponent implements OnInit {
         title : "Albums",
         message : "View list of all the albums",
         image : "../../assets/images/admin-home/albums.jpg",
-        route : `/albums`,
+        route : "/albums",
       },
       {
         title : "Playlists",
         message : "View list of all the playlists",
         image : "../../assets/images/admin-home/playlists.jpg",
-        route : `/playlistAdmin`,
+        route : "/playlistAdmin/playlists",
       }
 
        

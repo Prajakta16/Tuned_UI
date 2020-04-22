@@ -52,7 +52,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -68,7 +68,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -86,7 +86,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -108,7 +108,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -126,7 +126,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -143,7 +143,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -160,7 +160,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -176,7 +176,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -192,7 +192,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -208,7 +208,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -224,7 +224,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -240,7 +240,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -256,7 +256,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -272,7 +272,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -288,7 +288,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -305,7 +305,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -321,7 +321,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -337,7 +337,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -355,7 +355,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -372,7 +372,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -388,7 +388,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -404,7 +404,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -420,7 +420,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -437,7 +437,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -454,7 +454,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -471,7 +471,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -488,7 +488,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error);
         return of(null);
       })
       
@@ -506,7 +506,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -523,7 +523,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -541,7 +541,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -560,7 +560,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
@@ -577,7 +577,7 @@ export class DataServiceService {
         }
       ),
       catchError((error:any)=>  {
-        debugger
+        console.log(error)
         return of(null);
       })
       
