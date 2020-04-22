@@ -50,6 +50,7 @@ export class ViewProfileComponent implements OnInit {
   }
 
   editMode = false;
+  loggedIn = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -65,8 +66,12 @@ export class ViewProfileComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params : any)=>{
       debugger
       if(params && params.params && params.params.id && params.params.type){
-        this.userId = parseInt(sessionStorage.getItem("userId"));
+        this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
+        if(this.userId){
+          this.loggedIn = true;
+        }
         this.userName = sessionStorage.getItem("username");
+        debugger
         
         if(this.userName === 'admin'){
           this.isAdmin = true;
@@ -140,6 +145,10 @@ export class ViewProfileComponent implements OnInit {
   }
 
   navigateToProfile(user){
+    debugger
+    if(!user.user_type){
+      user.user_type = user.spotify_url ? "artist" : "listener";
+    }
     this.router.navigate([`/profile/${user.user_id}/${user.user_type}`]);
   }
 
@@ -149,16 +158,6 @@ export class ViewProfileComponent implements OnInit {
 
   saveProfileDetails(){
     this.editMode = false;
-    /*
-    
-    this.person.userId = userInfo.user_id;
-            this.person.firstName = userInfo.first_name;
-            this.person.lastName =  userInfo.last_name;
-            this.person.email = userInfo.email;
-            this.person.phone = userInfo.phone;
-            this.person.address = userInfo.address;
-            this.person.biography = userInfo.biography
-    */
     let person = {
       first_name : this.person.firstName,
       last_name : this.person.lastName,

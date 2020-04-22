@@ -1,4 +1,12 @@
-<app-header [loggedIn]="true" [showUsername]="userName"></app-header>
+<app-header [loggedIn]="loggedIn" [showUsername]="userName"></app-header>
+
+<div class="alert alert-warning alert-dismissible fade show success-msg" role="alert" *ngIf="!loggedIn">
+  Please login to for trying out more features!!!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
 <div class="container emp-profile" >
   <form method="post">
     <div class="row">
@@ -58,7 +66,7 @@
         </button>
       </div>
       <ng-template #followSection>
-        <div *ngIf="!isSelf && !isAdmin">
+        <div *ngIf="!isSelf && !isAdmin && loggedIn">
           <button type="submit" class="btn btn-outline-secondary" 
            name="btnFollow" (click)="follow()" *ngIf="!currentUserFollows">
             Follow
