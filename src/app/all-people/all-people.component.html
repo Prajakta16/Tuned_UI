@@ -1,6 +1,10 @@
 <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 
-<div class = "people-container">
+<div class="spinner-border" role="status" *ngIf="!(artists.length!=0 && listeners.length!=0)">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<div class = "people-container" *ngIf="(artists.length!=0 && listeners.length!=0)">
     <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">

@@ -107,31 +107,24 @@ body {
     color: rgb(30, 30, 30);
     background-color: rgb(200, 200, 200);
 }
-.facebook a,
-.twitter a,
-.google-plus a {
+
+.twitter button{
+
     display: block;
     width: 100%;
     color: rgb(75, 110, 168) !important;
 }
-.twitter a {
-    color: rgb(79, 213, 248) !important;
+
+.twitter button {
+    color: black !important;
 }
-.google-plus a {
-    color: rgb(221, 75, 57) !important;
-}
-.facebook:hover a {
+
+
+.twitter:hover button {
     color: rgb(255, 255, 255) !important;
-    background-color: rgb(75, 110, 168) !important;
+    background-color: rgb(113, 131, 136) !important;
 }
-.twitter:hover a {
-    color: rgb(255, 255, 255) !important;
-    background-color: rgb(79, 213, 248) !important;
-}
-.google-plus:hover a {
-    color: rgb(255, 255, 255) !important;
-    background-color: rgb(221, 75, 57) !important;
-}
+
 
 @media (min-width: 768px) {
     .event-list > li {
@@ -178,7 +171,7 @@ body {
     }
     .event-list > li > .social {
         position: absolute;
-        top: 0px;
+        top: 25px;
         right: 0px;
         display: block;
         width: 40px;

@@ -1,11 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DataServiceService } from '../data-service.service';
-import { each } from 'underscore';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
+import {
+  DataServiceService
+} from '../data-service.service';
+import {
+  each
+} from 'underscore';
+import {
+  forkJoin
+} from 'rxjs';
 
 interface Search {
-  searchType : string,
-  searchValue : string
+  searchType: string,
+    searchValue: string
 }
 
 
@@ -14,57 +29,132 @@ interface Search {
   templateUrl: './search-songs.component.html',
   styleUrls: ['./search-songs.component.scss']
 })
-export class SearchSongsComponent implements OnInit {
+export class SearchSongsComponent implements OnInit, OnChanges {
 
   userName;
+  userType;
+  userId;
   loggedIn = false;
+  isAdmin = false;
+  isArtist = false;
+  isListener = false;
 
   resultCount = -1;
   resultList = [];
+
+  listOfPlaylists = [];
+  listOfAlbums = [];
+
+  toAddSongToList = {
+    songIdToBeAdded: "",
+    listType: "",
+    listId: ""
+  };
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dataservice : DataServiceService
+    private dataservice: DataServiceService
   ) {
-    
-    this.activatedRoute.paramMap.subscribe((params : any)=>{
-      if(params && params.params && params.params.search){
 
-        let search : Search =  {
-          searchType : "song",
-          searchValue : params.params.search
+    this.activatedRoute.paramMap.subscribe((params: any) => {
+      if (params && params.params && params.params.search) {
+
+        this.userName = sessionStorage.getItem("username");
+        this.userId = sessionStorage.getItem("userId");
+        this.userType = sessionStorage.getItem("userType");
+        this.isAdmin = this.userType === "admin";
+        this.isArtist = this.userType === "artist";
+        this.isListener = this.userType === "listener";
+
+        let search: Search = {
+          searchType: "song",
+          searchValue: params.params.search
 
         }
-        this.dataservice.search(search).subscribe((v : any) => {
-          this.userName = sessionStorage.getItem("username");
-          if(this.userName){
+
+        this.resultList = [];
+        debugger
+        this.dataservice.search(search).subscribe((v: any) => {
+          let getAllAlbumsAPI = this.isAdmin ? this.dataservice.getAllAlbums() :
+            this.dataservice.getAllAlbumsForArtist(this.userId);
+          let getAllPlaylistAPI = this.isAdmin ? this.dataservice.getAllPlaylists() :
+            this.dataservice.getAllPlaylistsForListener(this.userId);
+          let APIArray = [];
+          APIArray.push(getAllPlaylistAPI);
+          APIArray.push(getAllAlbumsAPI);
+          forkJoin(APIArray).subscribe((results: any) => {
+            if (results) {
+              this.listOfPlaylists = results[0] || [];
+              this.listOfAlbums = results[1] || [];
+
+              each(this.listOfPlaylists, (item: any) => {
+                item.id = item.playlist_id;
+              })
+
+              each(this.listOfAlbums, (item: any) => {
+                item.id = item.album_id;
+              })
+            }
+
+          });
+
+
+
+          this.toAddSongToList.listType = this.userType === "artist" ? "album" : "playlist";
+          if (this.userName) {
             this.loggedIn = true;
           }
-          if(v && v.length && v.length!=0){
+          if (v && v.length && v.length != 0) {
             this.resultCount = v.length;
             this.resultList = v;
-            
-            each(this.resultList, (res : any)=>{
+
+            each(this.resultList, (res: any) => {
               let artists = [];
               debugger
-              if(res.album && res.album.artists){
-                each(res.album.artists, (artist : any)=>{
+              if (res.album && res.album.artists) {
+                each(res.album.artists, (artist: any) => {
                   artists.push(artist.name);
                 });
               }
-              
+
 
               res.artistNames = artists.join(", ");
 
             });
-          }
-          else{
+          } else {
+            this.resultList = [];
             this.resultCount = 0;
           }
         })
-      }})
-   }
+      }
+    })
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    debugger
+  }
+
+  setSongId(song) {
+    debugger
+    this.toAddSongToList.songIdToBeAdded = song.song_id;
+  }
+
+
+
+  addSongToList() {
+
+
+    this.dataservice.addSongToList(this.toAddSongToList).subscribe((res: any) => {
+      if (res) {
+
+        alert(`Song Added to ${res.title}`);
+
+      } else {
+        alert("Some error occured");
+      }
+    })
+
   }
 
 }

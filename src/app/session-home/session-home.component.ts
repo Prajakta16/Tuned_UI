@@ -52,10 +52,6 @@ export class SessionHomeComponent implements OnInit {
       {
         title : "People",
         message : "View list of all the people",
-        headings : [
-          "Listeners",
-          "Artists"
-        ],
         image : "../../assets/images/admin-home/people.jpg",
         route : "/people/list/all"
       },
@@ -126,7 +122,7 @@ export class SessionHomeComponent implements OnInit {
       },
       {
         title : "Songs",
-        message : "Check out all the songs other all users and add to your album if you have created it.",
+        message : "Add songs to your album if you have created it from the list.",
         image : "../../assets/images/artist-home/songs.jpg",
         route : `/songs`
       },

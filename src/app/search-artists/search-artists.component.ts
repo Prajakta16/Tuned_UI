@@ -40,6 +40,7 @@ export class SearchArtistsComponent implements OnInit {
             this.resultCount = v.length;
             this.resultList = v;
           }else{
+            this.resultList = [];
             this.resultCount = 0;
           }
           debugger

@@ -346,6 +346,8 @@ export class AlbumsComponent implements OnInit, OnChanges {
 
   }
 
+
+
   
   setSongId(song){
     this.toAddSongToList.songIdToBeAdded = song.song_id;

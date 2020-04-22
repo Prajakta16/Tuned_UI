@@ -33,6 +33,17 @@
                             <p  class="desc">Artists: {{result.artistNames || 'Unknown'}}</p>
                         </div>
                     </div>
+                    <div class="social" *ngIf="loggedIn && !isAdmin">
+                        <ul>
+                            <li class="facebook" style="width:33%;"><a href="#facebook"></a></li>
+                            <li class="twitter" style="width:100%;">
+                                <button class="btn btn default" (click)="setSongId(result)"
+                                data-toggle="modal" data-target="#AddNewModal">
+                                    <span class="fa fa-plus"></span>
+                                </button></li>
+                            <li class="google-plus" style="width:33%;"><a href="#google-plus"></a></li>
+                        </ul>
+                    </div>
                 </li>
 
 
@@ -41,4 +52,61 @@
             </ul>
         </div>
     </div>
+</div>
+
+<!-- Add Song To playlist -->
+
+<div class="modal fade" id="AddNewModal" tabindex="-1" role="dialog" data-backdrop="static"
+aria-labelledby="AddNewModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="AddNewModalLabel">Add song to {{this.toAddSongToList.listType | titlecase}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        {{toAddSongToList |json}}
+      <form>
+        
+        <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist'">
+          <label for="selectPlaylist">Select Playlist</label>
+          <select class="form-control" id="selectPlaylist" 
+          [(ngModel)]="toAddSongToList.listId"
+          
+           name="selectPlaylist" #selectPlaylist="ngModel"
+            required>
+            <option value="">Select</option>
+            <option value="{{item.id}}" *ngFor="let item of listOfPlaylists">
+              {{item.title}}
+            </option>
+          </select>
+          {{toAddSongToList | json}}
+        </div>
+
+        <div class="form-group" *ngIf="toAddSongToList.listType == 'album'">
+           
+          <label for="selectAlbum">Select Album</label>
+          <select class="form-control" id="selectAlbum" 
+          [(ngModel)]="toAddSongToList.listId"
+          
+           name="selectAlbum" #selectAlbum="ngModel"
+            required>
+            <option value="">Select</option>
+            <option *ngFor="let item of listOfAlbums" value="{{item.id}}" >
+              {{item.title}}
+            </option>
+          </select>
+          {{toAddSongToList | json}}
+        </div>
+      </form>
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="addSongToList()"
+      data-dismiss="modal">Add</button>
+    </div>
+  </div>
+</div>
 </div>

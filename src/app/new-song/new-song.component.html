@@ -1,5 +1,9 @@
 <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 
+<div class="alert alert-info" style="text-align: center;" *ngIf="!albumsList || albumsList.length==0">
+  You do not have any albums. Please create an album to create songs.
+</div>
+
 <div class="container" *ngIf="albumsList.length!=0">
   <div class="py-5 text-center">
     

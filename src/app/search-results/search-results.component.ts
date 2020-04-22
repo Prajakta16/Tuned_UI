@@ -68,6 +68,7 @@ export class SearchResultsComponent implements OnInit {
 
           }
           else{
+            this.resultList = [];
             this.resultCount = 0;
           }
         })
