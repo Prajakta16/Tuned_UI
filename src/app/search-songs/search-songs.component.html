@@ -33,7 +33,7 @@
                             <p  class="desc">Artists: {{result.artistNames || 'Unknown'}}</p>
                         </div>
                     </div>
-                    <div class="social" *ngIf="loggedIn && !isAdmin">
+                    <div class="social" *ngIf="loggedIn && isListener">
                         <ul>
                             <li class="facebook" style="width:33%;"><a href="#facebook"></a></li>
                             <li class="twitter" style="width:100%;">
