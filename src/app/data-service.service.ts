@@ -47,7 +47,7 @@ export class DataServiceService {
 }
 
   addNewUser(user){
-    return this.http.post(`${hostName}/api/${user.dtype}/new`, user,  this.httpOptions).pipe(
+    return this.http.post(`${hostName}/api/${user.user_type}/new`, user,  this.httpOptions).pipe(
       map((response : any) => {
         return response;
         }

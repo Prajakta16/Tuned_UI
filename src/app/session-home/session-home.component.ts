@@ -256,6 +256,7 @@ export class SessionHomeComponent implements OnInit {
       this.signupform.user_type!="" && 
       this.signupform.username!=""
     ){
+      debugger
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
         if(v){
           console.log(v);
