@@ -46,7 +46,8 @@ export class AllPeopleComponent implements OnInit {
   }
 
   navigateToProfile(user){
-    this.router.navigate([`/profile/${user.id}/${user.user_type}`]);
+    debugger
+    this.router.navigate([`/profile/${user.user_id}/${user.user_type}`]);
   }
 
   deleteUser(id){
