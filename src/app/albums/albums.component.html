@@ -51,7 +51,7 @@
                       </thead>
                       <tbody>
                         <tr *ngFor = "let song of category.songs; index as j;" id="p{{j}}">
-                          <td>{{j + 1}} {{song.song_id}}</td>
+                          <td>{{j + 1}}</td>
                           <td>{{song.title}}</td>
                           <td>{{song.popularity || 0}}</td>
                           <td>{{song.time}}</td>
@@ -188,7 +188,6 @@
                 <option value="playlist">Playlist</option>
                 <option value="album">Album</option>
               </select>
-              {{toAddSongToList | json}}
             </div>
             <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist'">
               <label for="selectPlaylist">Select Playlist</label>
@@ -202,7 +201,7 @@
                   {{item.title}}
                 </option>
               </select>
-              {{toAddSongToList | json}}
+              
             </div>
 
             <div class="form-group" *ngIf="toAddSongToList.listType == 'album'">
@@ -217,7 +216,7 @@
                   {{item.title}}
                 </option>
               </select>
-              {{toAddSongToList | json}}
+           
             </div>
           </form>
           
