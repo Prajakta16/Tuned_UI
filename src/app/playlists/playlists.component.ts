@@ -213,17 +213,17 @@ export class PlaylistsComponent implements OnInit, OnChanges {
           });
         }
         
-       
+        this.setHomePage();
       }
 
-      this.setHomePage();
+     
       
     })
   }
 
   setHomePage(){
     debugger
-      this.songsData = this.setList[0].songs || [];
+      this.songsData =  this.setList[0].songs || [];
       this.listId = this.setList[0].id;
       this.listName = this.setList[0].title;
   }

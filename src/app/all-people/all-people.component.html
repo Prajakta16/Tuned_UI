@@ -1,6 +1,5 @@
 <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
-
-<div class="spinner-border" role="status" *ngIf="!(artists.length!=0 && listeners.length!=0)">
+<div class="spinner-border" role="status" *ngIf="!(artists && artists.length!=0 && listeners && listeners.length!=0)">
     <span class="sr-only">Loading...</span>
 </div>
 
