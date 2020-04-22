@@ -513,6 +513,24 @@ export class DataServiceService {
     );;
   }
 
+  deleteListById(listType, listId){
+    //https://tuned-application.herokuapp.com/api/album/delete/132
+    //https://tuned-application.herokuapp.com//api/playlist/delete/40
+    let url = `${hostName}/api/${listType}/delete/${listId}`;
+    return this.http.delete(url).pipe(
+      map((response : any) => {
+   
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        console.log(error)
+        return of(null);
+      })
+      
+    );;
+  }
+
   removeList(removeObj){
     
     let url = `${hostName}/api/${removeObj.userType}/${removeObj.userId}/${removeObj.listType}/${removeObj.listId}/remove`;

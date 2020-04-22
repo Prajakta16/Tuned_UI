@@ -330,6 +330,22 @@ export class AlbumsComponent implements OnInit, OnChanges {
 
   }
 
+  deleteList(list){
+
+    debugger
+    let listType = list.album_id ? "album" : "playlist";
+    let listId = list.album_id ? list.album_id : list.playlist_id;
+    this.dataservice.deleteListById(listType, listId).subscribe((v:any)=>{
+      if(v){
+        alert(`${listType} Deleted`);
+        window.location.reload();
+      }else{
+        alert("Some error occured");
+      }
+    })
+
+  }
+
   
   setSongId(song){
     this.toAddSongToList.songIdToBeAdded = song.song_id;
