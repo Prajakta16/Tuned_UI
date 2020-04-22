@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
 import { forkJoin } from 'rxjs';
-import { each, filter } from 'underscore';
+import { sortBy } from 'underscore';
 
 @Component({
   selector: 'app-all-people',
@@ -20,7 +20,6 @@ export class AllPeopleComponent implements OnInit {
 
   
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private dataservice : DataServiceService
   ) { 
@@ -32,8 +31,8 @@ export class AllPeopleComponent implements OnInit {
         forkJoin([allArtistAPI, allListerAPI]).subscribe((v:any)=>{
           if(v && v[0] && v[1]){
             debugger
-            this.artists = v[0];
-            this.listeners = v[1];
+            this.artists = sortBy(v[0], "username");
+            this.listeners = sortBy(v[1], " username");
 
 
           }else{

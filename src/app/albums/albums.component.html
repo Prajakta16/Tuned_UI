@@ -8,18 +8,18 @@
       <div class="card-header" [attr.id]="'category'+i">
         <div class="mb-0 category-header">
           {{category.title || 'Unknown'}} 
-          <div></div>
-          <td *ngIf="isAdmin">
-            <button type="button" (click)="deleteList(category)" class="btn btn-default">
+          <div>
+            <button type="button" (click)="deleteList(category)" class="btn btn-default" *ngIf="isAdmin">
               <fa-icon [icon]="faDelete"></fa-icon>
             </button>
-          </td>  
-            <button class="btn btn-sm btn-outline-light"
-              data-toggle="collapse" [attr.data-target]="'#collapse'+i" 
-             aria-expanded="false" [attr.aria-controls]="'collapse'+i" (click)="openDetails(category)">
-               <!-- <fa-icon [icon]="category.arrow"></fa-icon> -->
-                {{category.arrow}}   
-             </button>
+              <button class="btn btn-sm btn-outline-light"
+                data-toggle="collapse" [attr.data-target]="'#collapse'+i" 
+               aria-expanded="false" [attr.aria-controls]="'collapse'+i" (click)="openDetails(category)">
+                  {{category.arrow}}   
+               </button>
+          </div>
+           
+          
           
         </div>
       </div>

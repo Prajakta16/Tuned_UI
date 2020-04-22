@@ -3,7 +3,7 @@ import { DataServiceService } from '../data-service.service';
 import { sortBy } from 'underscore'; 
 import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as solid from '@fortawesome/free-solid-svg-icons';
-import { each, find } from 'underscore';
+import { each } from 'underscore';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,7 +15,7 @@ declare var $;
   templateUrl: './albums.component.html',
   styleUrls: ['./albums.component.scss']
 })
-export class AlbumsComponent implements OnInit, OnChanges {
+export class AlbumsComponent implements OnInit {
 
   listType = {
     artist : "album",
@@ -157,7 +157,9 @@ export class AlbumsComponent implements OnInit, OnChanges {
          forkJoin(APIArray).subscribe((results : any) => {
            if(results){
              this.listOfPlaylists = results[0] || [];
+             this.listOfPlaylists = sortBy(this.listOfPlaylists, "title");
              this.listOfAlbums = results[1] || [];
+             this.listOfAlbums = sortBy(this.listOfAlbums, "title");
     
              each(this.listOfPlaylists, (item : any) => {
                item.id = item.playlist_id;
@@ -181,10 +183,6 @@ export class AlbumsComponent implements OnInit, OnChanges {
     
   }
 
-  ngOnChanges(changes : SimpleChanges){
-    debugger
-
-  }
 
   openDetails(album){
     debugger
@@ -201,7 +199,8 @@ export class AlbumsComponent implements OnInit, OnChanges {
         this.albums = [];
         return
       }
-      this.albums = item;
+      debugger
+      this.albums = sortBy(item,"title");
       for(let i = 0; i < this.albums.length; i++){
         this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`; 
         this.albums[i]["songNum"] = this.albums[i].songs.length;
@@ -290,7 +289,6 @@ export class AlbumsComponent implements OnInit, OnChanges {
     this.dataservice.updateSongDislike(this.userId, song.song_id, { dislike : !song.dislike})
     .subscribe((v : any)=>{
       song.dislike = v.dislikes || false;
-      debugger
       if(v.dislikes){
         song.numOfDislikes++;
       }else{
@@ -316,9 +314,7 @@ export class AlbumsComponent implements OnInit, OnChanges {
 
     }
     this.dataservice.removeSongFromList(songObject).subscribe((v : any) => {
-      debugger
       if(v){
-        
         alert("Song removed");
         window.location.reload();
       }

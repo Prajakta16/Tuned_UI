@@ -47,7 +47,7 @@ export class CommentsComponent implements OnInit, OnChanges {
       comment : this.newComment
     }
     this.dataservice.addNewComment(this.userId, this.songId, commentBody).subscribe((v : any)=>{
-      if(v.comment){
+      if(v && v.comment){
         this.comments.push({
           comment : v.comment,
           username : v.username || "Anonymous",
@@ -60,6 +60,8 @@ export class CommentsComponent implements OnInit, OnChanges {
         })
         
         this.commented = false;
+      }else{
+        console.log("SOME ERROR OCCURED");
       }
     });
   }

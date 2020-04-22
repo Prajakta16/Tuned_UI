@@ -5,7 +5,6 @@ import {SessionHomeComponent} from './session-home/session-home.component';
 import {FavoritesComponent} from './favorites/favorites.component';
 import {PeopleComponent} from './people/people.component';
 import {PlaylistsComponent} from './playlists/playlists.component';
-import {ExploreComponent} from './explore/explore.component';
 import {ViewProfileComponent} from './view-profile/view-profile.component';
 import {AlbumsComponent} from './albums/albums.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';

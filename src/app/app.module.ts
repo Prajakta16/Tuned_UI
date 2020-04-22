@@ -13,7 +13,6 @@ import { SessionHomeComponent } from './session-home/session-home.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PeopleComponent } from './people/people.component';
-import { ExploreComponent } from './explore/explore.component';
 import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
@@ -25,7 +24,6 @@ import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { SearchArtistsComponent } from './search-artists/search-artists.component';
 import { NewSongComponent } from './new-song/new-song.component';
 import { SongsListComponent } from './songs-list/songs-list.component';
-import { AllPlaylistsComponent } from './all-playlists/all-playlists.component';
 import { AllPeopleComponent } from './all-people/all-people.component';
 
 
@@ -41,7 +39,6 @@ import { AllPeopleComponent } from './all-people/all-people.component';
     PlaylistsComponent,
     FavoritesComponent,
     PeopleComponent,
-    ExploreComponent,
     PlaylistViewComponent,
     ViewProfileComponent,
     CommentsComponent,
@@ -51,7 +48,6 @@ import { AllPeopleComponent } from './all-people/all-people.component';
     SearchArtistsComponent,
     NewSongComponent,
     SongsListComponent,
-    AllPlaylistsComponent,
     AllPeopleComponent
   ],
   imports: [

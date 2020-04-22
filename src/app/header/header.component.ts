@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
-import { each } from 'underscore';
+import { each, sortBy } from 'underscore';
 
 interface FormElement {
   first_name : String;
@@ -194,14 +194,22 @@ export class HeaderComponent implements OnInit {
   }
 
   fetchAllArtists(){
-    this.dataservice.getAllUsers("artist").subscribe((v : Array<any>)=>{
-      this.availableUsers.artist = v;
+    this.dataservice.getAllUsers("artist").subscribe((v : any)=>{
+      debugger
+      if(v)
+        this.availableUsers.artist = sortBy(v, 'username');
+      else
+        alert("Some error occured");
     });
   }
 
   fetchAllListeners(){
-    this.dataservice.getAllUsers("listener").subscribe((v : Array<any>)=>{
-      this.availableUsers.listener = v;
+    this.dataservice.getAllUsers("listener").subscribe((v : any)=>{
+      if(v)
+        this.availableUsers.listener = sortBy(v, 'username');
+      else
+        alert("Some error occured");
+      
     });
   }
 
