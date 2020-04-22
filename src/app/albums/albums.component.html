@@ -44,7 +44,7 @@
                           <th *ngIf="!canDoActions">Favorites</th>
                           <th *ngIf="!canDoActions">Likes</th>
                           <th *ngIf="!canDoActions">Dislikes</th>
-                          <th *ngIf="!canDoActions">Comments</th>
+                          <!-- <th *ngIf="!canDoActions">Comments</th> -->
                           <th *ngIf="!adminPlaylistView">Add to {{listType[userType]}}</th>
                           <th *ngIf="isAdmin"></th>
                         </tr>
@@ -84,11 +84,11 @@
                               </span>
                         
                             </button>
-                            <button type="button" class="btn btn-default" (click)="showComments(song)"
+                            <!-- <button type="button" class="btn btn-default" (click)="showComments(song)"
                             data-toggle="modal" data-target="#commentsModal">
                               <span class="badge badge-light">{{song.numOfComments || 0}}</span>
                               <fa-icon [icon]="faComment"></fa-icon>
-                            </button> 
+                            </button>  -->
                           </td>
                           <td *ngIf="!canDoActions">
                             {{song.numOfFavorites || 0}}
@@ -100,12 +100,12 @@
                           <td *ngIf="!canDoActions">
                             {{song.numOfDislikes || 0}}
                           </td>
-                          <td *ngIf="!canDoActions">
+                          <!-- <td *ngIf="!canDoActions">
                             {{song.numOfComments || 0}}
                               <span>
                                 <fa-icon [icon]="faComment" ></fa-icon>
                               </span>
-                          </td>
+                          </td> -->
                           <td *ngIf="!adminPlaylistView">
                             <button type="button" (click)="setSongId(song)" class="btn btn-default" 
                             data-toggle="modal" data-target="#AddNewModal">

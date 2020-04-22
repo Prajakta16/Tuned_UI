@@ -24,7 +24,7 @@
           <th *ngIf="!canDoActions">Favorites</th>
           <th *ngIf="!canDoActions">Likes</th>
           <th *ngIf="!canDoActions">Dislikes</th>
-          <th *ngIf="!canDoActions">Comments</th>
+          <!-- <th *ngIf="!canDoActions">Comments</th> -->
           <th></th>
         </tr>
       </thead>
@@ -63,11 +63,11 @@
               </span>
         
             </button>
-            <button type="button" class="btn btn-default" (click)="showComments(song)"
+            <!-- <button type="button" class="btn btn-default" (click)="showComments(song)"
             data-toggle="modal" data-target="#commentsModal">
               <span class="badge badge-light">{{song.numOfComments}}</span>
               <fa-icon [icon]="faComment"></fa-icon>
-            </button> 
+            </button>  -->
           </td>
           <td *ngIf="!canDoActions">
             {{song.numOfFavorites || 0}}
@@ -79,13 +79,13 @@
           <td *ngIf="!canDoActions">
             {{song.numOfDislikes || 0}}
           </td>
-          <td *ngIf="!canDoActions">
+          <!-- <td *ngIf="!canDoActions">
             <span>{{song.numOfComments}}</span>
             <button type="button" class="btn btn-default" (click)="showComments(song)"
             data-toggle="modal" data-target="#commentsModal">
               <fa-icon [icon]="faComment"></fa-icon>
             </button> 
-          </td>
+          </td> -->
           <td>
             <button type="button" (click)="deleteSongFromList(song)" class="btn btn-default">
               <fa-icon [icon]="faDelete"></fa-icon>
