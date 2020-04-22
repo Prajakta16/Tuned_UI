@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
 import { forkJoin } from 'rxjs';
-import { each, filter } from 'underscore';
+import { each, filter, sortBy } from 'underscore';
 @Component({
   selector: 'app-people',
   templateUrl: './people.component.html',
@@ -32,11 +32,9 @@ export class PeopleComponent implements OnInit {
         let followersAPI = this.dataservice.getFollowersByUserId(params.params.id);
         let followingsAPI = this.dataservice.getFollowingsByUserId(params.params.id);
         forkJoin([followersAPI, followingsAPI]).subscribe((results : any) => {
-          debugger
           if(results && results[0] && results[0].length>=0 && results[1] && results[1].length >=0){
-            debugger
-            this.followers = results[0];
-            this.followings = results[1];
+            this.followers = sortBy(results[0], "username");
+            this.followings =  sortBy(results[1], "username");
           }else{
             this.followers = [];
             this.followings = [];
@@ -58,8 +56,9 @@ export class PeopleComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigateToProfile(id){
-    this.router.navigate([`/profile/${id}/artist`]);
+  navigateToProfile(user){
+    debugger
+    this.router.navigate([`/profile/${user.user_id}/artist`]);
   }
 
   follow(user){
@@ -83,8 +82,11 @@ export class PeopleComponent implements OnInit {
         this.followings = filter(this.followings, (foll : any) => {
           return user.user_id != foll.user_id;
         });
+        
     
         this.updateFollowingsAndFollowers();
+      }else{
+        alert("Some error occured");
       }
     });
   }

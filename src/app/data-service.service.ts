@@ -15,7 +15,8 @@ export class DataServiceService {
 
   httpOptions = {
     headers: new HttpHeaders({ 
-      'Access-Control-Allow-Origin':'*'
+      'Access-Control-Allow-Origin':'*',
+      'content-type' : "application/json"
     })
   };
 

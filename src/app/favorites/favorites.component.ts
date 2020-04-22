@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
 import { forkJoin } from 'rxjs';
-import { each, filter } from 'underscore';
+import { sortBy } from 'underscore';
 
 @Component({
   selector: 'app-favorites',
@@ -36,8 +36,11 @@ export class FavoritesComponent implements OnInit {
           forkJoin([likesAPI, dislikesAPI, favoritesAPI]).subscribe((res : any) =>{
             if(res){
               this.likes = res[0] || [];
+              this.likes = sortBy(this.likes, "title");
               this.dislikes = res[1] || [];
+              this.dislikes = sortBy(this.dislikes, "title");
               this.favorites = res[2] || [];
+              this.favorites = sortBy(this.favorites, "title");
             }
           })
 

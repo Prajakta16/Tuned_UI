@@ -139,9 +139,8 @@ export class ViewProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigateToProfile(id){
-    debugger
-    this.router.navigate([`/profile/${id}/artist`]);
+  navigateToProfile(user){
+    this.router.navigate([`/profile/${user.user_id}/${user.user_type}`]);
   }
 
   setEditMode(){

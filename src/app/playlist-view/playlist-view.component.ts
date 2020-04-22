@@ -56,6 +56,7 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
     console.log(this.data);
     this.canDoActions = this.userType === "listener";
     debugger
+    
     for(let i=0; i < this.data.length; i++ ){
       debugger
       let activities = this.data[i].activities;

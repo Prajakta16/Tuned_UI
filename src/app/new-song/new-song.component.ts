@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
-
+import { sortBy } from 'underscore';
 @Component({
   selector: 'app-new-song',
   templateUrl: './new-song.component.html',
@@ -29,7 +29,7 @@ export class NewSongComponent implements OnInit {
 
         this.dataservice.getAllAlbumsForArtist(this.userId).subscribe((v:any)=>{
           if(v){
-            this.albumsList = v;
+            this.albumsList = sortBy(v, "title");
           }
         })
     

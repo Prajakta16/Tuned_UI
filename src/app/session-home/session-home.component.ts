@@ -10,7 +10,7 @@ interface FormElement {
   password : String;
   phone : String;
   address : String;
-  dtype : String;
+  user_type : String;
 }
 
 @Component({
@@ -60,7 +60,7 @@ export class SessionHomeComponent implements OnInit {
     password : "",
     phone : "",
     address : "",
-    dtype : ""
+    user_type : ""
   };
 
   pageStructure = {
@@ -236,7 +236,7 @@ export class SessionHomeComponent implements OnInit {
       this.signupform.first_name!== "" || 
       this.signupform.last_name!="" ||
       this.signupform.password!="" ||
-      this.signupform.dtype!="" ||
+      this.signupform.user_type!="" ||
       this.signupform.username!=""
     ){
       debugger
@@ -253,7 +253,7 @@ export class SessionHomeComponent implements OnInit {
       this.signupform.first_name!== "" && 
       this.signupform.last_name!="" &&
       this.signupform.password!="" &&
-      this.signupform.dtype!="" && 
+      this.signupform.user_type!="" && 
       this.signupform.username!=""
     ){
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
@@ -266,7 +266,7 @@ export class SessionHomeComponent implements OnInit {
             password : "",
             phone : "",
             address : "",
-            dtype : ""
+            user_type : ""
           };
 
         }

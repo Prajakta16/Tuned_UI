@@ -1,11 +1,10 @@
-import { Component, OnInit, Input, ChangeDetectorRef, OnChanges, ChangeDetectionStrategy,NgZone, AfterViewInit, AfterViewChecked  } from '@angular/core';
-declare var $;
+import { Component, OnInit, Input, AfterViewChecked  } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
- // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, AfterViewChecked {
 
@@ -26,14 +25,11 @@ export class LoginComponent implements OnInit, AfterViewChecked {
     this.list = this.usersList[value];
     this.login.username = "";
     this.login.password = "";
-    $('.selectpicker').selectpicker();
-
   }
 
 
   ngAfterViewChecked () {
-    //noinspection TypeScriptUnresolvedFunction
-    $('.selectpicker').selectpicker();
+  
   } 
 
   ngOnInit(): void {

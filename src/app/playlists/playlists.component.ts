@@ -78,7 +78,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
         this.setList = item;
         this.listName = this.setList[0].title;
         this.listId = this.setList[0].id;
-        this.songsData = this.setList[0].songs;
+        this.songsData = this.setList[0].songs || [];
         
         debugger
         this.noList = false;
@@ -101,7 +101,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
         this.setList = item;
         this.listName = this.setList[0].title;
         this.listId =  this.setList[0].id;
-        this.songsData = this.setList[0].songs;
+        this.songsData = this.setList[0].songs || [];
         this.noList = false;
       }
       else{
@@ -130,6 +130,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
       title : data.name
     }).subscribe(v=>{
       debugger
+      //window.location.reload();
       if(data.type === "album"){
         debugger
         this.setList = v["producedAlbums"]
@@ -147,7 +148,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
 
       
       if(this.setList.length===1){
-        this.songsData = this.setList[0].songs;
+        this.songsData = this.setList[0].songs || [];
         this.listId = this.setList[0].id;
         this.listName = this.setList[0].title;
       }
@@ -174,7 +175,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
           }
         } );
     
-        this.songsData = songs;
+        this.songsData = songs || [];
         alert("Song deleted");
       }
     });
@@ -208,15 +209,18 @@ export class PlaylistsComponent implements OnInit, OnChanges {
   
           });
         }
-        this.setHomePage();
+        
        
       }
+
+      this.setHomePage();
       
     })
   }
 
   setHomePage(){
-      this.songsData = this.setList[0].songs;
+    debugger
+      this.songsData = this.setList[0].songs || [];
       this.listId = this.setList[0].id;
       this.listName = this.setList[0].title;
   }

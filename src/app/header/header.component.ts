@@ -10,7 +10,7 @@ interface FormElement {
   password : String;
   phone : String;
   address : String;
-  dtype : String;
+  user_type : String;
 }
 
 interface LoginForm {
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
     password : "",
     phone : "",
     address : "",
-    dtype : ""
+    user_type : ""
   };
 
   login : LoginForm = {
@@ -109,12 +109,13 @@ export class HeaderComponent implements OnInit {
       this.signupform.first_name!== "" && 
       this.signupform.last_name!="" &&
       this.signupform.password!="" &&
-      this.signupform.dtype!="" && 
+      this.signupform.user_type!="" && 
       this.signupform.username!=""
     ){
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
           console.log(v);
           this.success = true;
+          window.location.reload();
           this.signupform = {
             first_name : "",
             last_name : "",
@@ -122,7 +123,7 @@ export class HeaderComponent implements OnInit {
             password : "",
             phone : "",
             address : "",
-            dtype : ""
+            user_type : ""
           };
 
         }
@@ -140,7 +141,7 @@ export class HeaderComponent implements OnInit {
       this.signupform.first_name!== "" || 
       this.signupform.last_name!="" ||
       this.signupform.password!="" ||
-      this.signupform.dtype!="" ||
+      this.signupform.user_type!="" ||
       this.signupform.username!=""
     ){
       debugger
@@ -156,6 +157,9 @@ export class HeaderComponent implements OnInit {
       this.login.username = "admin"
     }
     if(!(this.login.username && this.login.password && this.login.dtype)){
+      this.login.username = "";
+      this.login.username = "";
+      this.login.dtype = ""
       alert("Please provide login details")
       return;
     }
