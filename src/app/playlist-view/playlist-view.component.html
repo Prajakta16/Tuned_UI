@@ -12,6 +12,30 @@
   </div>
   <div class="alert alert-info" *ngIf="listEmpty">You do not have any {{listType[userType]}}.</div>
   <div class="alert alert-info"  *ngIf="!listEmpty && !data.length">No songs in your list. Search songs to add to your list.</div>
+  
+<!-- PLAYER -->
+
+<div class="alert alert-info alert-dismissible fade show success-msg" role="alert" *ngIf="songPreviewURL == 'false'">
+  <strong>OOPS! No preview available!</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div style="height: 100%; overflow: hidden;" >
+  <div *ngIf="songPreviewURL && songPreviewURL!=='false'">
+
+    
+    <div class="audio-cont">
+      <audio controls class="embed-responsive-item">
+        <source [attr.src]="songPreviewURL">
+      </audio>
+    </div>
+  
+  
+  </div>
+  
+  <!-- PLAYER END -->
   <div class="table-responsive" *ngIf="data.length">
     <table class="table table-hover">
       <thead>
@@ -20,6 +44,7 @@
           <th>Title</th>
           <th>Duration</th>
           <th>Popularity</th>
+          <th>Play</th>
           <th *ngIf="canDoActions"></th>
           <th *ngIf="!canDoActions">Favorites</th>
           <th *ngIf="!canDoActions">Likes</th>
@@ -34,6 +59,11 @@
           <td>{{song.title}}</td>
           <td>{{song.time}}</td>
           <td>{{song.popularity}}</td>
+          <td>
+            <button class="btn btn-outline-secondary" type="button" (click)="setSongPreviewURL(song)">
+              Play
+            </button>
+          </td>
           <td *ngIf="canDoActions">
             <button type="button" class="btn btn-default" (click)="setFavoriteSong(song)">
               <span *ngIf="song.favorite">

@@ -46,6 +46,15 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   comments = [];
   name: String;
 
+  songPreviewURL = "";
+  songImageUrl = "";
+
+  setSongPreviewURL(song){
+   // this.songImageUrl = song.album.image_url || "../../src/assets/images/NoImageAvailable.jpg";
+    this.songPreviewURL = song.preview_url || 'false';
+    
+  }
+
   constructor(
     private dataservice : DataServiceService
   ) {
@@ -61,6 +70,7 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
       
       let activities = this.data[i].activities;
       this.data[i].numOfLikes = 0;
+      this.data[i].preview_url = this.data[i].preview_url || "";
       this.data[i].time = this.dataservice.convertMS(this.data[i].duration);
       this.data[i].numOfDislikes = 0;
       this.data[i].numOfFavorites = 0;
@@ -183,7 +193,8 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
     this.deleteList.emit();
   }
 
-  
+
+ 
 
 
 }
