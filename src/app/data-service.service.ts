@@ -530,6 +530,22 @@ export class DataServiceService {
     );;
   }
 
+  deleteSongById(songId){
+    let url = `${hostName}/api/song/delete/${songId}`;
+    return this.http.delete(url).pipe(
+      map((response : any) => {
+   
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        console.log(error)
+        return of(null);
+      })
+      
+    );
+  }
+
   deleteListById(listType, listId){
     //https://tuned-application.herokuapp.com/api/album/delete/132
     //https://tuned-application.herokuapp.com//api/playlist/delete/40

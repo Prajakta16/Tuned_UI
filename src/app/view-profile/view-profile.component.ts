@@ -106,7 +106,7 @@ export class ViewProfileComponent implements OnInit {
             this.person.biography = userInfo.biography;
             debugger
             this.person.imageStyle = userInfo.image_url ? true : false;
-            this.person.image = userInfo.image_url || "../../assets/images/NoImageAvailable.png";
+            this.person.image = userInfo.image_url || "../../assets/images/NoImage.gif";
             this.person.popularity = userInfo.popularity;
             this.person.dataList = this.dataType[this.profileUserType] === "album" ?
                                    userInfo.producedAlbums : userInfo.playlists;

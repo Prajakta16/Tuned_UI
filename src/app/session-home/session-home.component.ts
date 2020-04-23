@@ -207,7 +207,7 @@ export class SessionHomeComponent implements OnInit {
       },
       {
         title : "Songs",
-        message : "View songs by fellow artists.",
+        message : "View songs by you and your fellow artists.",
         image : "../../assets/images/artist-home/songs.jpg",
         route : `/songs`
       },

@@ -47,16 +47,30 @@
               <div class="col-md-4">
                 {{i+1}}. {{song.title}}
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4" style="text-align:center;">
+                <div class="col-md 12" style="display: flex;justify-content: space-evenly;">
+                  <div>
+                    {{convertMS(song.duration)}} min
+                  </div>
+                  <div>
+                    {{song.popularity || 0}} popularity
+                  </div>
                 
+                </div>
               </div>
-              <div class="col-md-2">
-                
+              <div class="col-md-2" style="text-align:center;">
+                Performed by {{song.artists || "Unknown"}}
               </div>
               <div class="col-md-2 end-col">
                 <button class="btn btn-outline-secondary" type="button" (click)="setSongPreviewURL(song)">
                   Play
                 </button>
+                
+                <button type="button" (click)="deleteSong(song)" 
+                class="btn btn-default" *ngIf="isAdmin">
+                  <fa-icon [icon]="faDelete"></fa-icon>
+                </button>
+                
               </div>
   
             </div>
@@ -67,38 +81,5 @@
   </div>
 </div>
 
-<div class="modal fade" id="AddNewModal" tabindex="-1" role="dialog" data-backdrop="static"
-  aria-labelledby="AddNewModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="AddNewModalLabel">Add song to Album</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="selectAlbum">Select Album</label>
-            <select class="form-control" id="selectAlbum" [(ngModel)]="toAddSongToList.listId" name="selectAlbum"
-              #selectAlbum="ngModel" required>
-              <option value="">Select</option>
-              <option *ngFor="let item of listOfAlbums" value="{{item.album_id}}">
-                {{item.title}}
-              </option>
-            </select>
-
-          </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="addSongToList()"
-          data-dismiss="modal">Add</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </div>
