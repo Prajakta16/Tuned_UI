@@ -69,12 +69,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" >
           <div class="songsByCategory">
             
-            <div id="accordion">
-              <div class="card" *ngFor="let song of categories.songs; index as i">
-                <div class="card-header" [attr.id]="'category'+i">
+            <div id="accordion"  >
+              <div class="card" *ngFor="let song of categories.songs; index as i" >
+                <div class="card-header" [attr.id]="'category'+i" style="color : white ;background-color: rgb(43, 44, 46);">
                   <div class="mb-0 category-header">
                       {{song.title}} 
                     
@@ -84,11 +84,18 @@
                 <div [attr.id]="'collapse'+i" class="collapse row category-body" [attr.aria-labelledby]="'category'+i" 
                   data-parent="#accordion">
                   
-                  <div class="col-md-6">
-                    Song Name : {{song.title}}
-                  </div>
-                  <div class="col-md-6">
-                    Song Popularity : {{song.popularity || 0}}
+                  <div class="container">
+                    <div class="" style="color : white; background-color: rgb(90, 93, 97); display: flex; justify-content: space-between;">
+                      <div class="col-md-4">
+                        <strong>Title: </strong> {{song.title}}
+                      </div>
+                      <div class="col-md-4">
+                        <strong>Popularity: </strong> {{song.popularity || 0}}
+                      </div>
+                      <div class="col-md-4">
+                        <strong>Duration: </strong> {{convertMS(song.duration)}}
+                      </div>
+                    </div>
                   </div>
                   
              

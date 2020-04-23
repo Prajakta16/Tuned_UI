@@ -51,6 +51,7 @@ export class ViewProfileComponent implements OnInit {
 
   editMode = false;
   loggedIn = false;
+  convertMS = this.dataservice.convertMS;
 
   constructor(
     private activatedRoute: ActivatedRoute,

@@ -24,6 +24,8 @@ export class SearchResultsComponent implements OnInit {
 
   resultCount = -1;
   resultList = [];
+
+  convertMS = this.dataservice.convertMS;
   constructor(
     private activatedRoute: ActivatedRoute,
     private dataservice : DataServiceService

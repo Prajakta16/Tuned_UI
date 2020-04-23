@@ -15,7 +15,6 @@
           
           <img 
             [attr.src]="person.image"
-            
             alt="" />
         </div>
 
@@ -289,13 +288,20 @@
           
                 <div [attr.id]="'collapse'+i" class="collapse row category-body" [attr.aria-labelledby]="'category'+i" 
                   data-parent="#accordion">
+                  <div class="container">
+                    <div class="" style="background-color: darkgray; display: flex; justify-content: space-between;">
+                      <div class="col-md-4">
+                        <strong>Title: </strong> {{song.title}}
+                      </div>
+                      <div class="col-md-4">
+                        <strong>Popularity: </strong> {{song.popularity || 0}}
+                      </div>
+                      <div class="col-md-4">
+                        <strong>Duration: </strong> {{convertMS(song.duration)}}
+                      </div>
+                    </div>
+                  </div>
                   
-                  <div class="col-md-6">
-                    Song Name : {{song.title}}
-                  </div>
-                  <div class="col-md-6">
-                    Song Popularity : {{song.popularity}}
-                  </div>
                   
              
                 </div>
