@@ -169,6 +169,7 @@ export class AlbumsComponent implements OnInit {
         } else if (this.userType === "admin") {
           this.isAdmin = true;
           this.canDoActions = false;
+          this.toAddSongToList.listType = "playlist";
           let getAllAlbumsAPI = this.dataservice.getAllAlbums();
           let getAllPlaylistAPI = this.dataservice.getAllPlaylists();
           APIArray.push(getAllPlaylistAPI);
@@ -386,30 +387,26 @@ export class AlbumsComponent implements OnInit {
   }
 
 
+  
 
 
   setSongId(song) {
     this.toAddSongToList.songIdToBeAdded = song.song_id;
   }
 
-  addSongToList() {
+  addSongToList(canAdd?) {
 
+    if(!this.isAdmin && !canAdd)
+      return
     this.dataservice.addSongToList(this.toAddSongToList).subscribe((res: any) => {
       if (res) {
 
         alert(`Song Added to ${res.title}`);
-        if (this.toAddSongToList.listType === 'album') {
-          each(this.albums, (album: any) => {
-            if (album.album_id == this.toAddSongToList) {
-              album.songs = res.songs;
-            }
-          })
-
-        }
+       
 
 
         this.toAddSongToList.listId = "";
-        this.toAddSongToList.listType = this.userType === "listener" ? "playlist" : "";
+        this.toAddSongToList.listType = "playlist";
         this.toAddSongToList.songIdToBeAdded = "";
       }else {
         alert("Some error occured");

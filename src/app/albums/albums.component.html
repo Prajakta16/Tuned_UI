@@ -186,7 +186,7 @@
         <div class="modal-body">
           <form>
             <div class="form-group" *ngIf="isAdmin">
-              <label for="selectListType">Select ListType</label>
+              <!-- <label for="selectListType">Select ListType</label>
               <select class="form-control" id="selectListType" 
               [(ngModel)]="toAddSongToList.listType"
               
@@ -195,9 +195,15 @@
                 <option value="">Select</option>
                 <option value="playlist">Playlist</option>
                 <option value="album">Album</option>
-              </select>
+              </select> -->
             </div>
-            <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist'">
+            <div class="alert alert-info" *ngIf="toAddSongToList.listType == 'playlist' 
+            && listOfPlaylists.length == 0">
+            There are no playlists. Please create a playlist to add songs.
+          </div>
+            <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist' 
+            && listOfPlaylists.length > 0">
+              
               <label for="selectPlaylist">Select Playlist</label>
               <select class="form-control" id="selectPlaylist" 
               [(ngModel)]="toAddSongToList.listId"
@@ -229,9 +235,13 @@
           </form>
           
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" *ngIf="isAdmin">
           <button type="button" class="btn btn-outline-secondary" (click)="addSongToList()"
           data-dismiss="modal">Add</button>
+        </div>
+        <div class="modal-footer" *ngIf="!isAdmin">
+          <button type="button" class="btn btn-outline-secondary" (click)="addSongToList(listOfPlaylists.length)"
+          data-dismiss="modal">{{listOfPlaylists.length == 0 ? 'CLOSE' : 'ADD'}}</button>
         </div>
       </div>
     </div>
