@@ -134,6 +134,7 @@ export class HeaderComponent implements OnInit {
 
         }else {
           alert("Some error occured");
+          
         }
           
 
@@ -143,7 +144,7 @@ export class HeaderComponent implements OnInit {
     }else{
       this.dissmiss.signup.alert = true;
       this.dissmiss.signup.allow = "";
-      this.success = true;
+      this.success = false;
     }    
   }
 
@@ -163,19 +164,23 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  loginTrue = "";
+
   logging(){
     if(this.login.dtype === "admin"){
       this.login.username = "admin"
     }
     if(!(this.login.username && this.login.password && this.login.dtype)){
-      this.login.username = "";
-      this.login.username = "";
-      this.login.dtype = ""
-      alert("Please provide login details")
+      // this.login.username = "";
+      // this.login.username = "";
+      // this.login.dtype = ""
+      ///alert("Please provide login details")
+      this.loginTrue="error";
       return;
     }
     console.log(this.login);
     let userId = -1;
+    this.loginTrue="modal";
     debugger
     if(this.login.dtype === "admin"){
      

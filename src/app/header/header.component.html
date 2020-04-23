@@ -95,7 +95,10 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary"
-              (click)=logging() data-dismiss="modal">Login</button>
+              (click)=logging() data-dismiss="loginTrue">Login</button>
+              <div class="alert alert-danger" *ngIf="loginTrue=='error'">
+                Please provide login details
+              </div>
             </div>
           </div>
         </div>

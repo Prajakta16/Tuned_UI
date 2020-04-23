@@ -22,7 +22,7 @@ export class ViewProfileComponent implements OnInit {
   isAdmin = false;
   dataType = {
     artist : "album",
-    listener : "playlist"
+    listener : "playlists"
   }
 
   isSelf = false;
@@ -67,6 +67,7 @@ export class ViewProfileComponent implements OnInit {
       debugger
       if(params && params.params && params.params.id && params.params.type){
         this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
+        this.currentUserFollows = false;
         if(this.userId){
           this.loggedIn = true;
         }

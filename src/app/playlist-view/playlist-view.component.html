@@ -5,7 +5,7 @@
     <h1 class="h2">{{heading}}</h1>
     <div class="btn btn-group" style="width: 30%;">
       <button type="button" class="btn btn-sm btn-outline-secondary button-area" data-toggle="modal" 
-        data-target="#newPlaylistModal">ADD TO {{listType[userType] | uppercase}}</button>
+        data-target="#newPlaylistModal">ADD NEW {{listType[userType] | uppercase}}</button>
       <button type="button" class="btn btn-sm btn-outline-secondary button-area"
        (click)="deleteListFromUser()">DELETE {{listType[userType] | uppercase}}</button> <!--TOTDO MODAL-->
     </div>

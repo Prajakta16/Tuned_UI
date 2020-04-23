@@ -129,6 +129,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
     this.dataservice.addNewListItem( data.type, this.userId, {
       title : data.name
     }).subscribe(v=>{
+      debugger
       if(v){
         debugger
       //window.location.reload();

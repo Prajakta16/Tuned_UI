@@ -204,8 +204,30 @@
           </div>
 
           <!-- For Albums -->
+          
           <div class="tab-pane fade container-details" id="albums" role="tabpanel"
           aria-labelledby="album-tab">
+          <div class="alert alert-info" *ngIf="!person.dataList.length">0 {{dataType[profileUserType]}}</div>
+            <ul class="list-group">
+              <li class="list-group-item list-override" *ngFor = "let data of person.dataList index as i">
+                  <div class="list-item">
+                      <div>
+                          {{data.title}}
+                      </div>
+                      <button type="button" class="btn btn-sm btn-outline-secondary"
+                      data-toggle="modal" (click) = "setModalData(person.dataList[i])"
+                      [attr.data-target]="'#'+person.dataType+'Modal'">
+                              View 
+                      </button>
+                  </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- For Playlists -->
+          
+          <div class="tab-pane fade container-details" id="playlists" role="tabpanel"
+          aria-labelledby="playlists-tab">
           <div class="alert alert-info" *ngIf="!person.dataList.length">0 {{dataType[profileUserType]}}</div>
             <ul class="list-group">
               <li class="list-group-item list-override" *ngFor = "let data of person.dataList index as i">
@@ -228,7 +250,7 @@
     </div>
   </form>
 </div>
-
+<!-- For songs in playlists/albums -->
 <div class="modal fade" [attr.id]="person.dataType+'Modal'" tabindex="-1" role="dialog" data-backdrop="static"
     aria-labelledby="dataModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
