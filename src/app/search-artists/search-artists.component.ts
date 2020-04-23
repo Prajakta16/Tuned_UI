@@ -47,7 +47,7 @@ export class SearchArtistsComponent implements OnInit {
           each(this.resultList, (res : any)=>{
             res.image_url = res.image_url || "../../assets/images/NoImageAvailable.jpg";
           })
-          debugger
+          
         });
       }})
   }

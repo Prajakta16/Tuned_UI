@@ -44,7 +44,7 @@ export class SearchResultsComponent implements OnInit {
 
         }
         this.dataservice.search(search).subscribe((v : any) => {
-          debugger
+          
           this.userName = sessionStorage.getItem("username");
           if(this.userName){
             this.loggedIn = true;
@@ -55,7 +55,7 @@ export class SearchResultsComponent implements OnInit {
             
             each(this.resultList, (res : any)=>{
               let artists = [];
-              debugger
+              
               res.image_url = res.image_url || "../../assets/images/NoImageAvailable.jpg";
               if(res.artists){
                 each(res.artists, (artist : any)=>{
@@ -81,7 +81,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   setModalData(items){
-    debugger
+    
     this.categories = items;
     for(let i = 0; i < this.categories.songs.length; i++){
       this.categories.songs[i]["arrow"] = "Open"; 

@@ -92,12 +92,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger
+    
     if(this.loggedIn){
       this.loginTrue= "modal" ;
       this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
       this.userType = sessionStorage.getItem("userType");
-      debugger
+      
       this.userName = sessionStorage.getItem("username");
     }
   }
@@ -162,7 +162,6 @@ export class HeaderComponent implements OnInit {
       this.signupform.user_type!="" ||
       this.signupform.username!=""
     ){
-      debugger
       this.dissmiss.signup.alert = false;
       return false;
     }else{
@@ -187,7 +186,7 @@ export class HeaderComponent implements OnInit {
     console.log(this.login);
     let userId = -1;
     this.loginTrue= "modal" ;
-    debugger
+    
     if(this.login.dtype === "admin"){
      
       sessionStorage.setItem('username', "admin");
@@ -221,7 +220,7 @@ export class HeaderComponent implements OnInit {
 
   fetchAllArtists(){
     this.dataservice.getAllUsers("artist").subscribe((v : any)=>{
-      debugger
+      
       if(v)
         this.availableUsers.artist = sortBy(v, 'username');
       else

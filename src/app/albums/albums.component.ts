@@ -85,9 +85,9 @@ export class AlbumsComponent implements OnInit {
     let APIArray = [];
 
     this.activatedRoute.paramMap.subscribe((params: any) => {
-      debugger
+      
       if (params && params.params.view && params.params.view === "playlists") {
-        debugger
+        
         this.isAdmin = true;
         this.category = params.params.view;
         this.canDoActions = false;
@@ -101,7 +101,7 @@ export class AlbumsComponent implements OnInit {
               this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`;
               this.albums[i]["songNum"] = this.albums[i].songs.length;
               for (let j = 0; j < this.albums[j].songs.length; j++) {
-                debugger
+                
                 if (this.albums[i].songs[j]) {
 
                   let activities = this.albums[i].songs[j].activities;
@@ -135,7 +135,7 @@ export class AlbumsComponent implements OnInit {
                       }
 
                     });
-                    debugger
+                    
                     this.albums[i].songs[j].numOfComments = this.albums[i].songs[j].comments.length;
                     this.albums[i].songs[j].favorite = currentUserActivity.is_favourite || false;
                     this.albums[i].songs[j].like = currentUserActivity.likes || false;
@@ -209,7 +209,7 @@ export class AlbumsComponent implements OnInit {
 
 
   openDetails(album) {
-    debugger
+    
     if (album.arrow !== `Close`) {
       album.arrow = "Close"
     } else {
@@ -223,7 +223,7 @@ export class AlbumsComponent implements OnInit {
         this.albums = [];
         return
       }
-      debugger
+      
       this.albums = sortBy(item, "title");
       for (let i = 0; i < this.albums.length; i++) {
         this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`;
@@ -372,7 +372,7 @@ export class AlbumsComponent implements OnInit {
 
   deleteList(list) {
 
-    debugger
+    
     let listType = list.album_id ? "album" : "playlist";
     let listId = list.album_id ? list.album_id : list.playlist_id;
     this.dataservice.deleteListById(listType, listId).subscribe((v: any) => {

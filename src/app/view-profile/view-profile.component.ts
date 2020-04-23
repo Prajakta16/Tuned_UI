@@ -65,7 +65,7 @@ export class ViewProfileComponent implements OnInit {
     });
 
     this.activatedRoute.paramMap.subscribe((params : any)=>{
-      debugger
+      
       if(params && params.params && params.params.id && params.params.type){
         this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
         this.currentUserFollows = false;
@@ -73,14 +73,14 @@ export class ViewProfileComponent implements OnInit {
           this.loggedIn = true;
         }
         this.userName = sessionStorage.getItem("username");
-        debugger
+        
         
         if(this.userName === 'admin'){
           this.isAdmin = true;
         }else{
           this.currentUserDetails = JSON.parse(sessionStorage.getItem("userDetails"));
         }
-        debugger
+        
         this.profileUserType = params.params.type;
         this.profileUserId = parseInt(params.params.id);
         this.isSelf = parseInt(params.params.id) === this.userId;
@@ -105,7 +105,6 @@ export class ViewProfileComponent implements OnInit {
             this.person.phone = userInfo.phone;
             this.person.address = userInfo.address;
             this.person.biography = userInfo.biography;
-            debugger
             this.person.imageStyle = userInfo.image_url ? true : false;
             this.person.image = userInfo.image_url || "../../assets/images/NoImage.gif";
             this.person.popularity = userInfo.popularity;
@@ -136,7 +135,7 @@ export class ViewProfileComponent implements OnInit {
             }
 
           }
-          debugger
+          
         });
       }
     });
@@ -147,7 +146,7 @@ export class ViewProfileComponent implements OnInit {
   }
 
   navigateToProfile(user){
-    debugger
+    
     if(!user.user_type){
       user.user_type = user.spotify_url ? "artist" : "listener";
     }
@@ -170,7 +169,7 @@ export class ViewProfileComponent implements OnInit {
 
     }
 
-    debugger
+    
     this.dataservice.updateProfile(this.profileUserId, person).subscribe((v : any)=>{
       if(v){
         alert("Profile updated");
@@ -182,7 +181,7 @@ export class ViewProfileComponent implements OnInit {
   }
 
   setModalData(items){
-    debugger
+    
     this.categories = items;
     for(let i = 0; i < this.categories.songs.length; i++){
       this.categories.songs[i]["arrow"] = "Open"; 
@@ -200,7 +199,7 @@ export class ViewProfileComponent implements OnInit {
   follow(){
     this.dataservice.followUser(this.userId, this.person.userId).subscribe((v=>{
       if(v){
-        debugger
+        
         this.currentUserFollows = true;
         this.currentUserDetails.follows = true;
         this.person.followers.push(this.currentUserDetails);
@@ -211,7 +210,7 @@ export class ViewProfileComponent implements OnInit {
   unfollow(){
     this.dataservice.unfollowUser(this.userId, this.person.userId).subscribe((v)=>{
       if(v){
-        debugger
+        
         this.currentUserFollows = false;
         this.currentUserDetails.follows = false;
         this.person.followers = filter(this.person.followers, (foll : any) => {

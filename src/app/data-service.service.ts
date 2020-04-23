@@ -601,7 +601,7 @@ export class DataServiceService {
 
 
   search(search){
-    debugger
+    
     let url =  `${hostName}/api/${search.searchType}/search/${search.searchValue}`
     return this.http.get(url).pipe(
       map((response : any) => {

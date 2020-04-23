@@ -26,11 +26,11 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes : SimpleChanges){
-    debugger
+    
     this.commented = false;
     this.canComment = changes.canComment;
     each(this.comments , (comment : any)=>{
-      debugger
+      
       if(comment.userId === this.userId){
         this.commented = true;
       }

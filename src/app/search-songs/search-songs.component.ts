@@ -75,7 +75,7 @@ export class SearchSongsComponent implements OnInit, OnChanges {
         }
 
         this.resultList = [];
-        debugger
+        
         this.dataservice.search(search).subscribe((v: any) => {
           let getAllAlbumsAPI = this.isAdmin ? this.dataservice.getAllAlbums() :
             this.dataservice.getAllAlbumsForArtist(this.userId);
@@ -108,13 +108,13 @@ export class SearchSongsComponent implements OnInit, OnChanges {
           }
           if (v && v.length && v.length != 0) {
             this.resultCount = v.length;
-            debugger
+            
             this.resultList = v;
 
             each(this.resultList, (res: any) => {
               let artists = [];
               res.image_url = res.image_url || "../../assets/images/NoImageAvailable.jpg";
-              debugger
+              
               if (res.album && res.album.artists) {
                 each(res.album.artists, (artist: any) => {
                   artists.push(artist.name);
@@ -137,11 +137,11 @@ export class SearchSongsComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger
+    
   }
 
   setSongId(song) {
-    debugger
+    
     this.toAddSongToList.songIdToBeAdded = song.song_id;
   }
 

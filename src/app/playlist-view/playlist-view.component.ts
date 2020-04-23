@@ -55,10 +55,10 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.data);
     this.canDoActions = this.userType === "listener";
-    debugger
+    
     
     for(let i=0; i < this.data.length; i++ ){
-      debugger
+      
       let activities = this.data[i].activities;
       this.data[i].numOfLikes = 0;
       this.data[i].time = this.dataservice.convertMS(this.data[i].duration);
@@ -89,7 +89,7 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
         }
         
       });
-      debugger
+      
       this.data[i].numOfComments = this.data[i].comments.length;
       this.data[i].favorite = currentUserActivity.is_favourite || false;
       this.data[i].like = currentUserActivity.likes || false;
@@ -151,7 +151,7 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
 
       if(v){
         song.dislike = v.dislikes || false;
-        debugger
+        
         if(v.dislikes){
           song.numOfDislikes++;
         }else{
@@ -164,13 +164,13 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   }
 
   showComments(song){
-    debugger
+    
     this.comments = song.comments;
     this.commentSongId = song.song_id;
   }
 
   updateComments(event){
-    debugger
+    
   }
 
   deleteSongFromList(song){

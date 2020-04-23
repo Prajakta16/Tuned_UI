@@ -50,7 +50,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
           
          }else if(this.userType === "artist"){
             this.selectMsg = "Select Albums";
-            debugger
+            
             this.getAlbumForArtist(params.params.id);
          }else{
            this.getAllPlaylists();
@@ -62,7 +62,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
 
    }
   ngOnChanges(changes: SimpleChanges): void {
-    debugger
+    
   }
 
   ngOnInit(): void {
@@ -80,7 +80,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
         this.listId = this.setList[0].id;
         this.songsData = this.setList[0].songs || [];
         
-        debugger
+        
         this.noList = false;
 
       }else{
@@ -97,7 +97,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
         each(item, v => {
           v["id"] = v["playlist_id"];
         });
-        debugger
+        
         this.setList = item;
         this.listName = this.setList[0].title;
         this.listId =  this.setList[0].id;
@@ -112,13 +112,13 @@ export class PlaylistsComponent implements OnInit, OnChanges {
 
   getAllPlaylists(){
     this.dataservice.getAllPlaylists().subscribe((item : any)=>{
-      debugger
+      
     });
   }
 
   updateSong(item){
     
-    debugger
+    
     this.listId = item.id;
     this.songsData = item.songs || [];
     this.listName = item.title;
@@ -129,18 +129,18 @@ export class PlaylistsComponent implements OnInit, OnChanges {
     this.dataservice.addNewListItem( data.type, this.userId, {
       title : data.name
     }).subscribe(v=>{
-      debugger
+      
       if(v){
-        debugger
+        
       //window.location.reload();
       if(data.type === "album"){
-        debugger
+        
         this.setList = v["producedAlbums"]
          each(this.setList, v => {
           v["id"] = v["album_id"];
         });
       }else{
-        debugger
+        
          this.setList = v["playlists"]
          each(this.setList, v => {
           v["id"] = v["playlist_id"];
@@ -172,7 +172,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
       if(res){
         let item = find(this.setList, (item : any) => item.id === this.listId);
         let songs = filter(item.songs, (song : any) => song.song_id != event.songId);
-        debugger
+        
         each(this.setList, (v : any ) => {
           if(v.id === item.id ){
             v.songs = songs;
@@ -195,19 +195,19 @@ export class PlaylistsComponent implements OnInit, OnChanges {
       listId : this.listId
     }
     this.dataservice.removeList(deleteObj).subscribe((v : any)=>{
-      debugger
+      
       if(v){
-        debugger
+        
         let dataType = this.listType[this.userType].toLowerCase() ;
        
         if(dataType === "album"){
-          debugger
+          
           this.setList = v["producedAlbums"] || [];
            each(this.setList, v => {
             v["id"] = v["album_id"];
           });
         }else{
-          debugger
+          
            this.setList = v["playlists"] || [];
            each(this.setList, v => {
             v["id"] = v["playlist_id"];
@@ -215,7 +215,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
           });
         }
 
-        debugger
+        
         
         this.setHomePage();
       }
@@ -226,7 +226,7 @@ export class PlaylistsComponent implements OnInit, OnChanges {
   }
 
   setHomePage(){
-    debugger
+    
       this.songsData =  this.setList[0] && this.setList[0].songs || [];
       this.listId = this.setList[0] && this.setList[0].id || "";
       this.listName = this.setList[0] &&  this.setList[0].title || "";

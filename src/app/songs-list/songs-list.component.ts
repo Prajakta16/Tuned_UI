@@ -75,7 +75,7 @@ export class SongsListComponent implements OnInit {
           })
          
           let albumMap = {};
-          debugger
+          
           each(artists, (art : any) => {
             if(art.producedAlbums && art.producedAlbums.length){
               each(art.producedAlbums, (album : any)=>{
@@ -121,7 +121,7 @@ export class SongsListComponent implements OnInit {
 
     if(!canAdd)
     return
-    debugger
+    
     this.dataservice.addSongToList(this.toAddSongToList).subscribe((v : any)=>{
       if(v){
         this.toAddSongToList.listId = "";

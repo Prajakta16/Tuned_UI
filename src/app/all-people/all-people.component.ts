@@ -31,7 +31,7 @@ export class AllPeopleComponent implements OnInit {
         let allListerAPI = this.dataservice.getAllUsers("listener");
         forkJoin([allArtistAPI, allListerAPI]).subscribe((v:any)=>{
           if(v && v[0] && v[1]){
-            debugger
+            
             this.artists = sortBy(v[0], "username");
             this.listeners = sortBy(v[1], " username");
 
@@ -47,7 +47,7 @@ export class AllPeopleComponent implements OnInit {
   }
 
   navigateToProfile(user){
-    debugger
+    
     this.router.navigate([`/profile/${user.user_id}/${user.user_type}`]);
   }
 

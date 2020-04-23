@@ -75,13 +75,13 @@ export class SessionHomeComponent implements OnInit {
   ) {
     let userid = sessionStorage.getItem("userId");
     if(userid!=="-1"){
-      debugger
+      
       this.userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
       this.userFirstName = this.userDetails.first_name;
       this.userName = sessionStorage.getItem("username");
       
       this.userType = sessionStorage.getItem("userType");
-      debugger
+      
       this.userId = sessionStorage.getItem("userId");
       this.userType == "artist" ? this.loadArtistStructure() : this.loadListenerStructure();
     }else{
@@ -239,7 +239,7 @@ export class SessionHomeComponent implements OnInit {
       this.signupform.user_type!="" ||
       this.signupform.username!=""
     ){
-      debugger
+      
       this.dissmiss.signup.alert = false;
       return false;
     }else{
@@ -256,7 +256,7 @@ export class SessionHomeComponent implements OnInit {
       this.signupform.user_type!="" && 
       this.signupform.username!=""
     ){
-      debugger
+      
       this.dataservice.addNewUser(this.signupform).subscribe(v=>{
         if(v){
           if(v.success){
