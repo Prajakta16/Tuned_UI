@@ -1,6 +1,6 @@
 <form #signUpForm="ngForm">
   <div class="form-group">
-    <label for="signupFName">First Name</label>
+    <label for="signupFName">First Name<span style="color:crimson;">*</span></label>
     <input type="text" class="form-control" id="signupFName" name="fname" #fname="ngModel"
      [(ngModel)]="signup.first_name" aria-describedby="emailHelp" required>
     <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="alert alert-light">
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="signupLName">Last Name</label>
+    <label for="signupLName">Last Name<span style="color:crimson;">*</span></label>
     <input type="text" class="form-control" id="signupLName" name="lname" #lname="ngModel" 
     [(ngModel)]="signup.last_name" aria-describedby="emailHelp" required>
     <div *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="alert alert-light">
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="signupEmail">Email</label>
+    <label for="signupEmail">Email<span style="color:crimson;">*</span></label>
     <input type="email" class="form-control" id="signupEmail" name="email" #email="ngModel" [(ngModel)]="signup.email"
       aria-describedby="email" required>
     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-light">
@@ -42,7 +42,7 @@
     
   </div>
   <div class="form-group">
-    <label for="signupAs">Sign Up As</label>
+    <label for="signupAs">Sign Up As<span style="color:crimson;">*</span></label>
     <select class="form-control" id="signupAs" [(ngModel)]="signup.user_type" name="userType" #usertype="ngModel"
       required>
       <option value="">Select</option>
@@ -56,7 +56,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="signupUName">Username</label>
+    <label for="signupUName">Username<span style="color:crimson;">*</span></label>
     <input type="text" class="form-control" id="signupUName" name="username" required [(ngModel)]="signup.username"
       aria-describedby="emailHelp" #username="ngModel">
     <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-light">
@@ -66,7 +66,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="signupPassword">Password</label>
+    <label for="signupPassword">Password<span style="color:crimson;">*</span></label>
     <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="signup.password"
       id="signupPassword" required>
     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-light">

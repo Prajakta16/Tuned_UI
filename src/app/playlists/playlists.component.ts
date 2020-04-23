@@ -180,7 +180,8 @@ export class PlaylistsComponent implements OnInit, OnChanges {
         } );
     
         this.songsData = songs || [];
-        alert("Song deleted");
+        let msg = this.listType[this.userType].toLowerCase() === "playlist" ? "removed" : "deleted";
+        alert("Song has been " + msg);
       }
     });
     

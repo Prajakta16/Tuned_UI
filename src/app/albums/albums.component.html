@@ -7,15 +7,16 @@
   </div>
 </div>
 
-<div class="alert alert-info" *ngIf="!albums.length">
+<div class="alert alert-info" *ngIf="albums && !albums.length">
   There are no {{category }}
 </div>
-<div class="songsByCategory" *ngIf = "albums.length > 0">
+<div class="songsByCategory" *ngIf = "albums && albums.length > 0">
   <div id="accordion">
     <div class="card" *ngFor="let category of albums; index as i">
-      <div class="card-header" [attr.id]="'category'+i">
-        <div class="mb-0 category-header">
-          {{category.title || 'Unknown'}} 
+      <div class="card-header" [attr.id]="'category'+i" >
+        <div class="mb-0 category-header" >
+          {{category.title }}
+          
           <div>
             <button type="button" (click)="deleteList(category)" class="btn btn-default" *ngIf="isAdmin">
               <fa-icon [icon]="faDelete"></fa-icon>

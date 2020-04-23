@@ -228,6 +228,8 @@ export class AlbumsComponent implements OnInit {
       for (let i = 0; i < this.albums.length; i++) {
         this.albums[i]["arrow"] = `View ${this.albums[i].songs.length} songs`;
         this.albums[i]["songNum"] = this.albums[i].songs.length;
+        let album_type = this.albums[i].album_type ;
+        this.albums[i]["title"] += album_type ? ` (Type : ${album_type})` : "";
         for (let j = 0; j < this.albums[i].songs.length; j++) {
           if (this.albums[i].songs[j]) {
             let activities = this.albums[i].songs[j].activities;
