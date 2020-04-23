@@ -1,10 +1,16 @@
 <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 
-<div class="alert alert-info" style="text-align: center;" *ngIf="!albumsList || albumsList.length==0">
+<div class="d-flex justify-content-center" style = "margin: 50px;" *ngIf="!albumsList">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div class="alert alert-info" style="text-align: center;" *ngIf="albumsList  && albumsList.length==0">
   You do not have any albums. Please create an album to create songs.
 </div>
 
-<div class="container" *ngIf="albumsList.length!=0">
+<div class="container" *ngIf="albumsList && albumsList.length!=0">
   <div class="py-5 text-center">
     
     <h2>New Song</h2>

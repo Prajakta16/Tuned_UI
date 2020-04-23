@@ -16,7 +16,8 @@ export class NewSongComponent implements OnInit {
   userId;
   userType;
   userName;
-  albumsList = [];
+  albumsList;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
