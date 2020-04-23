@@ -30,6 +30,7 @@ export class SongsListComponent implements OnInit {
 
   faAdd = solid.faPlus;
   faDelete = regular.faTrashAlt;
+  faPlay = regular.faPlayCircle;
 
   isAdmin = false;
 

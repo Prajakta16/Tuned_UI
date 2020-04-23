@@ -53,6 +53,7 @@ export class AlbumsComponent implements OnInit {
   faFavoriteFalse = regular.faHeart;
   faAdd = solid.faPlus;
   faDelete = regular.faTrashAlt;
+  faPlay = regular.faPlayCircle;
 
   userType;
   userId;
@@ -71,6 +72,11 @@ export class AlbumsComponent implements OnInit {
   canDoActions = false;
   isAdmin = false;
   albums = null;
+
+  songPreviewURL = "";
+  songImageUrl = "";
+
+  
   constructor(
     private dataservice: DataServiceService,
     private changesRef: ChangeDetectorRef,
@@ -107,6 +113,7 @@ export class AlbumsComponent implements OnInit {
                   let activities = this.albums[i].songs[j].activities;
                   this.albums[i].songs[j].numOfLikes = 0;
                   this.albums[i].songs[j].numOfDislikes = 0;
+                  this.albums[i].songs[j].preview_url = this.albums[i].songs[j].preview_url || "";
                   this.albums[i].songs[j].numOfFavorites = 0;
                   this.albums[i].songs[j].time = this.dataservice.convertMS(this.albums[i].songs[j].duration);
                   let currentUserActivity: any = {};
@@ -207,6 +214,12 @@ export class AlbumsComponent implements OnInit {
 
   }
 
+  setSongPreviewURL(song){
+    // this.songImageUrl = song.album.image_url || "../../src/assets/images/NoImageAvailable.jpg";
+     this.songPreviewURL = song.preview_url || 'false';
+     
+   }
+
 
   openDetails(album) {
     
@@ -234,6 +247,7 @@ export class AlbumsComponent implements OnInit {
           if (this.albums[i].songs[j]) {
             let activities = this.albums[i].songs[j].activities;
             this.albums[i].songs[j].numOfLikes = 0;
+            this.albums[i].songs[j].preview_url = this.albums[i].songs[j].preview_url || "";
             this.albums[i].songs[j].numOfDislikes = 0;
             this.albums[i].songs[j].numOfFavorites = 0;
             this.albums[i].songs[j].time = this.dataservice.convertMS(this.albums[i].songs[j].duration);

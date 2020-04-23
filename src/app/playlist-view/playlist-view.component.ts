@@ -41,6 +41,8 @@ export class PlaylistViewComponent implements OnInit, OnChanges {
   faFavoriteFalse = regular.faHeart;
   faDelete = regular.faTrashAlt
 
+  faPlay = regular.faPlayCircle;
+
 
   commentSongId;
   comments = [];

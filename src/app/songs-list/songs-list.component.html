@@ -65,8 +65,8 @@
                 Performed by {{song.artists || "Unknown"}}
               </div>
               <div class="col-md-2 end-col">
-                <button class="btn btn-outline-secondary" type="button" (click)="setSongPreviewURL(song)">
-                  Play
+                <button class="btn btn-default" type="button" (click)="setSongPreviewURL(song)">
+                  <fa-icon [icon]="faPlay"></fa-icon>
                 </button>
 
                 <button type="button" (click)="setSongId(song)" class="btn btn-default" 

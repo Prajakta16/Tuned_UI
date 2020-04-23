@@ -60,8 +60,9 @@
           <td>{{song.time}}</td>
           <td>{{song.popularity}}</td>
           <td>
-            <button class="btn btn-outline-secondary" type="button" (click)="setSongPreviewURL(song)">
-              Play
+            <button class="btn btn-default" type="button" 
+            (click)="setSongPreviewURL(song)">
+              <fa-icon [icon]="faPlay"></fa-icon>
             </button>
           </td>
           <td *ngIf="canDoActions">
