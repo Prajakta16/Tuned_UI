@@ -16,7 +16,7 @@
               <fa-icon [icon]="faDelete"></fa-icon>
             </button>
               <button class="btn btn-sm btn-outline-light"
-                data-toggle="collapse" [attr.data-target]="'#collapse'+i" 
+                data-toggle="collapse" [attr.data-target]="'#collapse'+i" [disabled]="category.songs.length == 0 "
                aria-expanded="false" [attr.aria-controls]="'collapse'+i" (click)="openDetails(category)">
                   {{category.arrow}}   
                </button>

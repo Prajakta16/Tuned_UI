@@ -94,6 +94,7 @@ export class HeaderComponent implements OnInit {
 
     debugger
     if(this.loggedIn){
+      this.loginTrue= "modal" ;
       this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
       this.userType = sessionStorage.getItem("userType");
       debugger
@@ -101,7 +102,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  
+  checkDisable(){
+    if(this.login.dtype && this.login.password && this.login.username){
+      return true;
+    }
+    return false;
+  }
 
   register(){
 
@@ -171,16 +177,16 @@ export class HeaderComponent implements OnInit {
       this.login.username = "admin"
     }
     if(!(this.login.username && this.login.password && this.login.dtype)){
-      // this.login.username = "";
-      // this.login.username = "";
-      // this.login.dtype = ""
-      ///alert("Please provide login details")
-      this.loginTrue="error";
+      this.login.username = "";
+      this.login.username = "";
+      this.login.dtype = "";
+     
+      alert("Please provide login details");
       return;
     }
     console.log(this.login);
     let userId = -1;
-    this.loginTrue="modal";
+    this.loginTrue= "modal" ;
     debugger
     if(this.login.dtype === "admin"){
      
