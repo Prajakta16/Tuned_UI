@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
+import { each } from 'underscore';
 
 interface Search {
   searchType : string,
@@ -43,6 +44,9 @@ export class SearchArtistsComponent implements OnInit {
             this.resultList = [];
             this.resultCount = 0;
           }
+          each(this.resultList, (res : any)=>{
+            res.image_url = res.image_url || "../../assets/images/NoImageAvailable.jpg";
+          })
           debugger
         });
       }})

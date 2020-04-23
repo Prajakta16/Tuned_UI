@@ -44,7 +44,11 @@ export class NewSongComponent implements OnInit {
     this.dataservice.addNewSongToAlbum(this.song.albumId, this.song).subscribe((v : any)=>{
       if(v){
         alert(`${this.song.title} to album`);
-        this.router.navigate(['/home']);
+        //this.router.navigate(['/home']);
+        this.song = {
+          title : "",
+          albumId : ""
+        }
       }
       else{
         alert("Some error occured");

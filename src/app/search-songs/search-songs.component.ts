@@ -108,10 +108,12 @@ export class SearchSongsComponent implements OnInit, OnChanges {
           }
           if (v && v.length && v.length != 0) {
             this.resultCount = v.length;
+            debugger
             this.resultList = v;
 
             each(this.resultList, (res: any) => {
               let artists = [];
+              res.image_url = res.image_url || "../../assets/images/NoImageAvailable.jpg";
               debugger
               if (res.album && res.album.artists) {
                 each(res.album.artists, (artist: any) => {

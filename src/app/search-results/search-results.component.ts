@@ -54,7 +54,7 @@ export class SearchResultsComponent implements OnInit {
             each(this.resultList, (res : any)=>{
               let artists = [];
               debugger
-              debugger
+              res.image_url = res.image_url || "../../assets/images/NoImageAvailable.jpg";
               if(res.artists){
                 each(res.artists, (artist : any)=>{
                   artists.push(artist.name);
