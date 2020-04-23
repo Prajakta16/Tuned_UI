@@ -226,21 +226,10 @@ export class AlbumsComponent implements OnInit {
     let category_id = album.playlist_id ? album.playlist_id : album.album_id;
     if (album.arrow !== `Close`) {
       album.arrow = "Close"
-      each(this.albums, (alb : any)=>{
-        let id = alb.playlist_id ? alb.playlist_id : alb.album_id;
-        if(category_id != id){
-          alb.arrow = `View ${alb.songs.length} songs`;
-        }
-      })
+      
     } else {
       album.arrow = `View ${album.songs.length} songs`;
-      each(this.albums, (alb : any)=>{
-        let id = alb.playlist_id ? alb.playlist_id : alb.album_id;
-        if(category_id != id){
-        
-          alb.arrow = "Close";
-        }
-      })
+      
     }
   }
 
