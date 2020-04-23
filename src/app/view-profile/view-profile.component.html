@@ -180,8 +180,8 @@
                         {{follower.first_name}} {{follower.last_name}}
                       </div>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                          <button type="button" class="btn btn-sm btn-outline-secondary"
-                          (click)="navigateToProfile(follower)">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" 
+                          (click)="navigateToProfile(follower)" [disabled] = "userId === follower.user_id">
                               View Profile
                           </button>
                       </div>
@@ -201,8 +201,8 @@
                           {{following.first_name}} {{following.last_name}}
                       </div>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                          <button type="button" class="btn btn-sm btn-outline-secondary"
-                          (click)="navigateToProfile(following)">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" 
+                          (click)="navigateToProfile(following)" [disabled] = "userId === following.user_id">
                               View Profile
                           </button>
                       </div>
