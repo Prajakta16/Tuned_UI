@@ -7,9 +7,14 @@
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="spinner-border" role="status" *ngIf="resultCount === -1">
+
+
+<div class="d-flex justify-content-center" style = "margin: 50px;" *ngIf="resultCount === -1">
+  <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
+  </div>
 </div>
+
 <h3 *ngIf="resultCount > -1" class="search-result-header">{{resultCount}} results found</h3>
 
  <div class="container">
@@ -70,7 +75,10 @@ aria-labelledby="AddNewModalLabel" aria-hidden="true">
       </button>
     </div>
     <div class="modal-body">
-      <form>
+      <div class="alert alert-info" *ngIf="!listOfPlaylists.length">
+        You do not have any playlists. Please create a new playlist.
+      </div>
+      <form *ngIf="listOfPlaylists.length > 0">
         
         <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist'">
           <label for="selectPlaylist">Select Playlist</label>
@@ -106,8 +114,10 @@ aria-labelledby="AddNewModalLabel" aria-hidden="true">
       
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="addSongToList()"
-      data-dismiss="modal">Add</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="addSongToList(listOfPlaylists.length)"
+      data-dismiss="modal">
+        {{!listOfPlaylists.length ? 'CLOSE' : 'ADD'}}
+    </button>
     </div>
   </div>
 </div>

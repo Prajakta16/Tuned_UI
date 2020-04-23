@@ -147,7 +147,10 @@ export class SearchSongsComponent implements OnInit, OnChanges {
 
 
 
-  addSongToList() {
+  addSongToList(canAdd) {
+
+    if(!canAdd)
+      return
 
 
     this.dataservice.addSongToList(this.toAddSongToList).subscribe((res: any) => {
