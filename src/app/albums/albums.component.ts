@@ -396,7 +396,7 @@ export class AlbumsComponent implements OnInit {
 
   addSongToList(canAdd?) {
 
-    if(!this.isAdmin && !canAdd)
+    if(!canAdd)
       return
     this.dataservice.addSongToList(this.toAddSongToList).subscribe((res: any) => {
       if (res) {

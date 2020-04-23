@@ -6,7 +6,7 @@
 </div>
 
 <div class="alert alert-info" *ngIf="songsList && !songsList.length">
-  No songs available
+  Please wait while we load the songs.
 </div>
 
 
@@ -68,6 +68,12 @@
                 <button class="btn btn-outline-secondary" type="button" (click)="setSongPreviewURL(song)">
                   Play
                 </button>
+
+                <button type="button" (click)="setSongId(song)" class="btn btn-default" 
+                data-toggle="modal" data-target="#AddNewModal"
+                class="btn btn-default" *ngIf="isAdmin">
+                  <fa-icon [icon]="faAdd"></fa-icon>
+                </button>
                 
                 <button type="button" (click)="deleteSong(song)" 
                 class="btn btn-default" *ngIf="isAdmin">
@@ -85,4 +91,50 @@
 </div>
 
 
+</div>
+
+<!-- Add Song To playlist -->
+
+<div class="modal fade" id="AddNewModal" tabindex="-1" role="dialog" data-backdrop="static"
+aria-labelledby="AddNewModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="AddNewModalLabel">Add song to {{toAddSongToList.listType | titlecase}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-info" *ngIf="!listOfPlaylists.length">
+        You do not have any playlists. Please create a new playlist.
+      </div>
+      <form *ngIf="listOfPlaylists.length > 0">
+        
+        <div class="form-group" *ngIf="toAddSongToList.listType == 'playlist'">
+          <label for="selectPlaylist">Select Playlist</label>
+          <select class="form-control" id="selectPlaylist" 
+          [(ngModel)]="toAddSongToList.listId"
+          
+           name="selectPlaylist" #selectPlaylist="ngModel"
+            required>
+            <option value="">Select</option>
+            <option value="{{item.id}}" *ngFor="let item of listOfPlaylists">
+              {{item.title}}
+            </option>
+          </select>
+          
+        </div>
+
+      </form>
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="addSongToList(listOfPlaylists.length)"
+      data-dismiss="modal">
+        {{!listOfPlaylists.length ? 'CLOSE' : 'ADD'}}
+    </button>
+    </div>
+  </div>
+</div>
 </div>

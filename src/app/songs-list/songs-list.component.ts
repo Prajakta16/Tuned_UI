@@ -15,12 +15,13 @@ export class SongsListComponent implements OnInit {
 
   songsList : any = []
   listOfAlbums : any = []
+  listOfPlaylists : any = []
   userId;
   userType;
   userName;
   toAddSongToList = {
     songIdToBeAdded : "",
-    listType : "album",
+    listType : "playlist",
     listId : ""
   } ;
 
@@ -60,11 +61,19 @@ export class SongsListComponent implements OnInit {
       let getAllAlbumsAPI = this.dataservice.getAllAlbums();
       let getAllSongsAPI = this.dataservice.getAllSongs();
       let fecthAllArtists = this.dataservice.getAllUsers("artist");
-      forkJoin([getAllSongsAPI, getAllAlbumsAPI, fecthAllArtists]).subscribe((v:any)=>{
+      let getAllPlaylistAPI = this.dataservice.getAllPlaylists() ;
+          
+      forkJoin([getAllSongsAPI, getAllAlbumsAPI, fecthAllArtists,getAllPlaylistAPI]).subscribe((v:any)=>{
         if(v){
           this.songsList = v[0] || [];
           this.listOfAlbums = v[1] || [];
+          this.listOfPlaylists = v[3] || [];
           let artists = v[2] || [];
+
+          each(this.listOfPlaylists, (item: any) => {
+            item.id = item.playlist_id;
+          })
+         
           let albumMap = {};
           debugger
           each(artists, (art : any) => {
@@ -108,12 +117,15 @@ export class SongsListComponent implements OnInit {
     this.toAddSongToList.songIdToBeAdded = song.song_id;
   }
 
-  addSongToList(){
+  addSongToList(canAdd){
+
+    if(!canAdd)
+    return
     debugger
     this.dataservice.addSongToList(this.toAddSongToList).subscribe((v : any)=>{
       if(v){
         this.toAddSongToList.listId = "";
-        this.toAddSongToList.listType = "album";
+        this.toAddSongToList.listType = "playlist";
         this.toAddSongToList.songIdToBeAdded = "";
         alert("Song added");
       }else{

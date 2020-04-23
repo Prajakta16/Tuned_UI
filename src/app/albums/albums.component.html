@@ -235,11 +235,11 @@
           </form>
           
         </div>
-        <div class="modal-footer" *ngIf="isAdmin">
+        <!-- <div class="modal-footer" *ngIf="isAdmin">
           <button type="button" class="btn btn-outline-secondary" (click)="addSongToList()"
           data-dismiss="modal">Add</button>
-        </div>
-        <div class="modal-footer" *ngIf="!isAdmin">
+        </div> -->
+        <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" (click)="addSongToList(listOfPlaylists.length)"
           data-dismiss="modal">{{listOfPlaylists.length == 0 ? 'CLOSE' : 'ADD'}}</button>
         </div>
