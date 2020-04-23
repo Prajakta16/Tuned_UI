@@ -19,7 +19,7 @@
           
           <div>
             <button type="button" (click)="deleteList(category)" class="btn btn-default" *ngIf="isAdmin">
-              <fa-icon [icon]="faDelete"></fa-icon>
+              <fa-icon [icon]="faDelete" style="color: whitesmoke;"></fa-icon>
             </button>
               <button class="btn btn-sm btn-outline-light"
                 data-toggle="collapse" [attr.data-target]="'#collapse'+i" [disabled]="category.songs.length == 0 "
