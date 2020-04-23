@@ -3,7 +3,8 @@
     <span class="sr-only">Loading...</span>
 </div>
 
-<div class = "people-container" *ngIf="(artists.length!=0 && listeners.length!=0)">
+
+<div class = "people-container" *ngIf="artists && listeners">
     <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
@@ -18,7 +19,10 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <ul class="list-group">
+            <div class="alert alert-info" *ngIf="!artists.length">
+                There are no artists
+            </div>
+            <ul class="list-group" *ngIf="artists.length > 0">
                 <li class="list-group-item" *ngFor = "let artist of artists; index as i">
                     <div class="list-item">
                         <div>
@@ -40,8 +44,10 @@
               </ul>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    
-            <ul class="list-group">
+            <div class="alert alert-info" *ngIf="!listeners.length">
+                There are no listeners
+            </div>
+            <ul class="list-group" *ngIf="listeners.length > 0">
                 <li class="list-group-item" *ngFor = "let listener of listeners; index as i">
                     <div class="list-item">
                         <div>

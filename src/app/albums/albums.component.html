@@ -2,7 +2,10 @@
 <div class="spinner-border" role="status" *ngIf="!albums">
   <span class="sr-only">Loading...</span>
 </div>
-<div class="songsByCategory" *ngIf = "albums">
+<div class="alert alert-info" *ngIf="!albums.length">
+  There are no {{category }}
+</div>
+<div class="songsByCategory" *ngIf = "albums.length > 0">
   <div id="accordion">
     <div class="card" *ngFor="let category of albums; index as i">
       <div class="card-header" [attr.id]="'category'+i">

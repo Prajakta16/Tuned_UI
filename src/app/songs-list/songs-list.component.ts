@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataServiceService } from '../data-service.service';
 import * as solid from '@fortawesome/free-solid-svg-icons';
 import { forkJoin } from 'rxjs';
+declare var $;
 
 @Component({
   selector: 'app-songs-list',
@@ -22,13 +23,29 @@ export class SongsListComponent implements OnInit {
     listId : ""
   } ;
 
+  songPreviewURL = "";
+  songImageUrl = "";
+
   faAdd = solid.faPlus;
 
+ 
+  setSongPreviewURL(song){
+    this.dataservice.findAlbumForSong(song.song_id).subscribe((v : any)=>{
+      this.songImageUrl =  v.image_url || "../../src/assets/images/NoImageAvailable.jpg"
+    })
+    this.songPreviewURL = song.preview_url || 'false';
+    
+  }
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private dataservice : DataServiceService
   ) { 
+    
+    //PLAYER
+
+
+    //PLAYER
 
       this.userId = sessionStorage.getItem("userId") && parseInt(sessionStorage.getItem("userId"));
       this.userType = sessionStorage.getItem("userType");
@@ -63,5 +80,7 @@ export class SongsListComponent implements OnInit {
       }
     });
   }
+
+
 
 }

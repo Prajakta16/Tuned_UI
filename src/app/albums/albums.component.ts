@@ -65,6 +65,8 @@ export class AlbumsComponent implements OnInit {
   listOfPlaylists = [];
   listOfAlbums = [];
 
+  category ;
+
 
   canDoActions = false;
   isAdmin = false;
@@ -87,6 +89,7 @@ export class AlbumsComponent implements OnInit {
       if (params && params.params.view && params.params.view === "playlists") {
         debugger
         this.isAdmin = true;
+        this.category = params.params.view;
         this.canDoActions = false;
         this.adminPlaylistView = true;
         this.toAddSongToList.listType = "playlist";
@@ -155,6 +158,8 @@ export class AlbumsComponent implements OnInit {
         })
       } else {
 
+        this.category = "albums"
+
         if (this.userType === "listener") {
           this.canDoActions = true;
           this.isAdmin = false;
@@ -169,6 +174,7 @@ export class AlbumsComponent implements OnInit {
           APIArray.push(getAllPlaylistAPI);
           APIArray.push(getAllAlbumsAPI);
         }
+
         forkJoin(APIArray).subscribe((results: any) => {
           if (results) {
             this.listOfPlaylists = results[0] || [];

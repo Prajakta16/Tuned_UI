@@ -95,6 +95,22 @@ export class DataServiceService {
 
   }
 
+  findAlbumForSong(songId){
+    let url = `${hostName}/api/song/${songId}/album`;
+    return this.http.get(url).pipe(
+      map((response : any) => {
+       
+        return response;
+        }
+      ),
+      catchError((error:any)=>  {
+        console.log(error)
+        return of(null);
+      })
+      
+    );;
+  }
+
   addNewListItem(type, userId, body ){
     let url;
     if(type === "album")
