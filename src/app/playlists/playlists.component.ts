@@ -194,24 +194,27 @@ export class PlaylistsComponent implements OnInit, OnChanges {
       listId : this.listId
     }
     this.dataservice.removeList(deleteObj).subscribe((v : any)=>{
+      debugger
       if(v){
         debugger
         let dataType = this.listType[this.userType].toLowerCase() ;
        
         if(dataType === "album"){
           debugger
-          this.setList = v["producedAlbums"]
+          this.setList = v["producedAlbums"] || [];
            each(this.setList, v => {
             v["id"] = v["album_id"];
           });
         }else{
           debugger
-           this.setList = v["playlists"]
+           this.setList = v["playlists"] || [];
            each(this.setList, v => {
             v["id"] = v["playlist_id"];
   
           });
         }
+
+        debugger
         
         this.setHomePage();
       }
@@ -223,9 +226,9 @@ export class PlaylistsComponent implements OnInit, OnChanges {
 
   setHomePage(){
     debugger
-      this.songsData =  this.setList[0].songs || [];
-      this.listId = this.setList[0].id;
-      this.listName = this.setList[0].title;
+      this.songsData =  this.setList[0] && this.setList[0].songs || [];
+      this.listId = this.setList[0] && this.setList[0].id || "";
+      this.listName = this.setList[0] &&  this.setList[0].title || "";
   }
 
   

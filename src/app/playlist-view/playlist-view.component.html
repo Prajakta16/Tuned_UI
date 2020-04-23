@@ -3,11 +3,11 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap 
   align-items-center pt-3  mb-2">
     <h1 class="h2">{{heading}}</h1>
-    <div class="btn-toolbar mb-4 mb-md-12 button-cont">
+    <div class="btn btn-group" style="width: 30%;">
       <button type="button" class="btn btn-sm btn-outline-secondary button-area" data-toggle="modal" 
-        data-target="#newPlaylistModal">ADD</button>
+        data-target="#newPlaylistModal">ADD TO {{listType[userType] | uppercase}}</button>
       <button type="button" class="btn btn-sm btn-outline-secondary button-area"
-       (click)="deleteListFromUser()">DELETE</button> <!--TOTDO MODAL-->
+       (click)="deleteListFromUser()">DELETE {{listType[userType] | uppercase}}</button> <!--TOTDO MODAL-->
     </div>
   </div>
   <div class="alert alert-info" *ngIf="listEmpty">You do not have any {{listType[userType]}}.</div>

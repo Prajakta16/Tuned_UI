@@ -2,7 +2,7 @@
   <app-header [loggedIn]="true" [showUsername]="userName"></app-header>
 
 <div class="alert alert-secondary" *ngIf="songsList.length > 0">
-  Songs
+  <strong>Songs</strong>
 </div>
 
 <div class="alert alert-info" *ngIf="!songsList.length">
